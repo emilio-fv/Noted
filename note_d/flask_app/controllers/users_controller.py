@@ -6,13 +6,16 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import pprint
 from flask_app.models.user_model import User
 from flask_app.models.review_model import Review
+import os
 
 # Initialize Bcrypt object
 bcrypt = Bcrypt(app) 
 
 # ========== Spotify API ==========
-sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id="a52ad4c033704801a62d8b13207b7246",
-                                                           client_secret="814a605c3de34be6b069ca3bfcaf38f3"))
+CLIENT_ID = os.environ.get('CLIENT_ID', 'dev')
+CLIENT_SECRET = os.environ.get('CLIENT_SECRET', 'dev')
+sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=CLIENT_ID,
+                                                           client_secret=CLIENT_SECRET))
 
 # ===== Request to search for item (albums only) ======
 # search_results = sp.search('TODO: INPUT FORM DATA', limit=4, offset=0, type='album', market=None)
