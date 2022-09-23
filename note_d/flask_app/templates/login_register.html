@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note-d | Register & Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+    <main class="mt-6">
+      <h1 class="is-size-1 has-text-centered mb-3">Note-d</h1>
+      <div class="columns is-flex is-variable is-8 is-vcentered is-centered">
+        <!-- Register Form -->
+        <div class="column is-3">
+          <h3 class="is-size-3 has-text-centered mb-3">Register</h3>
+          <!-- TODO: Flash messages for reg form -->
+          {% for message in get_flashed_messages(category_filter = ['reg']) %}
+            <p class="has-text-danger">{{message}}</p>
+          {% endfor %}
+          <form action="/register" method="post" autocomplete="off">
+            <div class="field">
+              <label for="username" class="label">Username</label>
+              <div class="control">
+                <input class="input" type="text" name="username" id="username" placeholder="Username">
+              </div>
+            </div>
+            <div class="field">
+              <label for="first_name" class="label">First Name</label>
+              <div class="control">
+                <input class="input" type="text" name="first_name" id="first_name" placeholder="First Name">
+              </div>
+            </div>
+            <div class="field">
+              <label for="last_name" class="label">Last Name</label>
+              <div class="control">
+                <input class="input" type="text" name="last_name" id="last_name" placeholder="Last Name">
+              </div>
+            </div>
+            <div class="field">
+              <label for="email" class="label">Email</label>
+              <div class="control">
+                <input class="input" type="email" name="email" id="email" placeholder="Email">
+              </div>
+            </div>
+            <div class="field">
+              <label for="password" class="label">Password</label>
+              <div class="control">
+                <input class="input" type="password" name="password" id="password" placeholder="Password">
+              </div>
+            </div>
+            <div class="field">
+              <label for="confirm_password" class="label">Confirm Password</label>
+              <div class="control">
+                <input class="input" type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password">
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                  <button class="button is-link">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- Login Form -->
+        <div class="column is-3">
+          <h3 class="is-size-3 has-text-centered mb-3">Login</h3>
+          {% for message in get_flashed_messages(category_filter = ['log']) %}
+            <p class="has-text-danger">{{message}}</p>
+          {% endfor %}
+            <form action="/users/login" method="post" autocomplete="off">
+                <div class="field">
+                    <label for="email" class="label">Email</label>
+                    <div class="control">
+                      <input class="input" type="email" name="email" id="email" placeholder="Email">
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label for="password" class="label">Password</label>
+                    <div class="control">
+                        <input class="input" type="password" name="password" id="password" placeholder="Password">
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="control">
+                        <button class="button is-link">Submit</button>
+                    </div>
+                  </div>
+            </form>
+        </div>
+      </div>
+    </main>
+</body>
+</html>
