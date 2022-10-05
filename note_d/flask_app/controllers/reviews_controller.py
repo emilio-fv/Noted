@@ -6,7 +6,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import pprint
 
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id="a52ad4c033704801a62d8b13207b7246",
-                                                           client_secret="814a605c3de34be6b069ca3bfcaf38f3"))
+                                                           client_secret="ef58fd4346734fc784202140e2a7c08e"))
 
 @app.route('/reviews/new/<album_id>') # Route for new review form w/ album data 
 def new_review(album_id):

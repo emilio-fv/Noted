@@ -6,29 +6,16 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import pprint
 from flask_app.models.user_model import User
 from flask_app.models.review_model import Review
-import os
+import Constants
 
 # Initialize Bcrypt object
 bcrypt = Bcrypt(app) 
 
 # ========== Spotify API ==========
-CLIENT_ID = os.environ.get('CLIENT_ID', 'dev')
-CLIENT_SECRET = os.environ.get('CLIENT_SECRET', 'dev')
+CLIENT_ID = Constants.CLIENT_ID
+CLIENT_SECRET = Constants.CLIENT_SECRET
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=CLIENT_ID,
                                                            client_secret=CLIENT_SECRET))
-
-# ===== Request to search for item (albums only) ======
-# search_results = sp.search('TODO: INPUT FORM DATA', limit=4, offset=0, type='album', market=None)
-# pprint.pprint(search_results) 
-# search_results['albums']['items'][0]['name'] # Album name
-# search_results['albums']['items'][0]['artists'][0]['name'] # Album artist
-# search_results['albums']['items'][0]['id'] # Album ID
-
-# Request to get album by id
-# album_result = sp.album('album_id', market=None)
-
-# Request to get album tracks
-# album_track_results = s p.album_tracks('album_id', limit=50, offset=0, market=None)
 
 # ========== ROUTES ==========
 # TODO: Route for splash page

@@ -1,6 +1,18 @@
 Search for Albums:
     .search('User Input', limit=5, offset=0, type='album', market=None)
 
+# ===== Request to search for item (albums only) ======
+# search_results = sp.search('TODO: INPUT FORM DATA', limit=4, offset=0, type='album', market=None)
+# pprint.pprint(search_results) 
+# search_results['albums']['items'][0]['name'] # Album name
+# search_results['albums']['items'][0]['artists'][0]['name'] # Album artist
+# search_results['albums']['items'][0]['id'] # Album ID
+
+# Request to get album by id
+# album_result = sp.album('album_id', market=None)
+
+# Request to get album tracks
+# album_track_results = s p.album_tracks('album_id', limit=50, offset=0, market=None)
 
 Extract Data:
 - Album Name    ['albums']['items'][index]['name']

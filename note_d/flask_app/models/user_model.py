@@ -40,16 +40,6 @@ class User:
             return False
         return User(results[0])
 
-    # @classmethod # Get all user's data by id
-    # def get_all_by_id(self, data):
-    #     query = "SELECT * FROM users;"
-    #     results = connectToMySQL(DATABASE).query_db(query, data)
-    #     all_users = []
-    #     if len(results) > 1:
-    #         for row in results:
-    #             user_data = {
-    #                 **results[row]
-    #             }
 # ===== UPDATE =====
 # ===== DELETE =====
 # ===== STATIC =====

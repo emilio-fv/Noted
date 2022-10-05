@@ -35,32 +35,32 @@
         <div class="container">
             <h1 class="is-size-3 my-3">Hello, {{ logged_user.username }}!</h1>
             <h2 class="has-text-weight-bold mb-3">Your Reviews</h2>
-            {% for review in logged_user_reviews %}
-                <div class="box">
-                    <article class="media">
-                        <!-- <div class="media-left">
-                            <h3>Username</h3>
-                        </div> -->
-                        <div class="media-content">
-                            <div class="content">
-                                <div class="is-flex">
-                                    <p class="mr-3"><strong>{{ review.album_data['album_name'] }}</strong></p>
-                                    <p class="mr-3">{{ review.album_data['album_artist'] }}</p>
-                                    <p>{{ review['rating'] }} &#9733;</p>
+                {% for review in logged_user_reviews %}
+                    <div class="box">
+                        <article class="media">
+                            <!-- <div class="media-left">
+                                <h3>Username</h3>
+                            </div> -->
+                            <div class="media-content">
+                                <div class="content">
+                                    <div class="is-flex">
+                                        <p class="mr-3"><strong>{{ review.album_data['album_name'] }}</strong></p>
+                                        <p class="mr-3">{{ review.album_data['album_artist'] }}</p>
+                                        <p>{{ review['rating'] }} &#9733;</p>
+                                    </div>
+                                    <div>
+                                        <p>{{ review['review'] }}</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p>{{ review['review'] }}</p>
-                                </div>
+                                <nav class="level is-mobile">
+                                    <div class="level-right is-flex is-justify-content-flex-end">
+                                        <p class="level-item has-text-right">Reviewed on: {{ review['date'].strftime("%m/%d/%Y") }} </p>
+                                    </div>
+                                </nav>
                             </div>
-                            <nav class="level is-mobile">
-                                <div class="level-right is-flex is-justify-content-flex-end">
-                                    <p class="level-item has-text-right">Reviewed on: {{ review['date'].strftime("%m/%d/%Y") }} </p>
-                                </div>
-                            </nav>
-                        </div>
-                    </article>
-                </div>
-            {% endfor %}
+                        </article>
+                    </div>
+                {% endfor %}
         </div>
     </main>
 </body>

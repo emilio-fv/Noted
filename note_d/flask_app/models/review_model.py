@@ -43,7 +43,7 @@ class Review:
                 this_review.user = this_user
                 all_reviews.append(this_review)
             return all_reviews
-        return False
+        return []
 
 # ===== UPDATE =====
 # ===== DELETE =====
