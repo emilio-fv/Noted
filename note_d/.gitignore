@@ -2,7 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=flask
 
 ### Api Keys ###
-/Constants.py
+Constants.py
 
 ### Flask ###
 instance/*
