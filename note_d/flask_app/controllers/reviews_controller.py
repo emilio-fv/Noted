@@ -37,5 +37,5 @@ def create_review(album_id):
 
 # TODO ROUTE: search reviews
 # TODO ROUTE: view review
-# TODO ROUTE: update review
+# TODO ROUTE: edit review
 # TODO ROUTE: delete review
