@@ -16,13 +16,13 @@ class User:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
-# ===== CREATE =====
+# ==== CREATE ====
     @classmethod # Create new user
     def create(self,data):
         query = "INSERT INTO users (username, first_name, last_name, email, password) VALUES (%(username)s, %(first_name)s, %(last_name)s, %(email)s, %(password)s);"
         return connectToMySQL(DATABASE).query_db(query, data)
 
-# ===== READ =====
+# ==== READ ====
     @classmethod # Get a user's data by id
     def get_one_by_id(self, data):
         query = "SELECT * FROM users WHERE id = %(id)s;"
@@ -40,9 +40,9 @@ class User:
             return False
         return User(results[0])
 
-# ===== UPDATE =====
-# ===== DELETE =====
-# ===== STATIC =====
+# ==== UPDATE ====
+# ==== DELETE ====
+# ==== STATIC ====
     @staticmethod # Validate register form data
     def validate(user_data):
         is_valid = True
