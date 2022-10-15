@@ -15,13 +15,13 @@ class Review:
         self.updated_at = data['updated_at']
         self.user_id = data['user_id']
 
-# ===== CREATE =====
+# ==== CREATE ====
     @classmethod # Create new review
     def create(self, data):
         query = "INSERT INTO reviews (album_id, date, rating, review, user_id) VALUES (%(album_id)s, %(date)s, %(rating)s, %(review)s, %(user_id)s);"
         return connectToMySQL(DATABASE).query_db(query, data)
 
-# ===== READ =====
+# ==== READ ====
     @classmethod # Get reviews by user id
     def get_all_by_user_id(self, data):
         query = "SELECT * FROM reviews JOIN users ON reviews.user_id = users.id WHERE reviews.user_id = %(user_id)s;"
@@ -45,6 +45,6 @@ class Review:
             return all_reviews
         return []
 
-# ===== UPDATE =====
-# ===== DELETE =====
-# ===== STATIC =====
+# ==== UPDATE ====
+# ==== DELETE ====
+# ==== STATIC ====
