@@ -4,11 +4,15 @@ from flask_app.models.review_model import Review # Import Review Class from mode
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import pprint
+import Constants
 
-sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id="a52ad4c033704801a62d8b13207b7246",
-                                                           client_secret="ef58fd4346734fc784202140e2a7c08e"))
+# ==== Spotify API ====
+CLIENT_ID = Constants.CLIENT_ID
+CLIENT_SECRET = Constants.CLIENT_SECRET
+sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=CLIENT_ID, client_secret=CLIENT_SECRET))
 
-@app.route('/reviews/new/<album_id>') # Route for new review form w/ album data 
+# ==== Reviews CRUD ====
+@app.route('/reviews/new/<album_id>') # ROUTE: new review form w/ album data 
 def new_review(album_id):
     print(album_id)
     # Get album title and populate 
@@ -19,7 +23,7 @@ def new_review(album_id):
     }
     return render_template('review_new.html', album_data=album_data)
 
-@app.route('/reviews/create/<album_id>', methods=['POST']) # Route for processing new review form data
+@app.route('/reviews/create/<album_id>', methods=['POST']) # ROUTE: create new reviews
 def create_review(album_id):
     print(request.form)
     print(session['user_id'])
@@ -30,3 +34,8 @@ def create_review(album_id):
     }
     Review.create(review_data) # Instantiate Review 
     return redirect('/dashboard')
+
+# TODO ROUTE: search reviews
+# TODO ROUTE: view review
+# TODO ROUTE: update review
+# TODO ROUTE: delete review
