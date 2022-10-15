@@ -14,7 +14,6 @@
         <!-- Register Form -->
         <div class="column is-3">
           <h3 class="is-size-3 has-text-centered mb-3">Register</h3>
-          <!-- TODO: Flash messages for reg form -->
           {% for message in get_flashed_messages(category_filter = ['reg']) %}
             <p class="has-text-danger">{{message}}</p>
           {% endfor %}

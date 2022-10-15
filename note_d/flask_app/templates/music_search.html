@@ -33,7 +33,6 @@
     <!-- Music Search Form -->
     <div class="container mt-6">
         <h1 class="has-text-centered is-size-3 mb-3">Search Music</h1>
-        <!-- TODO: Form data processing -->
         <form id="search_albums_form" onsubmit="SearchByAlbum(event)">
             <div class="is-flex-direction-row is-justify-content-center field has-addons">
                 <div class="control mb-4">
@@ -64,9 +63,6 @@ function SearchByAlbum(event) {
     fetch("http://127.0.0.1:5000/users/music/search", { method: 'POST', body: form})
     .then( response => response.json() )
     .then( data => {
-        // console.log(data)
-        // data[x]['album_name'] 
-        // data[x]['album_artist'] 
         for (x in data) {
                 console.log(data[x]['album_name'])
                 var newElement = document.createElement("article");
@@ -81,13 +77,5 @@ function SearchByAlbum(event) {
         })
         .catch(err => console.log(err))
 }
-
-
-
-
-    // <article class="tile is-child box">
-    //     <p class="title"><a href="/music/view"></a></p>
-    //     <p class="subtitle"></p>
-    // </article>
 </script>
 </html>
