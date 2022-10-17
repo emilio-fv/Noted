@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TODO Link to CSS and Font -->
+    <title>{% block title %}{% endblock %} | Note-d</title>
+    {% endblock %}
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar mx-3">
+        <div class="navbar-menu" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a href="/dashboard" class="navbar-item is-size-3">Note-d</a>
+            </div>
+            <div class="navbar-start mt-2 ml-4">
+                <a href="/dashboard" class="navbar-item">Home</a>
+                <a href="/users/music/search_form" class="navbar-item">Search Music</a>
+                <a href="/users/user_search" class="navbar-item">Search Users</a>
+                <!-- <a href="/reviews/new" class="navbar-item">Create Review</a> -->
+            </div>
+            <div class="navbar-end">
+                <!-- <div class="navbar-item">
+                    <a href="#" class="navbar-item">Profile</a>
+                </div> -->
+                <div class="navbar-item">
+                    <a href="/users/logout" class="navbar-item button is-danger">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+<script src="/flask_app/static/script.js"></script>
+</html>
