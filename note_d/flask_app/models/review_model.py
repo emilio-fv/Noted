@@ -1,6 +1,5 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app import DATABASE
-# TODO: Add related model files if needed
 from flask import flash
 from flask_app.models.user_model import User
 
