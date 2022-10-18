@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note-d</title>
+    <link rel="stylesheet" href="static/mystyles.css">
+</head>
+<body>
+<!-- Centered Icon and Name -->
+    <section class="hero">
+        <div class="here-body">
+            <div class="container center m-5">
+                <h1 class="is-size-1">Note-d</h1>
+            </div>
+        </div>
+    </section>
+    <!-- Main Content -->
+    <main>
+        <div class="columns mt-3">
+            <div class="column mr-6 ml-6 ">
+                <!-- Register Form -->
+                <h3 class="is-size-3 has-text-centered">Register</h3>
+                {% for message in get_flashed_messages(category_filter = ['reg']) %}
+                <p class="has-text-danger">{{message}}</p>
+                {% endfor %}
+                <div class="columns">
+                    <div class="column">
+                        <form action="/register" method="post" autocomplete="off">
+                            <div class="field center gap border">
+                                <label for="username" class="label">Username</label>
+                                <div class="control">
+                                <input class="input" type="text" name="username" id="username" placeholder="Username">
+                                </div>
+                            </div>
+                            <div class="field register-form">
+                                <label for="first_name" class="label">First Name</label>
+                                <div class="control">
+                                <input class="input" type="text" name="first_name" id="first_name" placeholder="First Name">
+                                </div>
+                            </div>
+                            <div class="field register-form">
+                                <label for="last_name" class="label">Last Name</label>
+                                <div class="control">
+                                <input class="input" type="text" name="last_name" id="last_name" placeholder="Last Name">
+                                </div>
+                            </div>
+                            <div class="field register-form">
+                                <label for="email" class="label">Email</label>
+                                <div class="control">
+                                <input class="input" type="email" name="email" id="email" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="field register-form">
+                                <label for="password" class="label">Password</label>
+                                <div class="control">
+                                <input class="input" type="password" name="password" id="password" placeholder="Password">
+                                </div>
+                            </div>
+                            <div class="field register-form">
+                                <label for="confirm_password" class="label">Confirm Password</label>
+                                <div class="control">
+                                <input class="input" type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <button class="button is-link">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="column">
+
+                    </div>
+                </div>
+                <p class="has-text-centered">Already Registered? <a href="/login">Login Here</a></p>
+            </div>
+            <div class="column mr-6 ml-6 border">
+                <p class="has-text-centered">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae tenetur possimus recusandae nemo, totam impedit quisquam laudantium odio! Cumque aliquid nulla facilis. Placeat laborum obcaecati nemo fugit. Eius, mollitia delectus?</p>
+            </div>
+        </div>
+
+
+        <!-- <div class="bottom">
+            <div>
+                <h3>Search</h3>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eveniet voluptatem corrupti omnis dignissimos iure quidem. Voluptatem quas repellat sequi eum, porro pariatur laboriosam ducimus, iste sapiente iure facilis, quam veniam.</p>
+            </div>
+            <div>
+                <h3>Write</h3>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eveniet voluptatem corrupti omnis dignissimos iure quidem. Voluptatem quas repellat sequi eum, porro pariatur laboriosam ducimus, iste sapiente iure facilis, quam veniam.</p>
+            </div>
+            <div>
+                <h3>Share</h3>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eveniet voluptatem corrupti omnis dignissimos iure quidem. Voluptatem quas repellat sequi eum, porro pariatur laboriosam ducimus, iste sapiente iure facilis, quam veniam.</p>
+            </div>
+        </div> -->
+    </main>
+</body>
+</html>

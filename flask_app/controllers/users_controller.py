@@ -17,12 +17,9 @@ CLIENT_SECRET = constants.CLIENT_SECRET
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=CLIENT_ID, client_secret=CLIENT_SECRET))
 
 # ==== Login & Registration ====
-# TODO: Route for splash page
-
-@app.route('/') # ROUTE: login/register page
+@app.route('/') # ROUTE: landing page
 def index():
-    # TODO: Check if usre is logged in
-    return render_template('login_register.html')
+    return render_template('landing_page.html')
 
 @app.route('/register', methods=['POST']) # ROUTE: register user
 def register():
@@ -37,22 +34,28 @@ def register():
     session['user_id'] = id # Initialize session
     return redirect('/dashboard') # Redirect to dashboard
 
+@app.route('/login') # ROUTE: login form
+def login_form():
+    if 'user_id' in session: # Check if user is logged in
+        return redirect('/dashboard')
+    return render_template('login_form.html')
+
 @app.route('/users/login', methods=['POST']) # ROUTE: login user
 def login():
     user_in_db = User.get_one_by_email({'email': request.form['email']}) # Validate email
     if not user_in_db:
         flash('Invalid login info', "log")
-        return redirect('/')
+        return redirect('/users/login')
     if not bcrypt.check_password_hash(user_in_db.password, request.form['password']): # Validate password
         flash("Invalid login info", "log")
-        return redirect('/')
+        return redirect('/users/login')
     session['user_id'] = user_in_db.id # Initialize session
     return redirect('/dashboard') # Redirect: Dashboard
 
 @app.route('/users/logout') # ROUTE: logout user
 def logout():
     session.clear() # Clear session
-    return redirect('/') # Redirect to register/login page
+    return redirect('/login') # Redirect to register/login page
 
 # ==== Dashboard ====
 @app.route('/dashboard') # ROUTE: dashboard

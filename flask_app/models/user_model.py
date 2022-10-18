@@ -46,17 +46,12 @@ class User:
     @staticmethod # Validate register form data
     def validate(user_data):
         is_valid = True
-        if len(user_data['username']) < 1: # Check if username is provided
-            flash("Username required", "reg")
-            is_valid = False
-        if len(user_data['first_name']) < 2: # Check if first name is at least 2 characters
-            flash("First name required", "reg")
-            is_valid = False
-        if len(user_data['last_name']) < 2: # Check if last name is at least 2 characters
-            flash("Last name required", "reg")
-            is_valid = False
-        if not user_data['email']: # Check if email is provided
-            flash("Email required", "reg")
+        username_len = len(user_data['username'])
+        first_name_len = len(user_data['first_name'])
+        last_name_len = len(user_data['last_name']) 
+        email_len = user_data['email']
+        if username_len < 1 or first_name_len < 1 or last_name_len < 1 or not email_len : # Check if username, first name, last name, is provided
+            flash("All fields required", "reg")
             is_valid = False
         elif not EMAIL_REGEX.match(user_data['email']): # Check if email is valid 
             flash("Invalid email format", "reg")
