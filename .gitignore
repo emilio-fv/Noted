@@ -4,6 +4,8 @@
 ### Planning Folder ###
 note_d_planning/
 
+### Bulma Sass files ###
+mybulma/
 ### Api Keys ###
 constants.py
 
