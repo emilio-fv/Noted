@@ -6,14 +6,14 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import pprint
 from flask_app.models.user_model import User
 from flask_app.models.review_model import Review
-import Constants
+import constants
 
 # Initialize Bcrypt object
 bcrypt = Bcrypt(app) 
 
 # ==== Spotify API ====
-CLIENT_ID = Constants.CLIENT_ID
-CLIENT_SECRET = Constants.CLIENT_SECRET
+CLIENT_ID = constants.CLIENT_ID
+CLIENT_SECRET = constants.CLIENT_SECRET
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=CLIENT_ID, client_secret=CLIENT_SECRET))
 
 # ==== Login & Registration ====
