@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% block head %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Note-d | View Review</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <title>{% block title %}{% endblock %} | Note-d</title>
+    {% endblock %}
 </head>
 <body>
-    <!-- Navbar -->
+    <!-- NAVBAR -->
     <nav class="navbar mx-3">
         <div class="navbar-menu" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
@@ -30,26 +31,8 @@
             </div>
         </div>
     </nav>
-    <!-- View Review -->
-    <section class="section is-medium">
-        <div class="box">
-            <div class="columns">
-                <div class="column is-4">
-                    <p class="has-text-right has-text-weight-semibold">Reviewed By</p>
-                    <p class="has-text-right has-text-weight-semibold">Date of Review</p>
-                    <p class="has-text-right has-text-weight-semibold">Album Title</p>
-                    <p class="has-text-right has-text-weight-semibold">Rating</p>
-                    <p class="has-text-right has-text-weight-semibold">Review</p>
-                </div>
-                <div class="column is-8">
-                    <p>TODO: Username</p>
-                    <p>TODO: Date of review</p>
-                    <p>TODO: Album Title</p>
-                    <p>TODO: Rating</p>
-                    <p>TODO: Review</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    {% block content %}
+    {% endblock %}
 </body>
+<script src="/flask_app/static/script.js"></script>
 </html>
