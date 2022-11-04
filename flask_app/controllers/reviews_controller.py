@@ -4,11 +4,11 @@ from flask_app.models.review_model import Review # Import Review Class from mode
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import pprint
-import constants
+import flask_app.constants
 
 # ==== Spotify API ====
-CLIENT_ID = constants.CLIENT_ID
-CLIENT_SECRET = constants.CLIENT_SECRET
+CLIENT_ID = flask_app.constants.CLIENT_ID
+CLIENT_SECRET = flask_app.constants.CLIENT_SECRET
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=CLIENT_ID, client_secret=CLIENT_SECRET))
 
 # ==== Reviews CRUD ====
