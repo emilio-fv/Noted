@@ -8,7 +8,7 @@ note_d_planning/
 mybulma/
 ### Api Keys ###
 constants.py
-
+.cache
 
 ### Flask ###
 instance/*
