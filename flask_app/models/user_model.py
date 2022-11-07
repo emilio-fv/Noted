@@ -51,21 +51,21 @@ class User:
         last_name_len = len(user_data['last_name']) 
         email_len = user_data['email']
         if username_len < 1 or first_name_len < 1 or last_name_len < 1 or not email_len : # Check if username, first name, last name, is provided
-            flash("All fields required", "reg")
+            flash("All fields required.", "reg")
             is_valid = False
         elif not EMAIL_REGEX.match(user_data['email']): # Check if email is valid 
-            flash("Invalid email format", "reg")
+            flash("Invalid email format.", "reg")
             is_valid = False
         else: # Check if email is already in database
             data = {'email': user_data['email']}
             potential_user = User.get_one_by_email(data)
             if potential_user:
-                flash("Email already registered", "reg")
+                flash("Email already registered.", "reg")
                 is_valid = False
         if len(user_data['password']) < 8: # Check if password is at least 8 characters
-            flash("Password must be at least 8 characters", "reg")
+            flash("Password must be at least 8 characters.", "reg")
             is_valid = False
         elif not user_data['password'] == user_data['confirm_password']: # password confirmation matches password
-            flash("Passwords don't match", "reg")
+            flash("Passwords don't match.", "reg")
             is_valid = False
         return is_valid

@@ -44,6 +44,21 @@ class Review:
             return all_reviews
         return []
 
+    @classmethod # Get one review by id
+    def get_one_by_id(self, data):
+        query = "SELECT * FROM reviews WHERE id = %(id)s;"
+        results = connectToMySQL(DATABASE).query_db(query, data)
+        if len(results) > 0:
+            this_review = self(results[0])
+            return this_review
+        return False
+
 # ==== UPDATE ====
+
 # ==== DELETE ====
+    @classmethod # Delete review by id
+    def delete(self, data):
+        query = "DELETE FROM reviews WHERE reviews.id = %{id}s;"
+        return connectToMySQL(DATABASE).query_db(query, data)
+
 # ==== STATIC ====
