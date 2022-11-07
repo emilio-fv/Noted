@@ -1,42 +1,6 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-}
-
-main {
-  height: 85%;
-  width: 100vw;
-}
-
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.border {
-  border: 2px solid black;
-}
-
-.register-form {
-  width: 100%;
-  height: 100%;
-}
-
-.gap {
-  gap: 25px;
-}
-
 /*! bulma.io v0.9.4 | MIT License | github.com/jgthms/bulma */
 /* Bulma Utilities */
+@import url("https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,300;0,400;0,500;1,500&display=swap");
 .button, .input, .textarea, .select select, .file-cta,
 .file-name, .pagination-previous,
 .pagination-next,
@@ -311,7 +275,7 @@ th {
     text-align: inherit; }
 
 html {
-  background-color: #white;
+  background-color: white;
   font-size: 16px;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -345,7 +309,7 @@ pre {
   font-family: monospace; }
 
 body {
-  color: #black;
+  color: #4a4a4a;
   font-size: 1em;
   font-weight: 400;
   line-height: 1.5; }
@@ -7380,7 +7344,6 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
 
 /* Bulma Layout */
 .hero {
-  height: 15%;
   align-items: stretch;
   display: flex;
   flex-direction: column;
@@ -7913,3 +7876,33 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
 .footer {
   background-color: #fafafa;
   padding: 3rem 1.5rem 6rem; }
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Azeret Mono', monospace; }
+
+#lp {
+  background-color: #182628;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #F2F2F2; }
+  #lp h1 {
+    font-size: 3em; }
+  #lp navbar {
+    height: 10%;
+    width: 100%; }
+  #lp main {
+    height: 90%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between; }
+    #lp main .left, #lp main .right {
+      flex: 1;
+      gap: 15px; }
+    #lp main form {
+      width: 40%; }
