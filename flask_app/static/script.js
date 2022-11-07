@@ -24,3 +24,4 @@ function SearchByAlbum(event) {
         })
         .catch(err => console.log(err))
 }
+
