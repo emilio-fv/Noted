@@ -13,10 +13,9 @@ function SearchByAlbum(event) {
         for (x in data) {
                 console.log(data[x]['album_name'])
                 var newElement = document.createElement("article");
-                newElement.innerHTML = `
-                        <p class="title mb-6 has-text-centered"><a href="/users/music/view/${data[x]['album_id']}">${data[x]['album_name']}</a></p>
-                        <p class="subtitle has-text-centered">${data[x]['album_artist']}</p>
-                `
+                newElement.innerHTML = 
+                    `<p class="title mb-6 has-text-centered"><a href="/users/music/view/${data[x]['album_id']}">${data[x]['album_name']}</a></p>
+                    <p class="subtitle has-text-centered">${data[x]['album_artist']}</p>`
                 console.log(newElement)
                 newElement.setAttribute("class","tile is-child box")
                 album_results_div.appendChild(newElement);
