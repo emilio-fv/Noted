@@ -1,13 +1,13 @@
 from flask_app import app
-from flask import render_template, request, redirect, session, flash, jsonify
+from flask import render_template, request, redirect, session, flash, jsonify, request, url_for
 from flask_bcrypt import Bcrypt
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import pprint
+from functools import wraps
 from flask_app.models.user_model import User
 from flask_app.models.review_model import Review
 import flask_app.constants
-
 
 # Initialize Bcrypt object
 bcrypt = Bcrypt(app) 
@@ -17,12 +17,21 @@ CLIENT_ID = flask_app.constants.CLIENT_ID
 CLIENT_SECRET = flask_app.constants.CLIENT_SECRET
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=CLIENT_ID, client_secret=CLIENT_SECRET))
 
-# ==== Login & Registration ====
-@app.route('/') # ROUTE: landing page
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return redirect('/login')
+        return f(*args, **kwargs)
+    return decorated_function
+
+# ==== Landing Page ====
+@app.route('/') 
 def index():
     return render_template('landing_page.html')
 
-@app.route('/register', methods=['POST']) # ROUTE: register user
+# ==== Register ====
+@app.route('/register', methods=['POST']) 
 def register():
     if not User.validate(request.form): # Validate form data
         return redirect('/')
@@ -60,9 +69,8 @@ def logout():
 
 # ==== Dashboard ====
 @app.route('/dashboard') # ROUTE: dashboard
+@login_required
 def dashboard():
-    if 'user_id' not in session: # Check if user not logged in
-        return redirect('/')
     logged_user = User.get_one_by_id({'id': session['user_id']}) # Get user's data
     logged_user_reviews = Review.get_all_by_user_id({'user_id': session['user_id']}) # Get user's reviews
     for review in logged_user_reviews:
@@ -77,6 +85,7 @@ def dashboard():
 
 # ==== Music Tab ====
 @app.route('/users/music/search_form') # ROUTE: search music engine
+@login_required
 def search_music_form(all_albums=[]):
     return render_template('music_search.html') 
 
@@ -107,6 +116,7 @@ def view_music(album_id):
 
 # ==== Users Tab ====
 @app.route('/users/user_search') # ROUTE: search users page
+@login_required
 def search_users():
     return render_template('user_search.html')
 

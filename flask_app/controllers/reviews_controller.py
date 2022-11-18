@@ -4,6 +4,7 @@ from flask_app.models.review_model import Review # Import Review Class from mode
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import pprint
+from functools import wraps
 import flask_app.constants
 
 # ==== Spotify API ====
@@ -21,7 +22,16 @@ def new_review(album_id):
     }
     return render_template('review_new.html', album_data=album_data)
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return redirect('/login')
+        return f(*args, **kwargs)
+    return decorated_function
+
 @app.route('/reviews/create/<album_id>', methods=['POST']) # ROUTE: create new reviews
+@login_required
 def create_review(album_id):
     # print(request.form)
     print(session['user_id'])
