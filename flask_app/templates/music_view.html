@@ -11,12 +11,15 @@
                 <p class="has-text-centered"><a href="/reviews/new/{{ album_data['album_id'] }}">Create Review</a></p>
             </div>
             <div class="column mb-5 is-4 has-background-light">
-                <p class="has-text-centered">TODO: Album Cover Art</p>
+                <p class="has-text-centered"><img src="{{ album_data['album_img'] }}" alt=""></p>
             </div>
         </div>
         <div class="columns is-flex is-justify-content-center">
             <div class="column is-6 has-background-light">
-                <p>TODO: Add track info</p>
+                <h2 class="has-text-centered is-size-3">Tracks</h2>
+                {% for track in album_data['album_tracks'] %}
+                    <p>{{ track }}</p>
+                {% endfor %}
             </div>
         </div>
     </div>

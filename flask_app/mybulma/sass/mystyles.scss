@@ -1,59 +1,107 @@
 @charset "utf-8";
+
+// Import font
+// @import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,300;0,400;0,500;1,500&display=swap'); // font 1
+@import url('https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&display=swap'); // font 2
+
+
+// Overrode global variables
+$primary: #367016;
+$text: #F4F0F0;
+$background: #15151b;
+$family-sans-serif: "Mitr", sans-serif;
+$family-primary: $family-serif;
+
+
+// Import bulma
 @import "../node_modules/bulma/bulma.sass";
-@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,300;0,400;0,500;1,500&display=swap');
 
-$background: #182628;
-$primary-text-color: #F2F2F2;
+// Custom CSS 
 
-body {
-    background-color: $background !important;
-    height: 100vh;
-    width: 100vw;
-}
 
-* {
-    margin: 0;
-    padding: 0; 
-    font-family: 'Azeret Mono', monospace;
-}
 
-// Landing Page
-#lp {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: $primary-text-color;
 
-    h1 {
-        font-size: 3em;
-    }
 
-    navbar {
-        height: 10%;
-        width: 100%;
-    }
 
-    main {
-        height: 90%;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
 
-        .left, .right {
-            flex: 1;
-            gap: 15px;
-        }
 
-        form {
-            width: 40%;
-        }
-    }
-}
 
-// Navbar
-.navbar {
-    background-color: $background;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// body {
+//     height: 100vh;
+//     width: 100vw;
+// }
+
+// * {
+//     margin: 0;
+//     padding: 0; 
+//     // font-family: 'Azeret Mono', monospace;
+//     font-family: 'Mitr', sans-serif;
+
+// }
+
+// // Landing Page
+// #lp {
+//     height: 100vh;
+//     width: 100vw;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+//     color: $primary-text-color;
+
+//     h1 {
+//         font-size: 3em;
+//     }
+
+//     navbar {
+//         height: 10%;
+//         width: 100%;
+//     }
+
+//     main {
+//         height: 90%;
+//         width: 100%;
+//         display: flex;
+//         justify-content: space-between;
+
+//         .left, .right {
+//             flex: 1;
+//             gap: 15px;
+//             .box {
+//                 background-color: #19242c;
+//             }
+//         }
+
+//         form {
+//             width: 40%;
+//         }
+//     }
+// }
+
+// // Navbar
+// .navbar {
+//     background-color: $background;
+//     a {
+//         color: $primary-text-color;
+//     }
+// }

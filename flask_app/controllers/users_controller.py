@@ -107,11 +107,18 @@ def search_music():
 @app.route('/users/music/view/<album_id>') # ROUTE: view album info 
 def view_music(album_id):
     album_results = sp.album(album_id)
+    album_tracks_results = sp.album_tracks(album_id)
+    album_tracks = []
+    for item in album_tracks_results['items']:
+        album_tracks.append(item['name'])
     album_data = {
         "album_id": album_results['id'],
         "album_name": album_results['name'],
         "album_artist": album_results['artists'][0]['name'],
+        "album_img": album_results['images'][0]['url'],
+        "album_tracks": album_tracks
     }
+
     return render_template('music_view.html', album_data = album_data)
 
 # ==== Users Tab ====
@@ -123,4 +130,3 @@ def search_users():
 @app.route('/users/user_view') # ROUTE: view user's profile
 def view_user():
     return render_template('user_view.html')
-
