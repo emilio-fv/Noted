@@ -31,10 +31,15 @@ def index():
     return render_template('landing_page.html')
 
 # ==== Register ====
-@app.route('/register', methods=['POST']) 
+@app.route('/register')
+def register_form():
+    session['page'] = 'register'
+    return render_template('register_form.html')
+
+@app.route('/users/register', methods=['POST']) 
 def register():
     if not User.validate(request.form): # Validate form data
-        return redirect('/')
+        return redirect('/register')
     hashed_password = bcrypt.generate_password_hash(request.form['password']) # Hash password
     data = {
         **request.form,
@@ -48,6 +53,7 @@ def register():
 def login_form():
     if 'user_id' in session: # Check if user is logged in
         return redirect('/dashboard')
+    session['page'] = 'login'
     return render_template('login_form.html')
 
 @app.route('/users/login', methods=['POST']) # ROUTE: login user
@@ -55,10 +61,10 @@ def login():
     user_in_db = User.get_one_by_email({'email': request.form['email']}) # Validate email
     if not user_in_db:
         flash('Invalid login info', "log")
-        return redirect('/users/login')
+        return redirect('/login')
     if not bcrypt.check_password_hash(user_in_db.password, request.form['password']): # Validate password
         flash("Invalid login info", "log")
-        return redirect('/users/login')
+        return redirect('/login')
     session['user_id'] = user_in_db.id # Initialize session
     return redirect('/dashboard') # Redirect: Dashboard
 
