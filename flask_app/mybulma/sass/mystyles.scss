@@ -6,102 +6,60 @@
 
 
 // Overrode global variables
-$primary: #367016;
-$text: #F4F0F0;
-$background: #15151b;
-$family-sans-serif: "Mitr", sans-serif;
-$family-primary: $family-serif;
+$green: #4d9f21;
+$white: #F4F0F0;
+$black: #15151b;
 
+// $text: $white;
+$text: $white;
+$link: $white;
+$link-hover: $green;
+$scheme-main: $black;
+$family-sans-serif: "Mitr", sans-serif;
+$family-primary: $family-sans-serif;
+$navbar-item-hover-color: $green;
+$button-color: $black;
+$button-background-color: $green;
+$button-hover-color: $white;
+$button-border-color: $green;
+$button-hover-border-color: $green;
+
+// Login Form
+$label-color: $white;
+$input-color: $white;
+$input-background-color: $black;
+$input-border-color: $white;
+$input-shadow: inset 0 1px 2px $white;
 
 // Import bulma
-@import "../node_modules/bulma/bulma.sass";
+@import "../node_modules/bulma/sass/utilities/_all.sass"; 
+@import "../node_modules/bulma/sass/base/_all.sass";
+@import "../node_modules/bulma/sass/components/_all.sass";
+@import "../node_modules/bulma/sass/elements/button.sass";
+@import "../node_modules/bulma/sass/helpers/_all.sass";
+@import "../node_modules/bulma/sass/grid/columns.sass";
+@import "../node_modules/bulma/sass/layout/_all.sass";
+@import "../node_modules/bulma/sass/form/_all.sass";
 
 // Custom CSS 
+.border {
+    border: 2px solid red;
+}
 
+.landing-page {
+    padding: 0 0 0 7rem;
+    img {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+    }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// body {
-//     height: 100vh;
-//     width: 100vw;
-// }
-
-// * {
-//     margin: 0;
-//     padding: 0; 
-//     // font-family: 'Azeret Mono', monospace;
-//     font-family: 'Mitr', sans-serif;
-
-// }
-
-// // Landing Page
-// #lp {
-//     height: 100vh;
-//     width: 100vw;
-//     display: flex;
-//     flex-direction: column;
-//     align-items: center;
-//     justify-content: center;
-//     color: $primary-text-color;
-
-//     h1 {
-//         font-size: 3em;
-//     }
-
-//     navbar {
-//         height: 10%;
-//         width: 100%;
-//     }
-
-//     main {
-//         height: 90%;
-//         width: 100%;
-//         display: flex;
-//         justify-content: space-between;
-
-//         .left, .right {
-//             flex: 1;
-//             gap: 15px;
-//             .box {
-//                 background-color: #19242c;
-//             }
-//         }
-
-//         form {
-//             width: 40%;
-//         }
-//     }
-// }
-
-// // Navbar
-// .navbar {
-//     background-color: $background;
-//     a {
-//         color: $primary-text-color;
-//     }
-// }
+.login-form, .register-form {
+    form {
+        gap: .5rem;
+        ::placeholder {
+            color: $white;
+        }
+    }
+}
