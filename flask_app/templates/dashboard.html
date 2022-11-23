@@ -1,7 +1,7 @@
 {% extends "main_layout.html" %}
 {% block title %}
 Home
-{% endblock%}
+{% endblock %}
 
 {% block content %}
 <main class="px-5 py-3">
@@ -19,7 +19,8 @@ Home
                                 <div class="is-flex">
                                     <p class="mr-3"><strong>{{ review.album_data['album_name'] }}</strong></p>
                                     <p class="mr-3">{{ review.album_data['album_artist'] }}</p>
-                                    <p>{{ review['rating'] }} &#9733;</p>
+                                    <!-- <p>{{ review['rating'] }} </p> -->
+                                    <p>{% for x in range(review['rating']) %}&#9733;{% endfor %}</p>
                                 </div>
                                 <div>
                                     <p>{{ review['review'] }}</p>

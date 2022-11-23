@@ -6,6 +6,8 @@ function SearchByAlbum(event) {
     console.log("Submitted")
     var search_albums_form = document.getElementById('search_albums_form') // Initialize var for the search by album form
     var album_results_div = document.querySelector('#album_results')
+    // empty element
+    emptyDiv(album_results_div);
     var form = new FormData(search_albums_form);
     fetch("http://127.0.0.1:5000/users/music/search", { method: 'POST', body: form})
     .then( response => response.json() )
@@ -24,3 +26,8 @@ function SearchByAlbum(event) {
         .catch(err => console.log(err))
 }
 
+function emptyDiv(element) {
+    while(element.firstElementChild) {
+        element.firstElementChild.remove();
+    }
+}

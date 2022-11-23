@@ -1,10 +1,10 @@
 <h1 align="center">Note-d</h1>
 
-A web application for music enthusiasts to track, save, and share the music they listen to with other users. Integrates Spotify API to fuel search engine and seed data about albums and artists.
+A Flask based web application for music enthusiasts to track, save, and share the music they listen to with other users. Integrated with the Spotify API so users can search and view albums using Spotify's music library. 
 
 ## Current Features
-* Search/view albums
-* Create/view reviews
+* Search and view albums (by artist or album name)
+* Create and view reviews
 
 
 ## Built With
@@ -14,10 +14,13 @@ A web application for music enthusiasts to track, save, and share the music they
 * Spotify API & Spotipy
 
 ## Future Updates
+* Search and view user's profiles
 
 ## Demo
 
+
 ## License
+
 
 ## Feedback
 
