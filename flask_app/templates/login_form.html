@@ -11,22 +11,20 @@ Login |
             <div class="control">
               <input class="input has-text-centered is-normal" type="email" name="email" id="email" placeholder="Email">
             </div>
-          </div>
-          <div class="field">
+        </div>
+        <div class="field">
             <div class="control">
                 <input class="input has-text-centered is-normal" type="password" name="password" id="password" placeholder="Password">
             </div>
-          </div>
-          <div class="field">
+        </div>
+        <div class="field">
             {% for message in get_flashed_messages(category_filter = ['log']) %}
               <p class="has-text-danger">{{message}}</p>
             {% endfor %}
-          </div>
-          <div>
-            <div class="control">
-                <button class="button">Submit</button>
-            </div>
-          </div>
+        </div>
+        <div class="control">
+            <button class="button">Submit</button>
+        </div>
     </form>
   </div>
 
