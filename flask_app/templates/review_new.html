@@ -1,12 +1,13 @@
-{% extends "main_layout.html" %}
-{% block title %}Create Review{% endblock %}
+{% extends "base.html" %}
+{% block title %}
+Create Review |
+{% endblock %}
 
 {% block content %}
-<!-- Create Review Form -->
-<section class="section is-medium">
+<p>TODO: Create Review Form</p>
+<!-- <section class="section is-medium">
     <div class="box">
         <h1 class="is-size-3 has-text-centered">Create Review</h1>
-        <!-- TODO: Add form action -->
         <form action="/reviews/create/{{ album_data['album_id'] }}" method="post">
             <div class="field is-horizontal">
                 <div class="field-label is-normal"">
@@ -67,8 +68,7 @@
             </div>
             <div class="field is-horizontal">
                 <div class="field-label">
-                    <!-- Left empty for spacing -->
-                    </div>
+                </div>
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
@@ -79,5 +79,5 @@
             </div>
         </form>
     </div>
-</section>
+</section> -->
 {% endblock %}

@@ -7,9 +7,12 @@ class Review:
     def __init__(self, data):
         self.id = data['id']
         self.album_id = data['album_id']
+        self.album_name = data['album_name']
+        self.artist_name = data['artist_name']
+        self.img_url = data['img_url']
         self.date = data['date']
         self.rating = data['rating']
-        self.review = data['review']
+        self.text = data['text']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.user_id = data['user_id']
@@ -17,7 +20,7 @@ class Review:
 # ==== CREATE ====
     @classmethod # Create new review
     def create(self, data):
-        query = "INSERT INTO reviews (album_id, date, rating, review, user_id) VALUES (%(album_id)s, %(date)s, %(rating)s, %(review)s, %(user_id)s);"
+        query = "INSERT INTO reviews (album_id, album_name, artist_name, img_url, date, rating, text, user_id) VALUES (%(album_id)s, %(album_name)s, %(artist_name)s, %(img_url)s, %(date)s, %(rating)s, %(text)s, %(user_id)s);"
         return connectToMySQL(DATABASE).query_db(query, data)
 
 # ==== READ ====
