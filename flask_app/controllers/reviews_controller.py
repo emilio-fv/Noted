@@ -33,7 +33,9 @@ def create_review(album_id):
 @app.route('/reviews/search')
 @login_required
 def search_reviews():
-    render_template()
+    return render_template('review_search.html')
+
+
 # TODO View Review
 # TODO Edit Review
 # TODO Delete Review

@@ -17,6 +17,8 @@ def index():
 
 @app.route('/register') # Register Form
 def register_form():
+    if 'user_id' in session: 
+        return redirect('/dashboard')
     session['page'] = 'register'
     return render_template('register_form.html')
 

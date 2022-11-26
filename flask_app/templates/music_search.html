@@ -1,7 +1,9 @@
-{% extends "main_layout.html" %}
-{% block title %}Music Search{% endblock %}
+{% extends "base.html" %}
+{% block title %}
+Search Music |
+{% endblock %}
 {% block content %}
-<!-- Music Search Form -->
+
 <div class="section">
     <h1 class="has-text-centered is-size-3 mb-5">Search Music</h1>
     <form id="music_search_form" class="is-flex is-justify-content-center mb-5" onsubmit="submitMusicForm(event)">

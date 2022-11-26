@@ -52,7 +52,7 @@ def search_music():
             all_artists.append(one_artist)
         return jsonify(all_artists)
 
-@app.route('/users/music/view/<album_id>') # View Album
+@app.route('/users/music/view/<album_id>') # View Album (Track)
 def view_music(album_id):
     album_results = sp.album(album_id)
     album_tracks_results = sp.album_tracks(album_id)
@@ -67,3 +67,5 @@ def view_music(album_id):
         "album_tracks": album_tracks
     }
     return render_template('music_view.html', album_data = album_data)
+
+# TODO View Artist
