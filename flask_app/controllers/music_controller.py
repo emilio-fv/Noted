@@ -1,7 +1,5 @@
 from flask_app import app
 from flask import redirect, render_template, request, jsonify
-import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials
 import flask_app.constants
 from flask_app.controllers.helpers import login_required, sp
 
@@ -53,7 +51,7 @@ def search_music():
         return jsonify(all_artists)
 
 @app.route('/users/music/view/<album_id>') # View Album (Track)
-def view_music(album_id):
+def view_album(album_id):
     album_results = sp.album(album_id)
     album_tracks_results = sp.album_tracks(album_id)
     album_tracks = []
@@ -62,10 +60,11 @@ def view_music(album_id):
     album_data = {
         "album_id": album_results['id'],
         "album_name": album_results['name'],
-        "album_artist": album_results['artists'][0]['name'],
+        "artist_name": album_results['artists'][0]['name'],
         "album_img": album_results['images'][0]['url'],
         "album_tracks": album_tracks
     }
-    return render_template('music_view.html', album_data = album_data)
+    print(album_tracks)
+    return render_template('album_view.html', album_data = album_data)
 
 # TODO View Artist

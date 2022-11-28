@@ -4,80 +4,17 @@ Create Review |
 {% endblock %}
 
 {% block content %}
-<p>TODO: Create Review Form</p>
-<!-- <section class="section is-medium">
-    <div class="box">
-        <h1 class="is-size-3 has-text-centered">Create Review</h1>
-        <form action="/reviews/create/{{ album_data['album_id'] }}" method="post">
-            <div class="field is-horizontal">
-                <div class="field-label is-normal"">
-                    <label class="label" for="date">Date of Review</label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <div class="control">
-                            <input class="input" type="date" name="date" id="date">
-                        </div>
-                    </div>
-                </div>
+<section class="section">
+    <h1>Create A Review</h1>
+    <form action="">
+        <div class="columns">
+            <div class="column is-two-thirds border">
+
             </div>
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label for="album_name" class="label">Album Title</label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <div class="control">
-                            <input type="text" name="album_name" id="album_name" class="input" value="{{ album_data['album_name'] }}">
-                        </div>
-                    </div>
-                </div>
+            <div class="column is-one-third border">
+
             </div>
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label for="rating" class="label">Rating</label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <div class="control">
-                            <div class="select">
-                                <select name="rating" id="rating">
-                                <option selected>Select Rating</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label for="review" class="label">Review</label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <div class="control">
-                            <textarea class="textarea" name="review" id="review" placeholder="Share your thoughts...."></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="field is-horizontal">
-                <div class="field-label">
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <div class="control">
-                        <button class="button is-primary">Add Review</button>
-                        </div>
-                    </div>
-                    </div>
-            </div>
-        </form>
-    </div>
-</section> -->
+        </div>
+    </form>
+</section>
 {% endblock %}
