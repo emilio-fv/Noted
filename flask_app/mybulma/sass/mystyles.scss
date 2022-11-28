@@ -9,6 +9,7 @@
 $green: #4d9f21;
 $white: #F4F0F0;
 $black: #15151b;
+$grey: #2e2e3b;
 
 // $text: $white;
 $text: $white;
@@ -23,6 +24,7 @@ $button-background-color: $green;
 $button-hover-color: $white;
 $button-border-color: $green;
 $button-hover-border-color: $green;
+$box-background-color: $grey;
 
 // Login Form
 $label-color: $white;
@@ -35,11 +37,14 @@ $input-shadow: inset 0 1px 2px $white;
 @import "../node_modules/bulma/sass/utilities/_all.sass"; 
 @import "../node_modules/bulma/sass/base/_all.sass";
 @import "../node_modules/bulma/sass/components/_all.sass";
+@import "../node_modules/bulma/sass/elements/box.sass";
 @import "../node_modules/bulma/sass/elements/button.sass";
+@import "../node_modules/bulma/sass/elements/image.sass";
 @import "../node_modules/bulma/sass/helpers/_all.sass";
 @import "../node_modules/bulma/sass/grid/columns.sass";
 @import "../node_modules/bulma/sass/layout/_all.sass";
 @import "../node_modules/bulma/sass/form/_all.sass";
+
 
 // Custom CSS 
 .border {
@@ -49,8 +54,8 @@ $input-shadow: inset 0 1px 2px $white;
 .landing-page {
     padding: 0 0 0 7rem;
     img {
-        width: 100%;
-        max-width: 500px;
+        max-width: 90%;
+        height: 100%;
         height: auto;
     }
 }
@@ -61,5 +66,12 @@ $input-shadow: inset 0 1px 2px $white;
         ::placeholder {
             color: $white;
         }
+    }
+}
+
+#album_view {
+    img {
+        max-width: 45%;
+        height: auto;
     }
 }

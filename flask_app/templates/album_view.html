@@ -4,27 +4,30 @@ View Album |
 {% endblock %}
 
 {% block content %}
-<p>TODO: View Album</p>
-<!-- <main class="section is-medium">
-    <div class="box">
-        <div class="columns is-flex-direction-row is-justify-content-space-around is-align-items-center">
-            <div class="column mb-5 is-4 is-vcentered has-background-light">
-                <h1 class="has-text-centered is-size-3">{{ album_data['album_name'] }}</h1>
-                <p class="has-text-centered is-size-4">{{ album_data['album_artist'] }}</p>
-                <p class="has-text-centered"><a href="/reviews/new/{{ album_data['album_id'] }}">Create Review</a></p>
-            </div>
-            <div class="column mb-5 is-4 has-background-light">
-                <p class="has-text-centered"><img src="{{ album_data['album_img'] }}" alt=""></p>
-            </div>
-        </div>
-        <div class="columns is-flex is-justify-content-center">
-            <div class="column is-6 has-background-light">
-                <h2 class="has-text-centered is-size-3">Tracks</h2>
-                {% for track in album_data['album_tracks'] %}
-                    <p>{{ track }}</p>
-                {% endfor %}
-            </div>
+<section id="album_view" class="section is-flex is-align-items-center">
+    <div class="is-flex is-flex-direction-column is-justify-content-center is-align-items-center ">
+        <figure class="image is-flex is-justify-content-center">
+            <img src="{{ album_data['album_img'] }}" alt="Album cover">
+        </figure>
+    </div>
+    <div>
+        <h1 class="is-size-2">{{ album_data['album_name'] }}</h1>
+        <h2 class="is-size-3">{{ album_data['artist_name'] }}</h2>
+        <a href="/reviews/new/{{ album_data['album_id'] }}">Create Review</a>
+    </div>
+</section>
+<section class="section columns">
+    <div class="column is-half has-text-centered">
+        <h1 class="is-size-4">Tracks</h1>
+        <div>
+            {% for track in album_data['album_tracks'] %}
+                <p>{{ track }}</p>
+            {% endfor %}
         </div>
     </div>
-</main> -->
+    <div class="column is-half">
+        <h1 class="is-size-4">Latest Reviews</h1>
+        
+    </div>
+</section>
 {% endblock %}

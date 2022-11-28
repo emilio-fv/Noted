@@ -14,7 +14,7 @@ function submitMusicForm(event) { // Spotify API - Music Search
             var newElement = document.createElement("div");
             if (music_search_category === "album") {
                 newElement.innerHTML = 
-                    `<a href="#">
+                    `<a href="/users/music/view/${ data[row]['album_id']}">
                         <div class="card-image">
                             <figure class="image">
                                 <img src="${ data[row]['album_img'] }" alt="Album Cover">
