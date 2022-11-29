@@ -26,11 +26,12 @@ Home |
                             <p class="subtitle is-6">{{ review['artist_name'] }}</p>
                         </div>
                     </div>
-
                     <div class="content">
                         {{ review['text'] }}
                         <br>
                         <time>{{ review['updated_at'].strftime("%-d %b %Y") }}</time>
+                        <br>
+                        <a href="/reviews/delete/{{ review['id'] }}" class="button is-danger">Delete</a>
                     </div>
                 </div>
             </div>

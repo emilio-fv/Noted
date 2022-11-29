@@ -61,7 +61,7 @@ class Review:
 # ==== DELETE ====
     @classmethod # Delete review by id
     def delete(self, data):
-        query = "DELETE FROM reviews WHERE reviews.id = %{id}s;"
+        query = "DELETE FROM reviews WHERE reviews.id = %(id)s;"
         return connectToMySQL(DATABASE).query_db(query, data)
 
 # ==== STATIC ====
