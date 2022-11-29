@@ -63,22 +63,14 @@ def logout():
 @login_required
 def dashboard():
     logged_user = User.get_one_by_id({'id': session['user_id']}) 
-    logged_user_reviews = Review.get_all_by_user_id({'user_id': session['user_id']}) 
-    # for review in logged_user_reviews:
-    #     album_results = sp.album(review.album_id) 
-    #     album_data = {
-    #         "album_id": album_results['id'],
-    #         "album_name": album_results['name'],
-    #         "album_artist": album_results['artists'][0]['name'],
-    #     }
-    #     review.album_data = album_data
+    logged_user_reviews = Review.get_all_by_user_id({'user_id': session['user_id']})
     return render_template('dashboard.html', logged_user = logged_user, logged_user_reviews = logged_user_reviews)
 
-@app.route('/users/user_search') # Search Users
+@app.route('/users/search') # Search Users
 @login_required
 def search_users():
     return render_template('user_search.html')
 
-@app.route('/users/user_view') # View User Profile
+@app.route('/users/view') # View User Profile
 def view_user():
     return render_template('user_view.html')

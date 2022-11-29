@@ -4,33 +4,33 @@ Home |
 {% endblock %}
 
 {% block content %}
-<section class="section is-medium">
+<section id="dashboard" class="section ">
     <h1 id="greeting" class="is-size-3">, {{ logged_user.username }}!</h1>
     <h2 class="is-size-5">New from other users</h2>
     <div class="container">
         <p>TODO: other users' reviews </p>
     </div>
     <h2 class="is-size-5">Your latest reviews</h2>
-    <div class="container">
-        <p>TODO: user's latest reviews</p>
+    <div class="container is-flex">
         {% for review in logged_user_reviews %}
             <div class="card">
                 <div class="card-image">
-                    <figure class="image is-square">
-                        <img src="{{ review['img_url'] }}" alt="">
+                    <figure class="image">
+                        <img src="{{ review['img_url'] }}" alt="Album Cover">
                     </figure>
                 </div>
                 <div class="card-content">
                     <div class="media">
                         <div class="media-content">
-                            <p class="title">TODO: User's first and last name</p>
-                            <p class="subtitle">TODO: user's username</p>
+                            <p class="title is-4">{{ review['album_name'] }}</p>
+                            <p class="subtitle is-6">{{ review['artist_name'] }}</p>
                         </div>
                     </div>
+
                     <div class="content">
-                        <p>{{ review['text'] }}</p>
+                        {{ review['text'] }}
                         <br>
-                        <time>{{ review['updated_at'] }}</time>
+                        <time>{{ review['updated_at'].strftime("%-d %b %Y") }}</time>
                     </div>
                 </div>
             </div>

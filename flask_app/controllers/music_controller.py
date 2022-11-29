@@ -3,12 +3,12 @@ from flask import redirect, render_template, request, jsonify
 import flask_app.constants
 from flask_app.controllers.helpers import login_required, sp
 
-@app.route('/users/music/search_form') # Search Music Form
+@app.route('/music/search') # Search Music Form
 @login_required
 def search_music_form(all_albums=[]):
     return render_template('music_search.html') 
 
-@app.route('/users/music/search', methods=['POST']) # Search Music 
+@app.route('/music/search', methods=['POST']) # Search Music 
 def search_music():
     search_input = request.form['search_input']
     search_category = request.form['search_category']
@@ -50,7 +50,7 @@ def search_music():
             all_artists.append(one_artist)
         return jsonify(all_artists)
 
-@app.route('/users/music/view/<album_id>') # View Album (Track)
+@app.route('/music/view/<album_id>') # View Album (Track)
 def view_album(album_id):
     album_results = sp.album(album_id)
     album_tracks_results = sp.album_tracks(album_id)
@@ -64,7 +64,6 @@ def view_album(album_id):
         "album_img": album_results['images'][0]['url'],
         "album_tracks": album_tracks
     }
-    print(album_tracks)
     return render_template('album_view.html', album_data = album_data)
 
 # TODO View Artist
