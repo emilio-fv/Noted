@@ -14,7 +14,7 @@ function submitMusicForm(event) { // Spotify API - Music Search
             var newElement = document.createElement("div");
             if (music_search_category === "album") {
                 newElement.innerHTML = 
-                    `<a href="/users/music/view/${ data[row]['album_id']}">
+                    `<a href="/music/view/${ data[row]['album_id']}">
                         <div class="card-image">
                             <figure class="image">
                                 <img src="${ data[row]['album_img'] }" alt="Album Cover">
@@ -76,7 +76,7 @@ function clearDiv(element) { // Clear Element
 }
 
 async function searchSpotify(form_data) { 
-    let response = await fetch("http://127.0.0.1:5000/users/music/search", { method: 'POST', body: form_data});
+    let response = await fetch("http://127.0.0.1:5000/music/search", { method: 'POST', body: form_data});
     let data = await response.json();
     return data;
 }

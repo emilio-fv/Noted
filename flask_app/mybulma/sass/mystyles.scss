@@ -33,13 +33,17 @@ $input-background-color: $black;
 $input-border-color: $white;
 $input-shadow: inset 0 1px 2px $white;
 
+// $card-color: blue;
+// $card-background-color: $grey;
+
 // Import bulma
 @import "../node_modules/bulma/sass/utilities/_all.sass"; 
 @import "../node_modules/bulma/sass/base/_all.sass";
 @import "../node_modules/bulma/sass/components/_all.sass";
-@import "../node_modules/bulma/sass/elements/box.sass";
-@import "../node_modules/bulma/sass/elements/button.sass";
-@import "../node_modules/bulma/sass/elements/image.sass";
+@import "../node_modules/bulma/sass/elements/_all.sass";
+// @import "../node_modules/bulma/sass/elements/box.sass";
+// @import "../node_modules/bulma/sass/elements/button.sass";
+// @import "../node_modules/bulma/sass/elements/image.sass";
 @import "../node_modules/bulma/sass/helpers/_all.sass";
 @import "../node_modules/bulma/sass/grid/columns.sass";
 @import "../node_modules/bulma/sass/layout/_all.sass";
@@ -69,9 +73,21 @@ $input-shadow: inset 0 1px 2px $white;
     }
 }
 
+#dashboard {
+    img {
+        max-width: 25%;
+        height: auto;
+    };
+}
 #album_view {
     img {
         max-width: 45%;
         height: auto;
     }
 }
+
+// #review_form {
+//     form {
+//         max-width: 1000px;
+//     }
+// }

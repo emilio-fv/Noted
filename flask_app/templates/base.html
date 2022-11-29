@@ -6,12 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/mystyles.css')}}">
-    <!-- <link rel="stylesheet" href="/static/css/mystyles.css"> -->
     <title>{% block title %}{% endblock %} Note-d</title>
     {% endblock %}
 </head>
 <body>
-    <!-- NAVBAR -->
     <nav class="navbar is-transparent is-spaced" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item is-size-1" href="/">Note-d</a>
@@ -24,8 +22,8 @@
         <div class="navbar-menu is-active is-fixed-top">
             <div class="navbar-start">
                 <a href="/dashboard" class="navbar-item">Home</a>
-                <a href="/users/music/search_form" class="navbar-item">Music</a>
-                <a href="/users/user_search" class="navbar-item">Users</a>
+                <a href="/music/search" class="navbar-item">Music</a>
+                <a href="/users/search" class="navbar-item">Users</a>
                 <a href="/reviews/search" class="navbar-item">Reviews</a>
             </div>
             <div class="navbar-end">
