@@ -32,7 +32,13 @@ def create_review():
 def search_reviews():
     return render_template('review_search.html')
 
-
 # TODO View Review
 # TODO Edit Review
-# TODO Delete Review
+
+@app.route('/reviews/delete/<review_id>') # Delete Review
+@login_required
+def delete_review(review_id):
+    Review.delete({
+        "id": review_id
+    })
+    return redirect('/dashboard')
