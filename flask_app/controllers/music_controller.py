@@ -5,7 +5,7 @@ from flask_app.controllers.helpers import login_required, sp
 
 @app.route('/music/search') # Search Music Form
 @login_required
-def search_music_form(all_albums=[]):
+def search_music_form():
     return render_template('music_search.html') 
 
 @app.route('/music/search', methods=['POST']) # Search Music 

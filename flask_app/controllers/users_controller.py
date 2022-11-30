@@ -66,10 +66,26 @@ def dashboard():
     logged_user_reviews = Review.get_all_by_user_id({'user_id': session['user_id']})
     return render_template('dashboard.html', logged_user = logged_user, logged_user_reviews = logged_user_reviews)
 
-@app.route('/users/search') # Search Users
+@app.route('/users/search') # Search Users Form
+@login_required
+def search_users_form():
+    return render_template('user_search.html')
+
+@app.route('/users/search', methods=['POST']) # Search Users
 @login_required
 def search_users():
-    return render_template('user_search.html')
+    search_input = request.form['search_input']
+    search_category = request.form['search_category']
+    
+    if search_category == "email":
+        search_results = User.get_one_by_email({'email': search_input })
+        print(search_results)
+        user = [{
+            'username': search_results.username,
+            'first_name': search_results.first_name,
+            'last_name': search_results.last_name
+        }]
+        return jsonify(user)
 
 @app.route('/users/view') # View User Profile
 def view_user():

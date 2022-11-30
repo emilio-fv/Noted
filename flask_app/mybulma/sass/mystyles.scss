@@ -9,7 +9,9 @@
 $green: #4d9f21;
 $white: #F4F0F0;
 $black: #15151b;
-$grey: #2e2e3b;
+$grey: #242430;
+$light-grey: #6b6b92;
+$dimensions: 5 16 24 32 48 64 96 128 200;
 
 // $text: $white;
 $text: $white;
@@ -33,17 +35,19 @@ $input-background-color: $black;
 $input-border-color: $white;
 $input-shadow: inset 0 1px 2px $white;
 
-// $card-color: blue;
-// $card-background-color: $grey;
+// Review Card
+$card-background-color: $grey;
+$card-content-padding: 1rem 1.5rem;
+// $card-footer-padding: 0; 
+$card-footer-border-top: 1px solid $light-grey;
+$content-pre-padding: 0;
+$card-media-margin: 1rem;
 
 // Import bulma
 @import "../node_modules/bulma/sass/utilities/_all.sass"; 
 @import "../node_modules/bulma/sass/base/_all.sass";
 @import "../node_modules/bulma/sass/components/_all.sass";
 @import "../node_modules/bulma/sass/elements/_all.sass";
-// @import "../node_modules/bulma/sass/elements/box.sass";
-// @import "../node_modules/bulma/sass/elements/button.sass";
-// @import "../node_modules/bulma/sass/elements/image.sass";
 @import "../node_modules/bulma/sass/helpers/_all.sass";
 @import "../node_modules/bulma/sass/grid/columns.sass";
 @import "../node_modules/bulma/sass/layout/_all.sass";
@@ -73,12 +77,13 @@ $input-shadow: inset 0 1px 2px $white;
     }
 }
 
-#dashboard {
-    img {
-        max-width: 25%;
-        height: auto;
-    };
-}
+// #dashboard {
+//     img {
+//         max-width: 25%;
+//         height: auto;
+//     };
+// }
+
 #album_view {
     img {
         max-width: 45%;

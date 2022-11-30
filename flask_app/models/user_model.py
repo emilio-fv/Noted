@@ -36,10 +36,18 @@ class User:
     def get_one_by_email(self, data):
         query = "SELECT * FROM users WHERE email = %(email)s;"
         results = connectToMySQL(DATABASE).query_db(query, data)
-        if len(results) < 1:
-            return False
-        return User(results[0])
+        if results:
+            user = User(results[0])
+            return user
+        return False
 
+    @classmethod # Query database with search category 
+    def get_many_by_user_input(self, data):
+        query = "SELECT * FROM users WHERE %(category)s LIKE %(input)s"
+        results = connectToMySQL(DATABASE).query_db(query, data)
+        if results:
+            # 
+        return False
 # ==== UPDATE ====
 # ==== DELETE ====
 # ==== STATIC ====

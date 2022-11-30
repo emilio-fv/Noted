@@ -4,36 +4,37 @@ Home |
 {% endblock %}
 
 {% block content %}
-<section id="dashboard" class="section ">
+<section id="dashboard" class="section">
     <h1 id="greeting" class="is-size-3">, {{ logged_user.username }}!</h1>
-    <h2 class="is-size-5">New from other users</h2>
-    <div class="container">
+    <h2 class="is-size-5 m-4">New from other users</h2>
+    <div class="container m-4">
         <p>TODO: other users' reviews </p>
     </div>
-    <h2 class="is-size-5">Your latest reviews</h2>
-    <div class="container is-flex">
+    <h2 class="is-size-5 m-4">Your latest reviews</h2>
+    <div class="container is-flex is-justify-content-space-around m-4 ">
         {% for review in logged_user_reviews %}
             <div class="card">
                 <div class="card-image">
-                    <figure class="image">
-                        <img src="{{ review['img_url'] }}" alt="Album Cover">
+                    <figure class="image is-200x200">
+                        <img src="{{ review['img_url'] }}" alt="">
                     </figure>
                 </div>
                 <div class="card-content">
                     <div class="media">
-                        <div class="media-content">
-                            <p class="title is-4">{{ review['album_name'] }}</p>
-                            <p class="subtitle is-6">{{ review['artist_name'] }}</p>
+                        <div class="media-content has-text-centered">
+                            <p class="">{{ review['album_name'] }}</p>
+                            <p>{{ review['artist_name'] }}</p>
                         </div>
                     </div>
-                    <div class="content">
-                        {{ review['text'] }}
-                        <br>
-                        <time>{{ review['updated_at'].strftime("%-d %b %Y") }}</time>
-                        <br>
-                        <a href="/reviews/delete/{{ review['id'] }}" class="button is-danger">Delete</a>
+                    <div class="content is-flex is-justify-content-space-between">
+                        <p>{{ review['rating'] }} &#9733;</p>
+                        <p>{{ review['updated_at'].strftime("%d %b %Y") }}</p>
                     </div>
                 </div>
+                <footer class="card-footer">
+                    <a href="#" class="card-footer-item">Edit</a>
+                    <a href="/reviews/delete/{{ review['id'] }}" class="card-footer-item">Delete</a>
+                  </footer>
             </div>
         {% endfor %}
     </div>
