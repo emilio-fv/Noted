@@ -74,18 +74,20 @@ def search_users_form():
 @app.route('/users/search', methods=['POST']) # Search Users
 @login_required
 def search_users():
-    search_input = request.form['search_input']
     search_category = request.form['search_category']
-    
-    if search_category == "email":
-        search_results = User.get_one_by_email({'email': search_input })
-        print(search_results)
-        user = [{
-            'username': search_results.username,
-            'first_name': search_results.first_name,
-            'last_name': search_results.last_name
-        }]
-        return jsonify(user)
+    search_input = request.form['search_input']
+    search_results = User.get_many_by_user_input({
+        'category': search_category,
+        'input': search_input
+    })
+    all_users = []
+    for user in search_results:
+        this_user = {
+            'id': user.id,
+            'username': user.username
+        }
+        all_users.append(this_user)
+    return jsonify(all_users)
 
 @app.route('/users/view') # View User Profile
 def view_user():

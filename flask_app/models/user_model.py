@@ -43,13 +43,26 @@ class User:
 
     @classmethod # Query database with search category 
     def get_many_by_user_input(self, data):
-        query = "SELECT * FROM users WHERE %(category)s LIKE %(input)s"
+        if data['category'] == 'username':
+            query = "SELECT * FROM users WHERE username = %(input)s;"
+        if data['category'] == 'email':
+            query = "SELECT * FROM users WHERE email = %(input)s;"
         results = connectToMySQL(DATABASE).query_db(query, data)
         if results:
-            # 
-        return False
+            all_users = []
+            for row in results:
+                user_data = {
+                    **row
+                }
+                this_user = self(user_data)
+                all_users.append(this_user)
+            return all_users
+        return []
+
 # ==== UPDATE ====
+
 # ==== DELETE ====
+
 # ==== STATIC ====
     @staticmethod # Validate register form data
     def validate(user_data):
