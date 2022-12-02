@@ -23,6 +23,21 @@ class User:
         return connectToMySQL(DATABASE).query_db(query, data)
 
 # ==== READ ====
+    @classmethod # Get all user's
+    def get_all_users(self):
+        query = "SELECT * FROM users;"
+        results = connectToMySQL(DATABASE).query_db(query);
+        if results:
+            all_users = []
+            for row in results:
+                user_data = {
+                    **row
+                }
+                this_user = self(user_data)
+                all_users.append(this_user)
+            return all_users
+        return False
+
     @classmethod # Get a user's data by id
     def get_one_by_id(self, data):
         query = "SELECT * FROM users WHERE id = %(id)s;"
