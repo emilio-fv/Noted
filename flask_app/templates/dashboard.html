@@ -7,8 +7,29 @@ Home |
 <section id="dashboard" class="section">
     <h1 id="greeting" class="is-size-3">, {{ logged_user.username }}!</h1>
     <h2 class="is-size-5 m-4">New from other users</h2>
-    <div class="container m-4">
-        <p>TODO: other users' reviews </p>
+    <div class="container is-flex is-justify-content-space-around m-4 ">
+        {% for review in other_users_reviews %}
+            <div class="card">
+                <div class="card-image">
+                    <figure class="image is-200x200">
+                        <img src="{{ review['img_url'] }}" alt="">
+                    </figure>
+                </div>
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-content has-text-centered">
+                            <p class="">{{ review['album_name'] }}</p>
+                            <p>{{ review['artist_name'] }}</p>
+                            <p>Reviewed by: {{ review['user']['username'] }}</p>
+                        </div>
+                    </div>
+                    <div class="content is-flex is-justify-content-space-between">
+                        <p>{{ review['rating'] }} &#9733;</p>
+                        <p>{{ review['updated_at'].strftime("%d %b %Y") }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
     <h2 class="is-size-5 m-4">Your latest reviews</h2>
     <div class="container is-flex is-justify-content-space-around m-4 ">
@@ -34,7 +55,7 @@ Home |
                 <footer class="card-footer">
                     <a href="#" class="card-footer-item">Edit</a>
                     <a href="/reviews/delete/{{ review['id'] }}" class="card-footer-item">Delete</a>
-                  </footer>
+                </footer>
             </div>
         {% endfor %}
     </div>

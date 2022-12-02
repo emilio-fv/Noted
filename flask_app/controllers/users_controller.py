@@ -64,7 +64,10 @@ def logout():
 def dashboard():
     logged_user = User.get_one_by_id({'id': session['user_id']}) 
     logged_user_reviews = Review.get_all_by_user_id({'user_id': session['user_id']})
-    return render_template('dashboard.html', logged_user = logged_user, logged_user_reviews = logged_user_reviews)
+    other_users_reviews = Review.get_all({'user_id': session['user_id']})
+    for row in other_users_reviews:
+        print(row.user.username)
+    return render_template('dashboard.html', logged_user = logged_user, logged_user_reviews = logged_user_reviews, other_users_reviews = other_users_reviews)
 
 @app.route('/users/search') # Search Users Form
 @login_required
