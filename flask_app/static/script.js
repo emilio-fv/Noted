@@ -25,11 +25,12 @@ function submitMusicForm(event) { // Spotify API - Music Search
                             </div>
                             <div class="card-content">
                                 <div class="media">
-                                <div class="media-content has-text-centered">
-                                    <p class="title is-4">${ data[row]['album_name'] }</p>
-                                    <p class="subtitle is-6">${ data[row]['artist_name'] }</p>
+                                    <div class="media-content has-text-centered">
+                                        <p class="title is-4">${ data[row]['album_name'] }</p>
+                                        <p class="subtitle is-6">${ data[row]['artist_name'] }</p>
+                                    </div>
                                 </div>
-                                </div>
+                            </div>
                         </a>`
                 }
                 if (music_search_category === "track") {
@@ -42,12 +43,13 @@ function submitMusicForm(event) { // Spotify API - Music Search
                             </div>
                             <div class="card-content">
                                 <div class="media">
-                                <div class="media-content has-text-centered">
-                                    <p class="title is-4">${ data[row]['track_name'] }</p>
-                                    <p class="subtitle is-6">${ data[row]['album_name'] }</p>
-                                    <p class="subtitle is-6">${ data[row]['artist_name'] }</p>
+                                    <div class="media-content has-text-centered">
+                                        <p class="title is-4">${ data[row]['track_name'] }</p>
+                                        <p class="subtitle is-6">${ data[row]['album_name'] }</p>
+                                        <p class="subtitle is-6">${ data[row]['artist_name'] }</p>
+                                    </div>
                                 </div>
-                                </div>
+                            </div>
                         </a>`
                 }
                 if (music_search_category === "artist") {
@@ -60,10 +62,11 @@ function submitMusicForm(event) { // Spotify API - Music Search
                             </div>
                             <div class="card-content">
                                 <div class="media">
-                                <div class="media-content has-text-centered">
-                                    <p class="title is-4">${ data[row]['artist_name'] }</p>
+                                    <div class="media-content has-text-centered">
+                                        <p class="title is-4">${ data[row]['artist_name'] }</p>
+                                    </div>
                                 </div>
-                                </div>
+                            </div>
                         </a>`
                 }
                 newElement.setAttribute("class","column is-one-quarter card");
@@ -78,17 +81,33 @@ function submitUserForm(event) { // Search Users
     var user_search_results = document.getElementById("user_search_results");
     var user_search_category = document.getElementById("user_search_category").value;
 
-
     clearDiv(user_search_results);
 
     var form = new FormData(user_search_form);
 
-    // make api call
     searchUsers(form)
         .then( data => {
             for (row in data) {
                 var newElement = document.createElement("div");
-                newElement.innerHTML = `<h1>${ data[row]['username']}</h1>`;
+                newElement.innerHTML = `
+                    
+                    <a href="#">
+                        <div class="card-image">
+                            <figure class="image">
+                                <img src="" alt="User Avatar">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content has-text-centered">
+                                    <h1>${ data[row]['username']}</h1>
+                                    <p>${ data[row]['first_name'] } ${ data[row]['last_name'] }</p>
+                                    <p>User since: ${ data[row]['created_at'] }</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                `;
                 newElement.setAttribute("class","column is-one-quarter card");
                 user_search_results.appendChild(newElement);
             }

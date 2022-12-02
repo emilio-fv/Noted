@@ -76,15 +76,21 @@ def search_users_form():
 def search_users():
     search_category = request.form['search_category']
     search_input = request.form['search_input']
-    search_results = User.get_many_by_user_input({
-        'category': search_category,
-        'input': search_input
-    })
+    if search_category == 'username' or search_category == 'email':
+        search_results = User.get_many_by_user_input({
+            'category': search_category,
+            'input': search_input
+        })
+    else:
+        search_results = User.get_all_users()
     all_users = []
     for user in search_results:
         this_user = {
             'id': user.id,
-            'username': user.username
+            'username': user.username,
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'created_at': user.created_at.strftime("%b %d %Y")
         }
         all_users.append(this_user)
     return jsonify(all_users)
