@@ -468,7 +468,7 @@ table th {
 
 .card-header-title {
   align-items: center;
-  color: #363636;
+  color: #F4F0F0;
   display: flex;
   flex-grow: 1;
   font-weight: 700;
@@ -7836,3 +7836,9 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
 #album_view img {
   max-width: 45%;
   height: auto; }
+
+.review-card:hover .card {
+  box-shadow: 0 0 3px white; }
+
+.review-card:hover p {
+  text-shadow: 2px 2px 5px white; }
