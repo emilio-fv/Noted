@@ -64,11 +64,9 @@ def logout():
 @login_required
 def dashboard():
     logged_user = User.get_one_by_id({'id': session['user_id']}) 
-    logged_user_reviews = Review.get_all_by_user_id({'user_id': session['user_id']})
+    logged_users_latest_reviews = Review.get_latest_by_user({'user_id': session['user_id']})
     other_users_reviews = Review.get_all({'user_id': session['user_id']})
-    for row in other_users_reviews:
-        print(row.user.username)
-    return render_template('dashboard.html', logged_user = logged_user, logged_user_reviews = logged_user_reviews, other_users_reviews = other_users_reviews)
+    return render_template('dashboard.html', logged_user = logged_user, logged_users_latest_reviews = logged_users_latest_reviews, other_users_reviews = other_users_reviews)
 
 @app.route('/users/search') # Search Users Form
 @login_required
@@ -101,7 +99,10 @@ def search_users():
 
 @app.route('/users/view/<user_id>') # View User Profile
 def view_user(user_id):
-    print(user_id)
-    users_profile_data = Review.get_all_by_user_id({'user_id': user_id})
-    print(users_profile_data)
-    return render_template('user_view.html')
+    users_data = User.get_one_by_id({'id': user_id})
+    users_reviews = Review.get_all_by_user_id({'user_id': user_id})
+    latest_reviews = Review.get_latest_by_user({'user_id': user_id})
+    artist_count = Review.get_count_all_artists({'user_id': user_id})
+    reviews_this_year = Review.get_count_of_current_year_reviews({'user_id': user_id})
+    top_rated_reviews = Review.get_top_rated_of_user({'user_id': user_id})
+    return render_template('user_view.html', users_data = users_data, users_reviews = users_reviews, latest_reviews = latest_reviews, artist_count = artist_count, reviews_this_year = reviews_this_year, top_rated_reviews = top_rated_reviews)
