@@ -23,9 +23,24 @@ class User:
         return connectToMySQL(DATABASE).query_db(query, data)
 
 # ==== READ ====
-    @classmethod # Get all user's
+    @classmethod # Get all users
     def get_all_users(self):
         query = "SELECT * FROM users;"
+        results = connectToMySQL(DATABASE).query_db(query);
+        if results:
+            all_users = []
+            for row in results:
+                user_data = {
+                    **row
+                }
+                this_user = self(user_data)
+                all_users.append(this_user)
+            return all_users
+        return False
+
+    @classmethod # Get all users except logged in user
+    def get_all_not_logged_in_users(self, data):
+        query = "SELECT * FROM users WHERE NOT id = %(user_id)s;"
         results = connectToMySQL(DATABASE).query_db(query);
         if results:
             all_users = []
