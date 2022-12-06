@@ -32,6 +32,7 @@ def search_music():
             one_track = {
                 'track_id': track['id'],
                 'track_name': track['name'],
+                'album_id': track['album']['id'],
                 'album_name': track['album']['name'],
                 'artist_name': track['artists'][0]['name'],
                 'album_img': track['album']['images'][0]['url']

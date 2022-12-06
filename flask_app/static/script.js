@@ -35,7 +35,7 @@ function submitMusicForm(event) { // Spotify API - Music Search
                 }
                 if (music_search_category === "track") {
                     newElement.innerHTML = 
-                        `<a href="#">
+                        `<a href="/music/view/${ data[row]['album_id'] }">
                             <div class="card-image">
                                 <figure class="image">
                                     <img src="${ data[row]['album_img'] }" alt="Album Cover">
@@ -90,8 +90,7 @@ function submitUserForm(event) { // Search Users
             for (row in data) {
                 var newElement = document.createElement("div");
                 newElement.innerHTML = `
-                    
-                    <a href="#">
+                    <a href="/users/view/${ data[row]['id'] }">
                         <div class="card-image">
                             <figure class="image">
                                 <img src="" alt="User Avatar">

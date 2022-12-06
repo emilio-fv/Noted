@@ -27,6 +27,8 @@ $button-hover-color: $white;
 $button-border-color: $green;
 $button-hover-border-color: $green;
 $box-background-color: $grey;
+$card-header-color: $white;
+// $card-header-weight: normal;
 
 // Login Form
 $label-color: $white;
@@ -96,3 +98,12 @@ $card-media-margin: 1rem;
 //         max-width: 1000px;
 //     }
 // }
+
+.review-card:hover {
+    .card {
+        box-shadow: 0 0 3px white;
+    }
+    p {
+        text-shadow: 2px 2px 5px white;
+    }
+}

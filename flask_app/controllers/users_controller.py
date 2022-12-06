@@ -98,6 +98,9 @@ def search_users():
         all_users.append(this_user)
     return jsonify(all_users)
 
-@app.route('/users/view') # View User Profile
-def view_user():
+@app.route('/users/view/<user_id>') # View User Profile
+def view_user(user_id):
+    print(user_id)
+    users_profile_data = Review.get_all_by_user_id({'user_id': user_id})
+    print(users_profile_data)
     return render_template('user_view.html')
