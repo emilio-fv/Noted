@@ -41,7 +41,7 @@ class User:
     @classmethod # Get all users except logged in user
     def get_all_not_logged_in_users(self, data):
         query = "SELECT * FROM users WHERE NOT id = %(user_id)s;"
-        results = connectToMySQL(DATABASE).query_db(query);
+        results = connectToMySQL(DATABASE).query_db(query, data);
         if results:
             all_users = []
             for row in results:

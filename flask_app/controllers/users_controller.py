@@ -86,7 +86,7 @@ def search_users():
             'input': search_input
         })
     else:
-        search_results = User.get_all_users()
+        search_results = User.get_all_not_logged_in_users({ 'user_id': session['user_id'] })
     all_users = []
     for user in search_results:
         this_user = {
