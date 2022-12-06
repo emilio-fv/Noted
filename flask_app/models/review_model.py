@@ -79,6 +79,49 @@ class Review:
             return all_reviews
         return []
 
+    @classmethod # Get count of all artists reviewed
+    def get_count_all_artists(self, data):
+        query = "SELECT COUNT(DISTINCT artist_name) AS num FROM reviews WHERE user_id = %(user_id)s;"
+        results = connectToMySQL(DATABASE).query_db(query, data)
+        return results[0]
+
+    @classmethod  # Get count of 2022 reviews
+    def get_count_of_current_year_reviews(self, data):
+        query = "SELECT COUNT(*) AS num FROM reviews WHERE user_id = %(user_id)s AND date >= '2022-01-01';"
+        results = connectToMySQL(DATABASE).query_db(query, data)
+        return results[0]
+
+    @classmethod # Get top rated reviews
+    def get_top_rated_of_user(self, data):
+        query = "SELECT * FROM reviews WHERE user_id = %(user_id)s ORDER BY rating DESC LIMIT 5;"
+        results = connectToMySQL(DATABASE).query_db(query, data)
+        if results: 
+
+            all_reviews = []
+            for row in results:
+                review_data = {
+                    **row
+                }
+                this_review = Review(review_data)
+                all_reviews.append(this_review)
+            return all_reviews
+        return False
+
+    @classmethod # Get latest reviews by user
+    def get_latest_by_user(self, data):
+        query = "SELECT * FROM reviews WHERE user_id = %(user_id)s ORDER BY created_at DESC LIMIT 5;";
+        results = connectToMySQL(DATABASE).query_db(query, data)
+        if results:
+            all_reviews = []
+            for row in results:
+                review_data = {
+                    **row
+                }
+                this_review = Review(review_data)
+                all_reviews.append(this_review)
+            return all_reviews
+        return False
+
 # ==== UPDATE ====
 
 # ==== DELETE ====

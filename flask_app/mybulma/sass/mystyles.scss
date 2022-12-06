@@ -79,13 +79,6 @@ $card-media-margin: 1rem;
     }
 }
 
-// #dashboard {
-//     img {
-//         max-width: 25%;
-//         height: auto;
-//     };
-// }
-
 #album_view {
     img {
         max-width: 45%;
@@ -93,11 +86,15 @@ $card-media-margin: 1rem;
     }
 }
 
-// #review_form {
-//     form {
-//         max-width: 1000px;
-//     }
-// }
+.review-card {
+    max-width: 200px;
+    header {
+        max-height: 40px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+}
 
 .review-card:hover {
     .card {
@@ -105,5 +102,13 @@ $card-media-margin: 1rem;
     }
     p {
         text-shadow: 2px 2px 5px white;
+    }
+}
+
+.user-profile {
+    img {
+        max-width: 60%;
+        height: 100%;
+        height: auto;
     }
 }

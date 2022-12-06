@@ -7837,8 +7837,21 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   max-width: 45%;
   height: auto; }
 
+.review-card {
+  max-width: 200px; }
+  .review-card header {
+    max-height: 40px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap; }
+
 .review-card:hover .card {
   box-shadow: 0 0 3px white; }
 
 .review-card:hover p {
   text-shadow: 2px 2px 5px white; }
+
+.user-profile img {
+  max-width: 60%;
+  height: 100%;
+  height: auto; }
