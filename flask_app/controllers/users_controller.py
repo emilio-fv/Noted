@@ -13,6 +13,7 @@ bcrypt = Bcrypt(app) # Initialize Bcrypt
 
 @app.route('/') # Landing Page
 def index():
+    session['page'] = 'register'
     return render_template('landing_page.html')
 
 @app.route('/register') # Register Form
