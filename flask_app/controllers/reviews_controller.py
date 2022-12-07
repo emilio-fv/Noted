@@ -1,5 +1,5 @@
 from flask_app import app
-from flask import render_template, request, redirect, session, flash
+from flask import render_template, request, redirect, session, flash, jsonify
 from flask_app.models.review_model import Review 
 import pprint
 from flask_app.controllers.helpers import login_required, sp
@@ -26,11 +26,49 @@ def create_review():
     Review.create(review_data) 
     return redirect('/dashboard')
 
+@app.route('/reviews/search') # Search reviews form
+@login_required
+def search_reviews_form():
+    return render_template('review_search.html')
+
+
 # TODO Search Reviews
-@app.route('/reviews/search')
+@app.route('/reviews/search', methods=['POST'])
 @login_required
 def search_reviews():
-    return render_template('review_search.html')
+    search_input = request.form['search_input']
+    search_category = request.form['search_category']
+
+    if search_category == 'album':
+        search_results = Review.get_all_by_album({'album_name': search_input})
+
+    if search_category == 'artist':
+        search_results = Review.get_all_by_artist({'artist_name': search_input})
+
+    if search_category == 'username':
+        search_results = Review.get_all_by_username({'username': search_input})
+
+    all_reviews = []
+    for review in search_results:
+        this_review = {
+            'id': review.id,
+            'album_name': review.album_name,
+            'artist_name': review.artist_name,
+            'img_url': review.img_url,
+            'date': review.date,
+            'rating': review.rating,
+            'text': review.text,
+            'created_at': review.created_at,
+            'updated_at': review.updated_at,
+            'user_id': review.user_id,
+            'username': review.user.username,
+            'first_name': review.user.first_name,
+            'last_name': review.user.last_name,
+        }
+        all_reviews.append(this_review)
+    print(all_reviews)
+    return jsonify(all_reviews)
+
 
 # TODO View Review
 # TODO Edit Review

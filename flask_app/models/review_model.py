@@ -54,7 +54,7 @@ class Review:
         if len(results) > 0:
             this_review = self(results[0])
             return this_review
-        return False
+        return []
 
     @classmethod # Get all reviews not by logged in user
     def get_all(self, data):
@@ -85,7 +85,7 @@ class Review:
         results = connectToMySQL(DATABASE).query_db(query, data)
         return results[0]
 
-    @classmethod  # Get count of 2022 reviews
+    @classmethod  # Get count of current year reviews
     def get_count_of_current_year_reviews(self, data):
         query = "SELECT COUNT(*) AS num FROM reviews WHERE user_id = %(user_id)s AND date >= '2022-01-01';"
         results = connectToMySQL(DATABASE).query_db(query, data)
@@ -105,11 +105,11 @@ class Review:
                 this_review = Review(review_data)
                 all_reviews.append(this_review)
             return all_reviews
-        return False
+        return []
 
     @classmethod # Get latest reviews by user
     def get_latest_by_user(self, data):
-        query = "SELECT * FROM reviews WHERE user_id = %(user_id)s ORDER BY created_at DESC LIMIT 5;";
+        query = "SELECT * FROM reviews WHERE user_id = %(user_id)s ORDER BY created_at DESC LIMIT 5;"
         results = connectToMySQL(DATABASE).query_db(query, data)
         if results:
             all_reviews = []
@@ -120,8 +120,76 @@ class Review:
                 this_review = Review(review_data)
                 all_reviews.append(this_review)
             return all_reviews
-        return False
+        return []
 
+    @classmethod # Get all by album 
+    def get_all_by_album(self, data):
+        query = "SELECT * FROM reviews JOIN users ON reviews.user_id = users.id WHERE album_name = %(album_name)s;"
+        results = connectToMySQL(DATABASE).query_db(query, data)
+        if results:
+            all_reviews = []
+            for row in results:
+                review_data = {
+                    **row
+                }
+                this_review = Review(review_data)
+                user_data = {
+                    **row,
+                    'id': row['users.id'],
+                    'created_at': row['users.created_at'],
+                    'updated_at': row['users.updated_at']
+                }
+                this_user = User(user_data)
+                this_review.user = this_user
+                all_reviews.append(this_review)
+            return all_reviews
+        return []
+
+    @classmethod # Get all by artist
+    def get_all_by_artist(self, data):
+        query = "SELECT * FROM reviews JOIN users ON reviews.user_id = users.id WHERE artist_name = %(artist_name)s;"
+        results = connectToMySQL(DATABASE).query_db(query, data)
+        if results:
+            all_reviews = []
+            for row in results:
+                review_data = {
+                    **row
+                }
+                this_review = Review(review_data)
+                user_data = {
+                    **row,
+                    'id': row['users.id'],
+                    'created_at': row['users.created_at'],
+                    'updated_at': row['users.updated_at']
+                }
+                this_user = User(user_data)
+                this_review.user = this_user
+                all_reviews.append(this_review)
+            return all_reviews
+        return []
+
+    @classmethod # Get all by username
+    def get_all_by_username(self, data):
+        query = "SELECT * FROM reviews JOIN users ON reviews.user_id = users.id WHERE username = %(username)s;"
+        results = connectToMySQL(DATABASE).query_db(query, data)
+        if results:
+            all_reviews = []
+            for row in results:
+                review_data = {
+                    **row
+                }
+                this_review = Review(review_data)
+                user_data = {
+                    **row,
+                    'id': row['users.id'],
+                    'created_at': row['users.created_at'],
+                    'updated_at': row['users.updated_at']
+                }
+                this_user = User(user_data)
+                this_review.user = this_user
+                all_reviews.append(this_review)
+            return all_reviews
+        return []
 # ==== UPDATE ====
 
 # ==== DELETE ====
