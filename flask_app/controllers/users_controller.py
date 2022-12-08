@@ -65,7 +65,7 @@ def logout():
 def dashboard():
     logged_user = User.get_one_by_id({'id': session['user_id']}) 
     logged_users_latest_reviews = Review.get_latest_by_user({'user_id': session['user_id']})
-    other_users_reviews = Review.get_all({'user_id': session['user_id']})
+    other_users_reviews = Review.get_recent_reviews({'user_id': session['user_id']})
     return render_template('dashboard.html', logged_user = logged_user, logged_users_latest_reviews = logged_users_latest_reviews, other_users_reviews = other_users_reviews)
 
 @app.route('/users/search') # Search Users Form
