@@ -190,6 +190,30 @@ class Review:
                 all_reviews.append(this_review)
             return all_reviews
         return []
+
+    @classmethod # Get latest by all users 
+    def get_recent_reviews(self, data):
+        query = "SELECT * FROM reviews JOIN users ON reviews.user_id = users.id WHERE reviews.user_id <> %(user_id)s ORDER BY reviews.created_at DESC LIMIT 5;"
+        results = connectToMySQL(DATABASE).query_db(query, data)
+        if results:
+            all_reviews = []
+            for row in results:
+                review_data = {
+                    **row
+                }
+                this_review = Review(review_data)
+                user_data = {
+                    **row,
+                    'id': row['users.id'],
+                    'created_at': row['users.created_at'],
+                    'updated_at': row['users.updated_at']
+                }
+                this_user = User(user_data)
+                this_review.user = this_user
+                all_reviews.append(this_review)
+            return all_reviews
+        return []
+
 # ==== UPDATE ====
 
 # ==== DELETE ====
