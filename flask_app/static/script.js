@@ -1,6 +1,8 @@
-console.log("Script attached good to go") // Test Script Connection
+// Test Script Connection
+console.log("Script attached good to go") 
 
-function submitMusicForm(event) { // Spotify API - Music Search 
+// Search Music
+function submitMusicForm(event) { 
     event.preventDefault();
 
     var music_search_form = document.getElementById('music_search_form');
@@ -75,7 +77,8 @@ function submitMusicForm(event) { // Spotify API - Music Search
         .catch( err => console.log(err) )
 }
 
-function submitUserForm(event) { // Search Users
+// Search Users
+function submitUserForm(event) { 
     event.preventDefault();
     var user_search_form = document.getElementById("user_search_form");
     var user_search_results = document.getElementById("user_search_results");
@@ -112,23 +115,55 @@ function submitUserForm(event) { // Search Users
             }
         })
         .catch( err => console.log(err))
-    // update div
 }
 
+// Search Reviews
+function submitReviewSearchForm(event) {
+    event.preventDefault();
+    var review_search_form = document.getElementById("review_search_form");
+    var review_search_results = document.getElementById("review_search_results");
+    
+    clearDiv(review_search_results);
+
+    var form = new FormData(review_search_form);
+
+    searchReviews(form)
+        .then( data => {
+            for (row in data) {
+                var newElement = document.createElement("div");
+                newElement.innerHTML = `
+                `;
+                newElement.setAttribute();
+                review_search_results.appendChild(newElement);
+            }
+        })
+        .catch( err => console.log(err))
+}
+
+// Clear html element
 function clearDiv(element) { // Clear Element
     while(element.firstElementChild) {
         element.firstElementChild.remove();
     }
 }
 
+// Spotify API Call
 async function searchSpotify(form_data) { 
     let response = await fetch("http://127.0.0.1:5000/music/search", { method: 'POST', body: form_data});
     let data = await response.json();
     return data;
 }
 
+// User DB API Call
 async function searchUsers(form_data) {
     let response = await fetch("http://127.0.0.1:5000/users/search", { method: 'POST', body: form_data});
+    let data = await response.json();
+    return data;
+}
+
+// Review DB API Call
+async function searchReviews(form_data) {
+    let response = await fetch("http://127.0.0.1:5000/reviews/search", { method: 'POST', body: form_data});
     let data = await response.json();
     return data;
 }
