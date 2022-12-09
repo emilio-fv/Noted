@@ -3360,6 +3360,12 @@ div.icon-text {
   .image.is-200x200 {
     height: 200px;
     width: 200px; }
+  .image.is-250x250 {
+    height: 250px;
+    width: 250px; }
+  .image.is-300x300 {
+    height: 300px;
+    width: 300px; }
 
 .notification {
   background-color: whitesmoke;
@@ -7832,10 +7838,6 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   gap: .5rem; }
   .login-form form ::placeholder, .register-form form ::placeholder {
     color: #F4F0F0; }
-
-#album_view img {
-  max-width: 45%;
-  height: auto; }
 
 .review-card header p {
   max-width: 10ch;

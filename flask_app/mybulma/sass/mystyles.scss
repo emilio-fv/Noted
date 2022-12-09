@@ -11,7 +11,7 @@ $white: #F4F0F0;
 $black: #15151b;
 $grey: #242430;
 $light-grey: #6b6b92;
-$dimensions: 5 16 24 32 48 64 96 128 200;
+$dimensions: 5 16 24 32 48 64 96 128 200 250 300;
 
 // $text: $white;
 $text: $white;
@@ -76,13 +76,6 @@ $card-media-margin: 1rem;
         ::placeholder {
             color: $white;
         }
-    }
-}
-
-#album_view {
-    img {
-        max-width: 45%;
-        height: auto;
     }
 }
 
