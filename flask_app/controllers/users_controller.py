@@ -92,7 +92,7 @@ def search_users():
             'username': user.username,
             'first_name': user.first_name,
             'last_name': user.last_name,
-            'created_at': user.created_at.strftime("%b %d %Y")
+            'created_at': user.created_at.strftime("%b %Y")
         }
         all_users.append(this_user)
     return jsonify(all_users)

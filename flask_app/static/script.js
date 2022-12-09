@@ -19,40 +19,35 @@ function submitMusicForm(event) {
                 var newElement = document.createElement("div");
                 if (music_search_category === "album") {
                     newElement.innerHTML = 
-                        `<a href="/music/view/${ data[row]['album_id']}">
+                        `<div class="card">
                             <div class="card-image">
                                 <figure class="image">
-                                    <img src="${ data[row]['album_img'] }" alt="Album Cover">
+                                    <a href="/music/view/${ data[row]['album_id']}">
+                                        <img src="${ data[row]['album_img'] }" alt="Album cover">
+                                    </a>
                                 </figure>
+                                <header class="card-header is-flex is-flex-direction-column	is-align-items-center py-3">
+                                    <p class="is-size-4">${ data[row]['album_name'] }</p>
+                                    <p class="is-size-5">${ data[row]['artist_name'] }</p>
+                                </header>
                             </div>
-                            <div class="card-content">
-                                <div class="media">
-                                    <div class="media-content has-text-centered">
-                                        <p class="title is-4">${ data[row]['album_name'] }</p>
-                                        <p class="subtitle is-6">${ data[row]['artist_name'] }</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>`
+                        </div>`
                 }
                 if (music_search_category === "track") {
                     newElement.innerHTML = 
-                        `<a href="/music/view/${ data[row]['album_id'] }">
+                        `<div class="card">
                             <div class="card-image">
                                 <figure class="image">
-                                    <img src="${ data[row]['album_img'] }" alt="Album Cover">
+                                    <a href="/music/view/${ data[row]['album_id']}">
+                                        <img src="${ data[row]['album_img'] }" alt="Album cover">
+                                    </a>
                                 </figure>
+                                <header class="card-header is-flex is-flex-direction-column	is-align-items-center py-3">
+                                    <p class="is-size-4">${ data[row]['track_name'] }</p>
+                                    <p class="is-size-5">${ data[row]['artist_name'] }</p>
+                                </header>
                             </div>
-                            <div class="card-content">
-                                <div class="media">
-                                    <div class="media-content has-text-centered">
-                                        <p class="title is-4">${ data[row]['track_name'] }</p>
-                                        <p class="subtitle is-6">${ data[row]['album_name'] }</p>
-                                        <p class="subtitle is-6">${ data[row]['artist_name'] }</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>`
+                        </div>`
                 }
                 if (music_search_category === "artist") {
                     newElement.innerHTML = 
@@ -71,7 +66,7 @@ function submitMusicForm(event) {
                             </div>
                         </a>`
                 }
-                newElement.setAttribute("class","column is-one-quarter card");
+                newElement.setAttribute("class","column is-one-quarter p-6 review-card");
                 music_search_results.appendChild(newElement);
             }})
         .catch( err => console.log(err) )
@@ -92,25 +87,21 @@ function submitUserForm(event) {
         .then( data => {
             for (row in data) {
                 var newElement = document.createElement("div");
-                newElement.innerHTML = `
+                newElement.innerHTML = 
+                `<div class="card">
                     <a href="/users/view/${ data[row]['id'] }">
                         <div class="card-image">
-                            <figure class="image">
-                                <img src="" alt="User Avatar">
+                            <figure class="image px-6 py-3">
+                                <img src="../static/img/avatar.png" alt="User avatar">
                             </figure>
-                        </div>
-                        <div class="card-content">
-                            <div class="media">
-                                <div class="media-content has-text-centered">
-                                    <h1>${ data[row]['username']}</h1>
-                                    <p>${ data[row]['first_name'] } ${ data[row]['last_name'] }</p>
-                                    <p>User since: ${ data[row]['created_at'] }</p>
-                                </div>
-                            </div>
+                            <header class="card-header is-flex is-flex-direction-column	is-align-items-center py-3">
+                                <p class="is-size-4">${ data[row]['username'] }</p>
+                                <p class="is-size-5">User since: ${ data[row]['created_at'] }</p>
+                            </header>
                         </div>
                     </a>
-                `;
-                newElement.setAttribute("class","column is-one-quarter card");
+                </div>`;
+                newElement.setAttribute("class","column is-one-quarter p-6 user-card");
                 user_search_results.appendChild(newElement);
             }
         })

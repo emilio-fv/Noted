@@ -89,7 +89,7 @@ $card-media-margin: 1rem;
 .review-card {
     header {
         p {
-            max-width: 15ch;
+            max-width: 10ch;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -97,12 +97,13 @@ $card-media-margin: 1rem;
     }
 }
 
-.review-card:hover {
+.review-card:hover,
+.user-card:hover {
     .card {
         box-shadow: 0 0 3px white;
     }
     p {
-        text-shadow: 0px 0px 5px white;
+        text-shadow: 0px 0px 1px white;
     }
 }
 
