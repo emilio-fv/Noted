@@ -4,30 +4,66 @@ View Album |
 {% endblock %}
 
 {% block content %}
-<section id="album_view" class="section is-flex is-align-items-center">
-    <div class="is-flex is-flex-direction-column is-justify-content-center is-align-items-center ">
-        <figure class="image is-flex is-justify-content-center">
-            <img src="{{ album_data['album_img'] }}" alt="Album cover">
-        </figure>
-    </div>
-    <div>
-        <h1 class="is-size-2">{{ album_data['album_name'] }}</h1>
-        <h2 class="is-size-3">{{ album_data['artist_name'] }}</h2>
-        <a href="/reviews/new/{{ album_data['album_id'] }}">Create Review</a>
-    </div>
-</section>
-<section class="section columns">
-    <div class="column is-half has-text-centered">
-        <h1 class="is-size-4">Tracks</h1>
-        <div>
-            {% for track in album_data['album_tracks'] %}
-                <p>{{ track }}</p>
-            {% endfor %}
+<section class="section">
+    <div class="columns is-vcentered px-6">
+        <div class="column is-3">
+            <figure class="image is-250x250">
+                <img src="{{ album_data['album_img'] }}" alt="Album cover">
+            </figure>
+        </div>
+        <div class="column is-one-quarter ml-3">
+            <h1 class="is-size-2">{{ album_data['album_name'] }}</h1>
+            <h2 class="is-size-3">{{ album_data['artist_name'] }}</h2>
+            <a href="/reviews/new/{{ album_data['album_id'] }}">Create Review</a>
+        </div>
+        <div class="column">
+            <div class="columns has-text-centered">
+                <div class="column ">
+                    <p>{{ average_rating }}</p>
+                    <p>Average Rating</p>
+                </div>
+                <div class="column">
+                    <p>{{ all_reviews|length  }}</p>
+                    <p># of Reviews</p>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="column is-half">
-        <h1 class="is-size-4">Latest Reviews</h1>
-        
+</section>
+<section class="section">
+    <div class="columns px-6">
+        <div class="column is-one-third has-text-centered">
+            <h1 class="is-size-4 pb-3">Tracks</h1>
+            <div class="box has-text-centered">
+                {% for track in album_data['album_tracks'] %}
+                    <p>{{ track }}</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="column has-text-centered">
+            <h1 class="is-size-4 pb-3">Latest Reviews</h1>
+            {% for review in all_reviews %}
+                <div class="box">
+                    <div class="is-flex is-align-items-center">
+                        <span class="icon mx-2">
+                            <i class="fa-regular fa-user"></i>
+                        </span>
+                        <a href="/users/view/{{ review['user_id'] }}">{{ review['username'] }}</a>
+                        <p class="is-size-7 ml-4">
+                            {% for x in range(review['rating']) %} 
+                                &#9733;
+                            {% endfor %}
+                        </p>
+                    </div>
+                    <div class="has-text-left px-6 pt-4">
+                        <p>{{ review['text'] }}</p>
+                    </div>
+                    <div class="has-text-right px-6">
+                        <p>{{ review['updated_at'].strftime("%b %Y") }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </section>
 {% endblock %}

@@ -66,7 +66,7 @@ def search_reviews():
             'last_name': review.user.last_name,
         }
         all_reviews.append(this_review)
-    print(all_reviews)
+
     return jsonify(all_reviews)
 
 

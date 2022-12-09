@@ -122,9 +122,32 @@ class Review:
             return all_reviews
         return []
 
-    @classmethod # Get all by album 
+    @classmethod # Get all by album name
     def get_all_by_album(self, data):
         query = "SELECT * FROM reviews JOIN users ON reviews.user_id = users.id WHERE album_name = %(album_name)s;"
+        results = connectToMySQL(DATABASE).query_db(query, data)
+        if results:
+            all_reviews = []
+            for row in results:
+                review_data = {
+                    **row
+                }
+                this_review = Review(review_data)
+                user_data = {
+                    **row,
+                    'id': row['users.id'],
+                    'created_at': row['users.created_at'],
+                    'updated_at': row['users.updated_at']
+                }
+                this_user = User(user_data)
+                this_review.user = this_user
+                all_reviews.append(this_review)
+            return all_reviews
+        return []
+
+    @classmethod # Get all by album id
+    def get_all_by_album_id(self, data):
+        query = "SELECT * FROM reviews JOIN users ON reviews.user_id = users.id WHERE album_id = %(album_id)s;"
         results = connectToMySQL(DATABASE).query_db(query, data)
         if results:
             all_reviews = []
