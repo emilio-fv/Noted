@@ -87,8 +87,8 @@ def view_album(album_id):
             'last_name': review.user.last_name,
         }
         all_reviews.append(this_review)
-    average_rating = average_rating / len(all_reviews)
-
+    if len(all_reviews) > 0:
+        average_rating = average_rating / len(all_reviews)
     return render_template('album_view.html', album_data = album_data, all_reviews = all_reviews, average_rating = average_rating)
 
 # TODO View Artist
