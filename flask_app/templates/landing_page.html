@@ -1,77 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Note-d</title>
-    <link rel="stylesheet" href="/static/css/mystyles.css">
-</head>
-<body id="lp">
-    
-    <!-- Nav Bar -->
-    <navbar>
-        <div class="container has-text-centered p-4">
-            <h1 class="is-size-1">Note-d</h1>
+{% extends "base.html" %}
+{% block title %}
+{% endblock %}
+
+{% block content %}
+<div class="section is-medium">
+    <div class="columns pt-6">
+        <div class="column">
+            <figure class="landing-page image">
+                <img src="../static/img/green_sound_wave.png" alt="Green sound wave">
+            </figure>
         </div>
-    </navbar>
-    <!-- Main Content -->
-    <main>
-        <div class="left is-flex is-flex-direction-column is-align-items-center is-justify-content-center">
-            <!-- Register Form -->
-            <h2 class="is-size-2 has-text-centered">Register</h2>
-            <form class="box" action="/register" method="post" autocomplete="off">
-                <!-- <label for="username" >Username</label> -->
-                <div class="field">
-                    <p class="control">
-                        <input class="input has-text-centered"" type="text" name="username" id="username" placeholder="Username">  
-                    </p>
-                </div>
-                <div class="field">
-                    <p class="control">
-                        <input class="input has-text-centered" type="text" name="first_name" id="first_name" placeholder="First Name">
-                    </p>
-                </div>
-                <div class="field">
-                    <p class="control">
-                        <input class="input has-text-centered" type="text" name="last_name" id="last_name" placeholder="Last Name">
-                    </p>
-                </div>
-                <div class="field">
-                    <p class="control">
-                        <input class="input has-text-centered" type="email" name="email" id="email" placeholder="Email">
-                    </p>
-                </div>
-                <div class="field">
-                    <p class="control">
-                        <input class="input has-text-centered" type="password" name="password" id="password" placeholder="Password">
-                    </p>
-                </div>
-                <div class="field">
-                    <p class="control">
-                        <input class="input has-text-centered" type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password">
-                    </p>
-                </div>
-                <div>
-                    <div class="control">
-                        <button class="button">Submit</button>
-                    </div>
-                </div>
-                <div class="mt-3">
-                    {% for message in get_flashed_messages(category_filter = ['reg']) %}
-                        <p class="has-text-danger is-size-7">{{message}}</p>
-                    {% endfor %}
-                </div>
-            </form>
-            <p class="has-text-centered">Already Registered? <a href="/login">Login</a></p>
+        <div class="column has-text-centered is-size-4 p-6">
+            <p>Track what you've listened to.</p>
+            <p>Save to check out later.</p>
+            <p>Share with your friends.</p>
+            <a href="/register" class="button mt-5">Join Note-d</a>
         </div>
-        <div class="right is-flex is-flex-direction-column is-align-items-center is-justify-content-center"">
-            <div class="is-flex is-flex-direction-column is-align-items-center is-justify-content-center">
-                <p class="is-size-3 has-text-centered">Track what you've listened to.</p>
-                <p class="is-size-3 has-text-centered">Save you favorites.</p>
-                <p class="is-size-3 has-text-centered">Share with other users.</p>
-            </div>
-        </div>
-    </main>
-</body>
-</html>
+    </div>
+</div>
+{% endblock %}

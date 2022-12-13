@@ -8,6 +8,7 @@ node_modules/
 ### Api Keys ###
 constants.py
 .cache
+clipboard.html
 
 ### Flask ###
 .DS_Store

@@ -1,87 +1,68 @@
-{% extends "main_layout.html" %}
-{% block title %}Create Review{% endblock %}
+{% extends "base.html" %}
+{% block title %}
+Create Review |
+{% endblock %}
 
 {% block content %}
-<!-- Create Review Form -->
-<section class="section is-medium">
-    <div class="box">
-        <h1 class="is-size-3 has-text-centered">Create Review</h1>
-        <!-- TODO: Add form action -->
-        <form action="/reviews/create/{{ album_data['album_id'] }}" method="post">
-            <div class="field is-horizontal">
-                <div class="field-label is-normal"">
-                    <label class="label" for="date">Date of Review</label>
+<section id="review_form" class="section">
+    <h1 class="is-size-2 has-text-centered">Create A Review</h1>
+    <form action="/reviews/create" method="post">
+        <input type="hidden" name="album_id" value="{{ album_data['album_id'] }}">
+        <div class="columns">
+            <div class="column is-two-thirds">
+                <div class="field">
+                    <label for="" class="label">Date</label>
+                    <div class="control">
+                        <input type="date" name="date" id="date">
+                    </div>
                 </div>
-                <div class="field-body">
-                    <div class="field">
-                        <div class="control">
-                            <input class="input" type="date" name="date" id="date">
-                        </div>
+                <div class="field">
+                    <label for="" class="label">Album</label>
+                    <div class="control">
+                        <input type="text" class="input" name="album_name" value="{{ album_data['album_name'] }}">
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="" class="label">Artist</label>
+                    <div class="control">
+                        <input type="text" class="input" name="artist_name" value="{{ album_data['artist_name']}}">
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="" class="label">Rating</label>
+                    <div class="control">
+                        <select name="rating" id="rating">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
                     </div>
                 </div>
             </div>
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label for="album_name" class="label">Album Title</label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <div class="control">
-                            <input type="text" name="album_name" id="album_name" class="input" value="{{ album_data['album_name'] }}">
-                        </div>
-                    </div>
-                </div>
+            <div class="column is-one-third">
+                <input type="hidden" name="img_url" value="{{ album_data['img_url'] }}">
+                <figure class="image is-128x128">
+                    <img src="{{ album_data['img_url'] }}" alt="Album cover">
+                </figure>
             </div>
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label for="rating" class="label">Rating</label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <div class="control">
-                            <div class="select">
-                                <select name="rating" id="rating">
-                                <option selected>Select Rating</option>
-                                <option value="1">1</option>
-                                <option value="1.5">1.5</option>
-                                <option value="2">2</option>
-                                <option value="2.5">2.5</option>
-                                <option value="3">3</option>
-                                <option value="3.5">3.5</option>
-                                <option value="4">4</option>
-                                <option value="4.5">4.5</option>
-                                <option value="5">5</option>
-                                </select>
-                            </div>
-                            </div>
-                    </div>
-                </div>
+        </div>
+
+        <div class="field">
+            <div class="control">
+                <textarea class="textarea" name="text" placeholder="Share you thoughts..."></textarea>
             </div>
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                    <label for="review" class="label">Review</label>
-                </div>
-                <div class="field-body">
-                    <div class="field">
-                        <div class="control">
-                            <textarea class="textarea" name="review" id="review" placeholder="Share your thoughts...."></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="field is-horizontal">
-                <div class="field-label">
-                    <!-- Left empty for spacing -->
-                    </div>
-                <div class="field-body">
-                    <div class="field">
-                        <div class="control">
-                        <button class="button is-primary">Add Review</button>
-                        </div>
-                    </div>
-                    </div>
-            </div>
-        </form>
-    </div>
+        </div>
+        
+        <div class="field is-grouped is-grouped-right">
+            <p class="control">
+                <button class="button is-primary">Submit</button>
+            </p>
+            <p class="control">
+                <a href="javascript:history.back()" class="button is-light">Cancel</a>
+              </p>
+        </div>
+    </form>
 </section>
 {% endblock %}

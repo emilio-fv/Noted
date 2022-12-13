@@ -23,6 +23,36 @@ class User:
         return connectToMySQL(DATABASE).query_db(query, data)
 
 # ==== READ ====
+    @classmethod # Get all users
+    def get_all_users(self):
+        query = "SELECT * FROM users;"
+        results = connectToMySQL(DATABASE).query_db(query);
+        if results:
+            all_users = []
+            for row in results:
+                user_data = {
+                    **row
+                }
+                this_user = self(user_data)
+                all_users.append(this_user)
+            return all_users
+        return False
+
+    @classmethod # Get all users except logged in user
+    def get_all_not_logged_in_users(self, data):
+        query = "SELECT * FROM users WHERE NOT id = %(user_id)s;"
+        results = connectToMySQL(DATABASE).query_db(query, data);
+        if results:
+            all_users = []
+            for row in results:
+                user_data = {
+                    **row
+                }
+                this_user = self(user_data)
+                all_users.append(this_user)
+            return all_users
+        return False
+
     @classmethod # Get a user's data by id
     def get_one_by_id(self, data):
         query = "SELECT * FROM users WHERE id = %(id)s;"
@@ -36,12 +66,33 @@ class User:
     def get_one_by_email(self, data):
         query = "SELECT * FROM users WHERE email = %(email)s;"
         results = connectToMySQL(DATABASE).query_db(query, data)
-        if len(results) < 1:
-            return False
-        return User(results[0])
+        if results:
+            user = User(results[0])
+            return user
+        return False
+
+    @classmethod # Query database with search category 
+    def get_many_by_user_input(self, data):
+        if data['category'] == 'username':
+            query = "SELECT * FROM users WHERE username = %(input)s;"
+        if data['category'] == 'email':
+            query = "SELECT * FROM users WHERE email = %(input)s;"
+        results = connectToMySQL(DATABASE).query_db(query, data)
+        if results:
+            all_users = []
+            for row in results:
+                user_data = {
+                    **row
+                }
+                this_user = self(user_data)
+                all_users.append(this_user)
+            return all_users
+        return []
 
 # ==== UPDATE ====
+
 # ==== DELETE ====
+
 # ==== STATIC ====
     @staticmethod # Validate register form data
     def validate(user_data):

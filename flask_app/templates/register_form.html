@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}
+Register |
+{% endblock %}
+
+{% block content %}
+    <div class="login-form section">
+        <h2 class="is-size-2 has-text-centered mb-5">Register</h2>
+        <form action="/users/register" method="post" autocomplete="off" class="is-flex is-justify-content-center is-align-items-center is-flex-direction-column">
+            <div class="field">
+                <p class="control">
+                    <input class="input has-text-centered is-normal" type="text" name="username" id="username" placeholder="Username">  
+                </p>
+            </div>
+            <div class="field">
+                <p class="control">
+                    <input class="input has-text-centered is-normal" type="text" name="first_name" id="first_name" placeholder="First Name">
+                </p>
+            </div>
+            <div class="field">
+                <p class="control">
+                    <input class="input has-text-centered is-normal" type="text" name="last_name" id="last_name" placeholder="Last Name">
+                </p>
+            </div>
+            <div class="field">
+                <p class="control">
+                    <input class="input has-text-centered is-normal" type="email" name="email" id="email" placeholder="Email">
+                </p>
+            </div>
+            <div class="field">
+                <p class="control">
+                    <input class="input has-text-centered is-normal" type="password" name="password" id="password" placeholder="Password">
+                </p>
+            </div>
+            <div class="field">
+                <p class="control">
+                    <input class="input has-text-centered is-normal" type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password">
+                </p>
+            </div>
+            <div class="field">
+                {% for message in get_flashed_messages(category_filter = ['reg']) %}
+                    <p class="has-text-danger is-size-6">{{message}}</p>
+                {% endfor %}
+            </div>
+            <div>
+                <div class="control">
+                    <button class="button">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

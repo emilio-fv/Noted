@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block title %}
-Search Users |
+Search Reviews |
 {% endblock %}
 
 {% block content %}
 <section class="section">
-    <h1 class="has-text-centered is-size-3 mb-5">Search Users</h1>
-    <form id="user_search_form" class="is-flex is-justify-content-center mb-5" onsubmit="submitUserForm(event)">
+    <h1 class="has-text-centered is-size-3 mb-5">Search Reviews</h1>
+    <form id="review_search_form" class="is-flex is-justify-content-center mb-5" onsubmit="submitReviewSearchForm(event)">
         <div class="field">
             <div class="control">
                 <input type="text" class="input" name="search_input" id="search_input" placeholder="Search by" autocomplete="off">
@@ -14,10 +14,10 @@ Search Users |
         </div>
         <div class="field">
             <div class="select">
-                <select name="search_category" id="user_search_category">
-                    <option value="name">All</option>
+                <select name="search_category" id="review_search_category">
+                    <option value="album">Album</option>
+                    <option value="artist">Artist</option>
                     <option value="username">Username</option>
-                    <option value="email">Email</option>
                 </select>
             </div>
         </div>
@@ -25,7 +25,8 @@ Search Users |
             <button class="button">Search</button>
         </div>
     </form>
-    <div id="user_search_results" class="columns is-multiline">
+    <div id="review_search_results" class="columns is-multiline is-mobile">
+        
     </div>
 </section>
 {% endblock %}

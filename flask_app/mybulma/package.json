@@ -5,13 +5,13 @@
   "main": "sass/mystyles.scss",
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "bulma": "^0.9.4",
-    "node-sass": "^7.0.3"
-  },
   "scripts": {
-    "css-build": "node-sass --omit-source-map-url sass/mystyles.scss css/mystyles.css",
+    "css-build": "node-sass --omit-source-map-url sass/mystyles.scss ../static/css/mystyles.css",
     "css-watch": "npm run css-build -- --watch",
     "start": "npm run css-watch"
+  },
+  "devDependencies": {
+    "bulma": "^0.9.4",
+    "node-sass": "^8.0.0"
   }
 }
