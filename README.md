@@ -7,6 +7,7 @@ This project is currently deploayed at: http://35.171.27.211/
 ## Current Features
 * Search and view albums (by artist or album name)
 * Create and view reviews
+* Search and view user profiles
 
 ## Built With
 * Python
