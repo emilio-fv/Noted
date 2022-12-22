@@ -3,7 +3,7 @@
 A Flask based web application for music enthusiasts to track, save, and share the music they listen to with other users. Integrated with the Spotify API so users can search and view albums using Spotify's music library. 
 
 ## Experience
-This project is currently live at: http://35.171.27.211/
+This project is currently deploayed at: http://35.171.27.211/
 ## Current Features
 * Search and view albums (by artist or album name)
 * Create and view reviews
@@ -18,8 +18,6 @@ This project is currently live at: http://35.171.27.211/
 * Follow other user's
 * View artist's page
 * Search reviews
-
-## License
 
 ## Feedback
 If you have a moment, please fill out this feedback: https://forms.gle/kDwecbB38me6jtVn6
