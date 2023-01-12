@@ -62,6 +62,9 @@ $card-media-margin: 1rem;
     border: 2px solid red;
 }
 
+#section {
+    min-height: 65vh;
+}
 .landing-page {
     @media only screen and (max-width: 768px) {
         img {
@@ -90,7 +93,16 @@ $card-media-margin: 1rem;
     }
 }
 
+// Dashboard
+#dashboard {
+    .column {
+        display: flex;
+        justify-content: center;
+    }
+}
+
 .review-card {
+    width: 190px;
     header {
         p {
             max-width: 10ch;
@@ -101,6 +113,7 @@ $card-media-margin: 1rem;
     }
 }
 
+// Hover Effect
 .review-card:hover,
 .user-card:hover {
     .card {

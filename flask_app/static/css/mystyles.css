@@ -7827,6 +7827,9 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
 .border {
   border: 2px solid red; }
 
+#section {
+  min-height: 65vh; }
+
 @media only screen and (max-width: 768px) {
   .landing-page img {
     width: 100%;
@@ -7847,11 +7850,17 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   .login-form form ::placeholder, .register-form form ::placeholder {
     color: #F4F0F0; }
 
-.review-card header p {
-  max-width: 10ch;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis; }
+#dashboard .column {
+  display: flex;
+  justify-content: center; }
+
+.review-card {
+  width: 190px; }
+  .review-card header p {
+    max-width: 10ch;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
 
 .review-card:hover .card,
 .user-card:hover .card {

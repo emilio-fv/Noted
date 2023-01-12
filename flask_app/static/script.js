@@ -140,21 +140,21 @@ function clearDiv(element) { // Clear Element
 
 // Spotify API Call
 async function searchSpotify(form_data) { 
-    let response = await fetch("http://127.0.0.1:5000/music/search", { method: 'POST', body: form_data});
+    let response = await fetch("/music/search", { method: 'POST', body: form_data});
     let data = await response.json();
     return data;
 }
 
 // User DB API Call
 async function searchUsers(form_data) {
-    let response = await fetch("http://127.0.0.1:5000/users/search", { method: 'POST', body: form_data});
+    let response = await fetch("/users/search", { method: 'POST', body: form_data});
     let data = await response.json();
     return data;
 }
 
 // Review DB API Call
 async function searchReviews(form_data) {
-    let response = await fetch("http://127.0.0.1:5000/reviews/search", { method: 'POST', body: form_data});
+    let response = await fetch("/reviews/search", { method: 'POST', body: form_data});
     let data = await response.json();
     return data;
 }
