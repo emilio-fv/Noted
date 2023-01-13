@@ -216,7 +216,7 @@ class Review:
 
     @classmethod # Get latest by all users 
     def get_recent_reviews(self, data):
-        query = "SELECT * FROM reviews JOIN users ON reviews.user_id = users.id WHERE reviews.user_id <> %(user_id)s ORDER BY reviews.created_at DESC LIMIT 5;"
+        query = "SELECT * FROM reviews JOIN users ON reviews.user_id = users.id WHERE reviews.user_id <> %(user_id)s ORDER BY reviews.created_at DESC LIMIT 6;"
         results = connectToMySQL(DATABASE).query_db(query, data)
         if results:
             all_reviews = []

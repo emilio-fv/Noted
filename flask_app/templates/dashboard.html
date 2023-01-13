@@ -4,65 +4,69 @@ Home |
 {% endblock %}
 
 {% block content %}
-<section id="dashboard" class="section">
-    <h1 id="greeting" class="is-size-3">, {{ logged_user.username }}!</h1>
-    <h2 class="is-size-5 m-4">Latest reviews</h2>
-    <div class="columns px-6">
+<section id="dashboard" class="section border">
+    <h1 id="greeting" class="is-size-5-mobile is-size-4-tablet">, {{ logged_user.username }}!</h1>
+    <h2 class="is-size-6-mobile is-size-5-tablet my-4">Latest reviews</h2>
+    <div class="columns is-multiline is-centered is-mobile px-4">
         {% for review in other_users_reviews %}
-        <div class="column is-one-fifth review-card">
-            <div class="card">
-                <div class="card-image">
-                    <figure class="image">
-                        <a href="/music/view/{{ review['album_id'] }}">
-                            <img src="{{ review['img_url'] }}" alt="Album cover">
-                        </a>
-                    </figure>
-                    <header class="card-header is-flex is-align-items-center py-2">
-                        <span class="icon mx-2">
-                            <i class="fa-regular fa-user"></i>
-                        </span>
-                        <a href="/users/view/{{ review['user']['id'] }}">{{ review['user']['username'] }}</a>
-                    </header>
+        <div class="column">
+            <div class="review-card">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image">
+                            <a href="/music/view/{{ review['album_id'] }}">
+                                <img src="{{ review['img_url'] }}" alt="Album cover">
+                            </a>
+                        </figure>
+                        <header class="card-header is-flex is-align-items-center py-2">
+                            <span class="icon mx-2">
+                                <i class="fa-regular fa-user"></i>
+                            </span>
+                            <a href="/users/view/{{ review['user']['id'] }}">{{ review['user']['username'] }}</a>
+                        </header>
+                    </div>
                 </div>
-            </div>
-            <div class="is-flex is-justify-content-space-between px-2">
-                <p class="is-size-7">
-                    {% for x in range(review['rating']) %} 
-                        &#9733;
-                    {% endfor %}
-                </p>
-                <p class="is-size-6">{{ review['updated_at'].strftime("%d %b %Y") }}</p>
+                <div class="is-flex is-justify-content-space-between mt-1">
+                    <p class="is-size-7">
+                        {% for x in range(review['rating']) %}
+                            &#9733;
+                        {% endfor %}
+                    </p>
+                    <p class="is-size-7">{{ review['updated_at'].strftime("%d %b %Y") }}</p>
+                </div>
             </div>
         </div>
         {% endfor %}
     </div>
-    <h2 class="is-size-5 m-4">Your latest reviews</h2>
-    <div class="columns px-6">
+    <h2 class="is-size-6-mobile is-size-5-tablet my-4">Your latest reviews</h2>
+    <div class="columns is-multiline is-centered is-mobile px-4">
         {% for review in logged_users_latest_reviews %}
-            <div class="column is-one-fifth review-card">
-                <div class="card">
-                    <div class="card-image">
-                        <figure class="image">
-                            <img src="{{ review['img_url'] }}" alt="Album cover">
-                        </figure>
-                        <header class="card-header is-flex is-justify-content-center py-3">
-                            <a href="/music/view/{{ review['album_id'] }}">
-                                <p>{{ review['album_name'] }}</p>
-                            </a>
-                        </header>
+            <div class="column">
+                <div class="review-card">
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image">
+                                <img src="{{ review['img_url'] }}" alt="Album cover">
+                            </figure>
+                            <header class="card-header is-flex is-justify-content-center py-3">
+                                <a href="/music/view/{{ review['album_id'] }}">
+                                    <p>{{ review['album_name'] }}</p>
+                                </a>
+                            </header>
+                        </div>
+                        <footer class="card-footer">
+                            <a href="#" class="card-footer-item">Edit</a>
+                            <a href="/reviews/delete/{{ review['id'] }}" class="card-footer-item">Delete</a>
+                        </footer>
                     </div>
-                    <footer class="card-footer">
-                        <!-- <a href="#" class="card-footer-item">Edit</a> -->
-                        <a href="/reviews/delete/{{ review['id'] }}" class="card-footer-item">Delete</a>
-                    </footer>
-                </div>
-                <div class="is-flex is-justify-content-space-between px-2">
-                    <p class="is-size-7">
-                        {% for x in range(review['rating']) %} 
-                            &#9733;
-                        {% endfor %}
-                    </p>
-                    <p class="is-size-6">{{ review['updated_at'].strftime("%d %b %Y") }}</p>
+                    <div class="is-flex is-justify-content-space-between mt-1">
+                        <p class="is-size-7">
+                            {% for x in range(review['rating']) %} 
+                                &#9733;
+                            {% endfor %}
+                        </p>
+                        <p class="is-size-7">{{ review['updated_at'].strftime("%d %b %Y") }}</p>
+                    </div>
                 </div>
             </div>
         {% endfor %}

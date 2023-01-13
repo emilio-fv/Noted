@@ -45,8 +45,19 @@
             </div>
         </div>
     </nav>
-    {% block content %}
-    {% endblock %}
+    <section id="section">
+        {% block content %}
+        {% endblock %}
+    </section>
+    <footer class="section">
+        {% block footer %}
+        <p class="has-text-centered">&copy; Copyright 2023 by <a href="#">Emilio Vazquez</a>.</p>
+        <div class="has-text-centered">
+            <a target="_blank" href="https://github.com/emilio-fv/Note-d">Github</a>
+            <a target="_blank" href="https://www.linkedin.com/in/emiliofv/">Linkedin</a>
+        </div>
+        {% endblock %}
+    </footer>
 </body>
 <script src="{{ url_for('static', filename='script.js') }}"></script>
 {% block scripts %}
