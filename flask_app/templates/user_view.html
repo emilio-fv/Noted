@@ -10,10 +10,19 @@
             <figure class="image user-profile ">
                 <img src="{{ url_for('static', filename='img/avatar.png') }}" alt="Avatar photo">
             </figure>
+            <!-- Conditionally render follow button -->
+            {% if users_data['id'] != session['user_id'] %}
+                {% if connected %}
+                    <button id="follow_button" onclick="unfollowUser()">Unfollow</button>
+                {% else %}
+                    <button id="follow_button" onclick="followUser()">Follow</button>
+                {% endif %}
+            {% endif %}
         </div>
         <div class="column is-flex is-flex-direction-column is-justify-content-center">
             <p class="is-size-2">{{ users_data['username'] }}</p>
             <p>User Since {{ users_data['created_at'].strftime("%b %Y") }}</p>
+            
         </div>
         <div class="column">
             <div class="columns has-text-centered">
@@ -30,11 +39,11 @@
                     <p>2022</p>
                 </div>
                 <div class="column">
-                    <p>0</p>
+                    <p>{{ connections_data['following'] }}</p>
                     <p>Following</p>
                 </div>
                 <div class="column">
-                    <p>0</p>
+                    <p>{{ connections_data['followers'] }}</p>
                     <p>Followers</p>
                 </div>
             </div>

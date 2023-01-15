@@ -1,6 +1,7 @@
-// Test Script Connection
+// Script Connection Test
 console.log("Script attached good to go") 
 
+// ==== Functions ====
 // Search Music
 function submitMusicForm(event) { 
     event.preventDefault();
@@ -131,6 +132,27 @@ function submitReviewSearchForm(event) {
         .catch( err => console.log(err))
 }
 
+// Follow User
+function followUser(event) {
+    // Make API call to follow user
+    addUserConnection();
+    // Update HTML
+    let button = document.getElementById("follow_button");
+    button.innerText = "Unfollow";
+    button.setAttribute('onclick', 'unfollowUser()')
+}
+
+// Unfollow User
+function unfollowUser(event) {
+    // Make API call to unfollow user
+    removeUserConnection();
+    // Update HTML
+    let button = document.getElementById("follow_button");
+    button.innerText = "Follow";
+    button.setAttribute('onclick', 'followUser()')
+}
+
+// ===== Helpers ====
 // Clear html element
 function clearDiv(element) { // Clear Element
     while(element.firstElementChild) {
@@ -159,6 +181,21 @@ async function searchReviews(form_data) {
     return data;
 }
 
+// Add User Connection
+async function addUserConnection() {
+    let response = await fetch("/user_connections/add", { method: 'GET' });
+    let data = await response.json();
+    return data;
+}
+
+// Remove User Connection
+async function removeUserConnection() {
+    let response = await fetch("/user_connections/delete", { method: 'GET' });
+    let data = await response.json();
+    return data;
+}
+
+// ==== Styling ====
 // Toggle navbar menu
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -181,3 +218,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   
   });
+
