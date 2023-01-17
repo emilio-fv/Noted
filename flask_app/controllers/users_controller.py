@@ -82,7 +82,7 @@ def search_users():
     if search_category == 'username' or search_category == 'email':
         search_results = User.get_many_by_user_input({
             'category': search_category,
-            'input': search_input
+            'input': search_input + "%"
         })
     else:
         search_results = User.get_all_not_logged_in_users({ 'user_id': session['user_id'] })

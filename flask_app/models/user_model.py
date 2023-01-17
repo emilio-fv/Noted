@@ -73,10 +73,12 @@ class User:
     @classmethod # Query database with search category 
     def get_many_by_user_input(self, data):
         if data['category'] == 'username':
-            query = "SELECT * FROM users WHERE username = %(input)s;"
+            query = "SELECT * FROM users WHERE username LIKE %(input)s;"
         if data['category'] == 'email':
-            query = "SELECT * FROM users WHERE email = %(input)s;"
-        results = connectToMySQL(DATABASE).query_db(query, data)
+            query = "SELECT * FROM users WHERE email LIKE %(input)s;"
+        input_data = {}
+        input_data['input'] = "%" + data['input'] + "%"
+        results = connectToMySQL(DATABASE).query_db(query, input_data)
         if results:
             all_users = []
             for row in results:
