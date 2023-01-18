@@ -7874,3 +7874,10 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   max-width: 60%;
   height: 100%;
   height: auto; }
+
+#review_search_results {
+  gap: 25px; }
+  #review_search_results .review-record {
+    width: 60%; }
+  #review_search_results img {
+    width: 150px; }

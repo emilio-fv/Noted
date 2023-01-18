@@ -65,6 +65,7 @@ $card-media-margin: 1rem;
 #section {
     min-height: 65vh;
 }
+
 .landing-page {
     @media only screen and (max-width: 768px) {
         img {
@@ -129,5 +130,15 @@ $card-media-margin: 1rem;
         max-width: 60%;
         height: 100%;
         height: auto;
+    }
+}
+
+#review_search_results {
+    gap: 25px;
+    .review-record {
+        width: 60%;
+    }
+    img {
+        width: 150px;
     }
 }
