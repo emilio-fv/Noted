@@ -6,6 +6,7 @@ from flask_app.controllers.helpers import login_required, sp
 import flask_app.constants
 
 @app.route('/reviews/new/<album_id>') # New Review Form
+@login_required
 def new_review_form(album_id):
     album_results = sp.album(album_id)
     album_data = {
@@ -38,7 +39,7 @@ def search_reviews_form():
 def search_reviews():
     search_input = request.form['search_input']
     search_category = request.form['search_category']
-
+    print(search_input, search_category)
     if search_category == 'album':
         search_results = Review.get_all_by_album({'album_name': search_input})
 
@@ -54,8 +55,8 @@ def search_reviews():
             'id': review.id,
             'album_name': review.album_name,
             'artist_name': review.artist_name,
-            'img_url': review.img_url,
-            'date': review.date,
+            'img_url': review.img_url, 
+            'date': review.date.strftime("%b %d %Y"),
             'rating': review.rating,
             'text': review.text,
             'created_at': review.created_at,
@@ -69,8 +70,6 @@ def search_reviews():
 
     return jsonify(all_reviews)
 
-
-# TODO View Review
 # TODO Edit Review
 
 @app.route('/reviews/delete/<review_id>') # Delete Review

@@ -124,8 +124,19 @@ function submitReviewSearchForm(event) {
             for (row in data) {
                 var newElement = document.createElement("div");
                 newElement.innerHTML = `
+                    <figure class="image">
+                        <img src="${ data[row]['img_url']}" alt="Album cover art">
+                    </figure>
+                    <div class="px-4 py-2">
+                        <div class="is-flex is-flex-direction-row is-align-items-flex-end">
+                            <p class="is-size-5 mr-3">${ data[row]['album_name'] }</p>
+                            <p class="is-size-6">${ data[row]['artist_name'] }</p>
+                        </div>
+                        <p class="is-size-6">${ data[row]['rating'] } &#9733; Reviewed on ${ data[row]['date'] } by ${ data[row]['username'] }</p>
+                        <p class="is-size-6">${ data[row]['text'] }</p>
+                    </div>
                 `;
-                newElement.setAttribute();
+                newElement.setAttribute("class", "review-record is-flex card");
                 review_search_results.appendChild(newElement);
             }
         })
