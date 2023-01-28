@@ -7,9 +7,9 @@ Home |
 <section id="dashboard" class="section">
     <h1 id="greeting" class="is-size-5-mobile is-size-4-tablet">, {{ logged_user.username }}!</h1>
     <h2 class="is-size-6-mobile is-size-5-tablet my-4">Latest reviews</h2>
-    <div class="columns is-multiline is-centered is-mobile px-4">
+    <div class="columns is-multiline is-mobile is-5 px-4">
         {% for review in other_users_reviews %}
-        <div class="column">
+        <div class="column is-one-fifth-desktop is-one-third-tablet is-one-half-mobile">
             <div class="review-card">
                 <div class="card">
                     <div class="card-image">
@@ -39,9 +39,9 @@ Home |
         {% endfor %}
     </div>
     <h2 class="is-size-6-mobile is-size-5-tablet my-4">Your latest reviews</h2>
-    <div class="columns is-multiline is-centered is-mobile px-4">
+    <div class="columns is-multiline is-mobile px-4">
         {% for review in logged_users_latest_reviews %}
-            <div class="column">
+            <div class="column is-one-fifth-desktop is-one-third-tablet is-one-half-mobile">
                 <div class="review-card">
                     <div class="card">
                         <div class="card-image">

@@ -53,30 +53,32 @@
 <section class="section">
     <div>
         <h2 class="is-size-5 m-4">Recent Activity</h2>
-        <div class="columns px-6">
+        <div class="columns is-multiline is-mobile px-6">
             {% for review in latest_reviews %}
-                <div class="column is-one-fifth review-card">
-                    <div class="card">
-                        <div class="card-image">
-                            <figure class="image">
-                                <a href="/music/view/{{ review['album_id'] }}">
-                                    <img src="{{ review['img_url'] }}" alt="Album cover">
-                                </a>
-                            </figure>
-                            <header class="card-header is-flex is-justify-content-center py-2">
-                                <a href="/music/view/{{ review['album_id'] }}">
-                                    <p>{{ review['album_name'] }}</p>
-                                </a>
-                            </header>
+                <div class="column is-one-fifth-desktop is-one-third-tablet is-one-half-mobile">
+                    <div class="review-card">
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image">
+                                    <a href="/music/view/{{ review['album_id'] }}">
+                                        <img src="{{ review['img_url'] }}" alt="Album cover">
+                                    </a>
+                                </figure>
+                                <header class="card-header is-flex is-justify-content-center py-2">
+                                    <a href="/music/view/{{ review['album_id'] }}">
+                                        <p>{{ review['album_name'] }}</p>
+                                    </a>
+                                </header>
+                            </div>
                         </div>
-                    </div>
-                    <div class="is-flex is-justify-content-space-between px-2">
-                        <p class="is-size-7">
-                            {% for x in range(review['rating']) %} 
-                                &#9733;
-                            {% endfor %}
-                        </p>
-                        <p class="is-size-6">{{ review['updated_at'].strftime("%d %b %Y") }}</p>
+                        <div class="is-flex is-justify-content-space-between px-2">
+                            <p class="is-size-7">
+                                {% for x in range(review['rating']) %} 
+                                    &#9733;
+                                {% endfor %}
+                            </p>
+                            <p class="is-size-6">{{ review['updated_at'].strftime("%d %b %Y") }}</p>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
@@ -84,30 +86,32 @@
     </div>
     <div>
         <h2 class="is-size-5 m-4">Top Rated</h2>
-        <div class="columns px-6">
+        <div class="columns is-multiline is-mobile  px-6">
             {% for review in top_rated_reviews %}
-                <div class="column is-one-fifth review-card">
-                    <div class="card">
-                        <div class="card-image">
-                            <figure class="image">
-                                <a href="/music/view/{{ review['album_id'] }}">
-                                    <img src="{{ review['img_url'] }}" alt="Album cover">
-                                </a>
-                            </figure>
-                            <header class="card-header is-flex is-justify-content-center py-2">
-                                <a href="/music/view/{{ review['album_id'] }}">
-                                    <p>{{ review['album_name'] }}</p>
-                                </a>
-                            </header>
+                <div class="column is-one-fifth-desktop is-one-third-tablet is-one-half-mobile">
+                    <div class="review-card">
+                        <div class="card">
+                            <div class="card-image">
+                                <figure class="image">
+                                    <a href="/music/view/{{ review['album_id'] }}">
+                                        <img src="{{ review['img_url'] }}" alt="Album cover">
+                                    </a>
+                                </figure>
+                                <header class="card-header is-flex is-justify-content-center py-2">
+                                    <a href="/music/view/{{ review['album_id'] }}">
+                                        <p>{{ review['album_name'] }}</p>
+                                    </a>
+                                </header>
+                            </div>
                         </div>
-                    </div>
-                    <div class="is-flex is-justify-content-space-between px-2">
-                        <p class="is-size-7">
-                            {% for x in range(review['rating']) %} 
-                                &#9733;
-                            {% endfor %}
-                        </p>
-                        <p class="is-size-6">{{ review['updated_at'].strftime("%d %b %Y") }}</p>
+                        <div class="is-flex is-justify-content-space-between px-2">
+                            <p class="is-size-7">
+                                {% for x in range(review['rating']) %}
+                                    &#9733;
+                                {% endfor %}
+                            </p>
+                            <p class="is-size-6">{{ review['updated_at'].strftime("%d %b %Y") }}</p>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
