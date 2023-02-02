@@ -1,6 +1,6 @@
 from flask_app import app
 from flask import redirect, render_template, request, jsonify
-import flask_app.config
+import flask_app.config.config
 from flask_app.models.review_model import Review
 from flask_app.controllers.helpers import login_required, sp
 
