@@ -6,7 +6,7 @@
 node_modules/
 
 ### Api Keys ###
-constants.py
+config.py
 .cache
 clipboard.html
 
