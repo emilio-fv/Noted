@@ -3,7 +3,7 @@ from flask import render_template, request, redirect, session, flash, jsonify
 from flask_app.models.review_model import Review 
 import pprint
 from flask_app.controllers.helpers import login_required, sp
-import flask_app.constants
+import flask_app.config.config
 
 @app.route('/reviews/new/<album_id>') # New Review Form
 @login_required

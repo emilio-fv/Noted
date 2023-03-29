@@ -8,7 +8,6 @@ from flask_app.controllers.helpers import login_required, sp
 from flask_app.models.user_model import User
 from flask_app.models.review_model import Review
 from flask_app.models.user_connections_model import User_Connection
-import flask_app.constants
 
 bcrypt = Bcrypt(app) # Initialize Bcrypt 
 
