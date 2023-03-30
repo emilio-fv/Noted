@@ -52,20 +52,18 @@ function submitMusicForm(event) {
                 }
                 if (music_search_category === "artist") {
                     newElement.innerHTML = 
-                        `<a href="#">
+                        `<div class="card">
                             <div class="card-image">
                                 <figure class="image">
-                                    <img src="${ data[row]['artist_img'] }" alt="Artist Headshot">
+                                    <a href="#">
+                                        <img src="${ data[row]['artist_img'] }" alt="Artist headshot">
+                                    </a>
                                 </figure>
+                                <header class="card-header is-flex is-flex-direction-column	is-align-items-center py-3">
+                                    <p class="is-size-4">${ data[row]['artist_name'] }</p>
+                                </header>
                             </div>
-                            <div class="card-content">
-                                <div class="media">
-                                    <div class="media-content has-text-centered">
-                                        <p class="title is-4">${ data[row]['artist_name'] }</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>`
+                        </div>`
                 }
                 newElement.setAttribute("class","column is-one-quarter p-6 review-card");
                 music_search_results.appendChild(newElement);
