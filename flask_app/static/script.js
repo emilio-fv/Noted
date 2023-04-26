@@ -55,7 +55,7 @@ function submitMusicForm(event) {
                         `<div class="card">
                             <div class="card-image">
                                 <figure class="image">
-                                    <a href="#">
+                                    <a href="/music/view/artist/${ data[row]['artist_id'] }">
                                         <img src="${ data[row]['artist_img'] }" alt="Artist headshot">
                                     </a>
                                 </figure>

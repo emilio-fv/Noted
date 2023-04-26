@@ -168,7 +168,7 @@ class Review:
             return all_reviews
         return []
 
-    @classmethod # Get all by artist
+    @classmethod # Get all by artist 
     def get_all_by_artist(self, data):
         query = "SELECT * FROM reviews JOIN users ON reviews.user_id = users.id WHERE artist_name = %(artist_name)s;"
         results = connectToMySQL(DATABASE).query_db(query, data)
@@ -190,6 +190,20 @@ class Review:
                 all_reviews.append(this_review)
             return all_reviews
         return []
+
+    # @classmethod # Get all by artist name for all users
+    # def get_all_by_artist_all_users(self, data):
+    #     query = "SELECT * FROM reviews WHERE artist_name = %(artist_name)s;"
+    #     results = connectToMySQL(DATABASE).query_db(query, data)
+    #     if results:
+    #         all_reviews = []
+    #         for row in results:
+    #             review_data = {
+    #                 **row
+    #             }
+
+    #             this_review = Review(review_data)
+    #             user
 
     @classmethod # Get all by username
     def get_all_by_username(self, data):
