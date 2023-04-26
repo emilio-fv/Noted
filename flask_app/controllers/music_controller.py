@@ -101,12 +101,51 @@ def view_album(album_id):
 @app.route('/music/view/artist/<string:artist_id>') # TODO View Artist
 @login_required
 def view_artist(artist_id):
-    print(artist_id)
-    # TODO Query Spotify db for an artist's data
-    # TODO Query Spotify db for an artist's albums data
-    # TODO Query db for reviews by artist
-    # TODO Parse through artist's data
-    # TODO Parse through artist's albums data
-    # TODO Parse through reviews
+    artist_results = sp.artist(artist_id) # Query Spotify db for an artist's data
+    album_results = sp.artist_albums(artist_id) # Query Spotify db for an artist's albums data
+    reviews = Review.get_all_by_artist({ 'artist_name': artist_results['name'] }) # Query db for reviews by artist
+
+    all_albums = [] 
+    for album in album_results['items']: # Parse through artist's albums data
+        one_album = {
+            'album_id': album['id'],
+            'album_name': album['name'],
+            'album_img': album['images'][0]['url']
+        }
+        all_albums.append(one_album)
+
+    all_reviews = []
+    average_rating = 0
+    for review in reviews: # Parse through reviews
+        average_rating += review.rating
+        this_review = {
+            'id': review.id,
+            'album_name': review.album_name,
+            'artist_name': review.artist_name,
+            'img_url': review.img_url,
+            'date': review.date,
+            'rating': review.rating,
+            'text': review.text,
+            'created_at': review.created_at,
+            'updated_at': review.updated_at,
+            'user_id': review.user_id,
+            'username': review.user.username,
+            'first_name': review.user.first_name,
+            'last_name': review.user.last_name,
+        }
+        all_reviews.append(this_review)
+
     # TODO Calculate average rating
-    return render_template('artist_view.html')
+    if len(all_reviews) > 0:
+        average_rating = average_rating / len(all_reviews)
+
+    artist_data = {
+        'artist_id': artist_results['id'],
+        'artist_name': artist_results['name'],
+        'artist_img': artist_results['images'][0]['url'],
+        'artist_rating': average_rating,
+        'albums': all_albums,
+        'reviews': all_reviews
+    }  
+
+    return render_template('artist_view.html', artist_data=artist_data)
