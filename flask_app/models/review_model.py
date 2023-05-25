@@ -1,8 +1,12 @@
-from flask_app.config.mysqlconnection import connectToMySQL
+# Standard Library Imports
 from flask_app import DATABASE
 from flask import flash
+
+# Resource Imports
+from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app.models.user_model import User
 
+# Review Model
 class Review:
     def __init__(self, data):
         self.id = data['id']

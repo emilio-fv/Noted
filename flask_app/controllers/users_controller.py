@@ -1,29 +1,38 @@
+# Standard Library Imports
 from flask_app import app
 from flask import render_template, request, redirect, session, flash, jsonify, request, url_for
 from flask_bcrypt import Bcrypt
-import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials
 import pprint
-from flask_app.controllers.helpers import login_required, sp
+
+# Resource Imports
 from flask_app.models.user_model import User
 from flask_app.models.review_model import Review
 from flask_app.models.user_connections_model import User_Connection
+from flask_app.controllers.helpers import login_required, sp
 
-bcrypt = Bcrypt(app) # Initialize Bcrypt 
+# Spotipy Import
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
 
-@app.route('/') # Landing Page
+# Initialize Bcrypt 
+bcrypt = Bcrypt(app) 
+
+# Landing Page
+@app.route('/') 
 def index():
     session['page'] = 'register'
     return render_template('landing_page.html')
 
-@app.route('/register') # Register Form
+# Register Page
+@app.route('/register') 
 def register_form():
     if 'user_id' in session: 
         return redirect('/dashboard')
     session['page'] = 'register'
     return render_template('register_form.html')
 
-@app.route('/users/register', methods=['POST']) # Register User
+# Register Form Submission
+@app.route('/users/register', methods=['POST']) 
 def register():
     if not User.validate(request.form): 
         return redirect('/register')
@@ -36,14 +45,16 @@ def register():
     session['user_id'] = id 
     return redirect('/dashboard') 
 
-@app.route('/login') # Login Form
+# Login Page
+@app.route('/login') 
 def login_form():
     if 'user_id' in session: 
         return redirect('/dashboard')
     session['page'] = 'login'
     return render_template('login_form.html')
 
-@app.route('/users/login', methods=['POST']) # Login User
+# Login Form Submission
+@app.route('/users/login', methods=['POST']) 
 def login():
     user_in_db = User.get_one_by_email({'email': request.form['email']}) 
     if not user_in_db:
@@ -55,12 +66,14 @@ def login():
     session['user_id'] = user_in_db.id 
     return redirect('/dashboard') 
 
-@app.route('/users/logout') # Logout User
+# Logout User
+@app.route('/users/logout') 
 def logout():
     session.clear() 
     return redirect('/login') 
 
-@app.route('/dashboard') # Dashboard
+# Dashboard
+@app.route('/dashboard') 
 @login_required
 def dashboard():
     logged_user = User.get_one_by_id({'id': session['user_id']}) 
@@ -68,12 +81,14 @@ def dashboard():
     other_users_reviews = Review.get_recent_reviews({'user_id': session['user_id']})
     return render_template('dashboard.html', logged_user = logged_user, logged_users_latest_reviews = logged_users_latest_reviews, other_users_reviews = other_users_reviews)
 
-@app.route('/users/search') # Search Users Form
+# Search Users Form
+@app.route('/users/search') 
 @login_required
 def search_users_form():
     return render_template('user_search.html')
 
-@app.route('/users/search', methods=['POST']) # Search Users
+# Search Users Form Submission
+@app.route('/users/search', methods=['POST']) 
 @login_required
 def search_users():
     search_category = request.form['search_category']
@@ -97,7 +112,8 @@ def search_users():
         all_users.append(this_user)
     return jsonify(all_users)
 
-@app.route('/users/view/<int:user_id>') # View User Profile
+# View User Profile
+@app.route('/users/view/<int:user_id>') 
 @login_required
 def view_user(user_id):
     if (user_id != session['user_id']):

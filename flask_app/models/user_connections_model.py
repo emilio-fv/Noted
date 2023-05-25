@@ -1,6 +1,10 @@
-from flask_app.config.mysqlconnection import connectToMySQL
+# Standard Library Imports
 from flask_app import DATABASE
 
+# Resource Imports
+from flask_app.config.mysqlconnection import connectToMySQL
+
+# User Connection Model
 class User_Connection:
     def __init__(self, data):
         self.id = data['id']

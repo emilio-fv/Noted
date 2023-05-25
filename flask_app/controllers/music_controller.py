@@ -1,15 +1,20 @@
+# Standard Library Imports
 from flask_app import app
 from flask import redirect, render_template, request, jsonify
+
+# Resource Imports
 import flask_app.config.config
 from flask_app.models.review_model import Review
 from flask_app.controllers.helpers import login_required, sp
 
-@app.route('/music/search') # Search Music Form
+# Search Music Form
+@app.route('/music/search') 
 @login_required
 def search_music_form():
     return render_template('music_search.html') 
 
-@app.route('/music/search', methods=['POST']) # Search Music (By Artist, Album, and Track) 
+# Search Music (By Artist, Album, and Track) 
+@app.route('/music/search', methods=['POST']) 
 @login_required
 def search_music():
     search_input = request.form['search_input']
@@ -53,7 +58,8 @@ def search_music():
             all_artists.append(one_artist)
         return jsonify(all_artists)
 
-@app.route('/music/view/<string:album_id>') # View Album (or Track)
+# View Album / Track
+@app.route('/music/view/<string:album_id>') 
 @login_required
 def view_album(album_id):
     album_results = sp.album(album_id) # Query Spotify db for an album's data
@@ -98,7 +104,8 @@ def view_album(album_id):
 
     return render_template('album_view.html', album_data=album_data, all_reviews=all_reviews, average_rating=average_rating)
 
-@app.route('/music/view/artist/<string:artist_id>') # TODO View Artist
+# TODO View Artist
+@app.route('/music/view/artist/<string:artist_id>') 
 @login_required
 def view_artist(artist_id):
     artist_results = sp.artist(artist_id) # Query Spotify db for an artist's data
