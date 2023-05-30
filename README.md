@@ -1,7 +1,6 @@
 # Note-d
 > A Flask based web application for music enthusiasts to track, save, and share the music they listen to with other users. Integrated with the Spotify API so users can search and view albums using Spotify's music library. 
 
-
 ## Table of Contents
 * [General Info](#general-information)
 * [Technologies Used](#technologies-used)
@@ -27,6 +26,7 @@
 
 
 ## Features
+- Register / Login 
 - Search the Spotify music database by album, artist, and track
 - View an album's info and recent reviews
 - Search and follow users
@@ -65,9 +65,14 @@ Project is: _in progress_
 
 ## Room for Improvement
 To do:
-- Updater styling for review form
+- Update styling for review form
+- Apply responsive design to search results
+- Move to React client for front-end
 - Edit review feature
 - View artist page
+
+## Feedback
+If you have a moment, please fill out this feedback: https://forms.gle/kDwecbB38me6jtVn6
 
 ## Contact
 Created by [@emilio-fv](https://github.com/emilio-fv) - feel free to contact me!
