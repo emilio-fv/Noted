@@ -1507,7 +1507,7 @@ a.navbar-item,
   .navbar-link:focus-within,
   .navbar-link:hover,
   .navbar-link.is-active {
-    background-color: #fafafa;
+    background-color: #15151b;
     color: #4d9f21; }
 
 .navbar-item {
@@ -1736,7 +1736,7 @@ a.navbar-item,
   .navbar-link.is-active:not(:focus):not(:hover) {
     background-color: transparent; }
   .navbar-item.has-dropdown:focus .navbar-link, .navbar-item.has-dropdown:hover .navbar-link, .navbar-item.has-dropdown.is-active .navbar-link {
-    background-color: #fafafa; } }
+    background-color: #15151b; } }
 
 .hero.is-fullheight-with-navbar {
   min-height: calc(100vh - 3.25rem); }
@@ -7827,23 +7827,41 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
 .border {
   border: 2px solid red; }
 
-.landing-page {
-  padding: 0 0 0 7rem; }
+#section {
+  min-height: 65vh; }
+
+@media only screen and (max-width: 768px) {
   .landing-page img {
-    max-width: 90%;
-    height: 100%;
-    height: auto; }
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 25px; } }
+
+@media screen and (min-width: 769px) {
+  .landing-page {
+    margin-top: 3rem; }
+    .landing-page img {
+      width: 100%;
+      max-width: 350px;
+      height: auto; } }
 
 .login-form form, .register-form form {
   gap: .5rem; }
   .login-form form ::placeholder, .register-form form ::placeholder {
     color: #F4F0F0; }
 
-.review-card header p {
-  max-width: 10ch;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis; }
+#dashboard .column {
+  display: flex;
+  justify-content: center; }
+
+.review-card {
+  width: 190px;
+  min-width: 190px; }
+  .review-card header p {
+    max-width: 10ch;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
 
 .review-card:hover .card,
 .user-card:hover .card {
@@ -7857,3 +7875,10 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   max-width: 60%;
   height: 100%;
   height: auto; }
+
+#review_search_results {
+  gap: 25px; }
+  #review_search_results .review-record {
+    width: 60%; }
+  #review_search_results img {
+    width: 150px; }

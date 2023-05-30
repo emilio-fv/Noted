@@ -1,11 +1,16 @@
+# Standard Library Imports
 from flask_app import app
 from flask import render_template, request, redirect, session, flash, jsonify
-from flask_app.models.review_model import Review 
 import pprint
-from flask_app.controllers.helpers import login_required, sp
-import flask_app.constants
 
-@app.route('/reviews/new/<album_id>') # New Review Form
+# Resource Imports
+import flask_app.config.config
+from flask_app.models.review_model import Review 
+from flask_app.controllers.helpers import login_required, sp
+
+# Create Review Form
+@app.route('/reviews/new/<album_id>') 
+@login_required
 def new_review_form(album_id):
     album_results = sp.album(album_id)
     album_data = {
@@ -16,7 +21,8 @@ def new_review_form(album_id):
     }
     return render_template('review_new.html', album_data=album_data)
 
-@app.route('/reviews/create', methods=['POST']) # Create New Review
+# Create Review Form Submission
+@app.route('/reviews/create', methods=['POST']) 
 @login_required
 def create_review():
     review_data = {
@@ -26,11 +32,11 @@ def create_review():
     Review.create(review_data) 
     return redirect('/dashboard')
 
-@app.route('/reviews/search') # Search reviews form
+# Search reviews form
+@app.route('/reviews/search') 
 @login_required
 def search_reviews_form():
     return render_template('review_search.html')
-
 
 # TODO Search Reviews
 @app.route('/reviews/search', methods=['POST'])
@@ -38,7 +44,7 @@ def search_reviews_form():
 def search_reviews():
     search_input = request.form['search_input']
     search_category = request.form['search_category']
-
+    print(search_input, search_category)
     if search_category == 'album':
         search_results = Review.get_all_by_album({'album_name': search_input})
 
@@ -54,8 +60,8 @@ def search_reviews():
             'id': review.id,
             'album_name': review.album_name,
             'artist_name': review.artist_name,
-            'img_url': review.img_url,
-            'date': review.date,
+            'img_url': review.img_url, 
+            'date': review.date.strftime("%b %d %Y"),
             'rating': review.rating,
             'text': review.text,
             'created_at': review.created_at,
@@ -69,11 +75,14 @@ def search_reviews():
 
     return jsonify(all_reviews)
 
-
-# TODO View Review
 # TODO Edit Review
+@app.route('/reviews/<review_id>/edit')
+@login_required
+def edit_review(review_id):
+    return 
 
-@app.route('/reviews/delete/<review_id>') # Delete Review
+# Delete Review
+@app.route('/reviews/delete/<review_id>') 
 @login_required
 def delete_review(review_id):
     Review.delete({

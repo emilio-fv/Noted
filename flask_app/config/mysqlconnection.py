@@ -1,5 +1,7 @@
+# Standard Library Imports
 import pymysql.cursors
 
+# MySQL Connection
 class MySQLConnection:
     def __init__(self, db):
         connection = pymysql.connect(host = 'localhost',
@@ -31,5 +33,6 @@ class MySQLConnection:
             finally:
                 self.connection.close() 
 
+# Connect To MySQL Database
 def connectToMySQL(db):
     return MySQLConnection(db)

@@ -18,6 +18,7 @@ $text: $white;
 $link: $white;
 $link-hover: $green;
 $scheme-main: $black;
+$navbar-item-hover-background-color: $black;
 $family-sans-serif: "Mitr", sans-serif;
 $family-primary: $family-sans-serif;
 $navbar-item-hover-color: $green;
@@ -61,12 +62,26 @@ $card-media-margin: 1rem;
     border: 2px solid red;
 }
 
+#section {
+    min-height: 65vh;
+}
+
 .landing-page {
-    padding: 0 0 0 7rem;
-    img {
-        max-width: 90%;
-        height: 100%;
-        height: auto;
+    @media only screen and (max-width: 768px) {
+        img {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 25px;
+        }
+    }
+    @media screen and (min-width: 769px) {        
+        margin-top: 3rem;
+        img {
+            width: 100%;
+            max-width: 350px;
+            height: auto;
+        }
     }
 }
 
@@ -79,7 +94,17 @@ $card-media-margin: 1rem;
     }
 }
 
+// Dashboard
+#dashboard {
+    .column {
+        display: flex;
+        justify-content: center;
+    }
+}
+
 .review-card {
+    width: 190px;
+    min-width: 190px;
     header {
         p {
             max-width: 10ch;
@@ -90,6 +115,7 @@ $card-media-margin: 1rem;
     }
 }
 
+// Hover Effect
 .review-card:hover,
 .user-card:hover {
     .card {
@@ -105,5 +131,15 @@ $card-media-margin: 1rem;
         max-width: 60%;
         height: 100%;
         height: auto;
+    }
+}
+
+#review_search_results {
+    gap: 25px;
+    .review-record {
+        width: 60%;
+    }
+    img {
+        width: 150px;
     }
 }

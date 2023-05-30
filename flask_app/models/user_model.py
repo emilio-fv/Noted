@@ -1,10 +1,15 @@
-from flask_app.config.mysqlconnection import connectToMySQL
-from flask_app import DATABASE
-# TODO: Add related model files if needed
+# Standard Library Imports
 from flask import flash
 import re
+
+# Resource Imports
+from flask_app.config.mysqlconnection import connectToMySQL
+from flask_app import DATABASE
+
+# Configure Email REGEX
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+[a-zA-Z]+$')
 
+# User Model
 class User:
     def __init__(self, data):
         self.id = data['id']
@@ -16,8 +21,8 @@ class User:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
-# ==== CREATE ====
-    @classmethod # Create new user
+    # Create User 
+    @classmethod
     def create(self,data):
         query = "INSERT INTO users (username, first_name, last_name, email, password) VALUES (%(username)s, %(first_name)s, %(last_name)s, %(email)s, %(password)s);"
         return connectToMySQL(DATABASE).query_db(query, data)
@@ -74,10 +79,12 @@ class User:
     @classmethod # Query database with search category 
     def get_many_by_user_input(self, data):
         if data['category'] == 'username':
-            query = "SELECT * FROM users WHERE username = %(input)s;"
+            query = "SELECT * FROM users WHERE username LIKE %(input)s;"
         if data['category'] == 'email':
-            query = "SELECT * FROM users WHERE email = %(input)s;"
-        results = connectToMySQL(DATABASE).query_db(query, data)
+            query = "SELECT * FROM users WHERE email LIKE %(input)s;"
+        input_data = {}
+        input_data['input'] = "%" + data['input'] + "%"
+        results = connectToMySQL(DATABASE).query_db(query, input_data)
         if results:
             all_users = []
             for row in results:
