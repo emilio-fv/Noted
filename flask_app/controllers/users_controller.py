@@ -7,7 +7,7 @@ import pprint
 # Resource Imports
 from flask_app.models.user_model import User
 from flask_app.models.review_model import Review
-from flask_app.models.user_connections_model import User_Connection
+from flask_app.models.connections_model import Connection
 from flask_app.controllers.helpers import login_required, sp
 
 # Spotipy Import
@@ -23,7 +23,7 @@ def index():
     session['page'] = 'register'
     return render_template('landing_page.html')
 
-# Register Page
+# Register Form
 @app.route('/register') 
 def register_form():
     if 'user_id' in session: 
@@ -45,7 +45,7 @@ def register():
     session['user_id'] = id 
     return redirect('/dashboard') 
 
-# Login Page
+# Login Form
 @app.route('/login') 
 def login_form():
     if 'user_id' in session: 
@@ -66,12 +66,6 @@ def login():
     session['user_id'] = user_in_db.id 
     return redirect('/dashboard') 
 
-# Logout User
-@app.route('/users/logout') 
-def logout():
-    session.clear() 
-    return redirect('/login') 
-
 # Dashboard
 @app.route('/dashboard') 
 @login_required
@@ -80,6 +74,39 @@ def dashboard():
     logged_users_latest_reviews = Review.get_latest_by_user({'user_id': session['user_id']})
     other_users_reviews = Review.get_recent_reviews({'user_id': session['user_id']})
     return render_template('dashboard.html', logged_user = logged_user, logged_users_latest_reviews = logged_users_latest_reviews, other_users_reviews = other_users_reviews)
+
+# Logout User
+@app.route('/users/logout') 
+def logout():
+    session.clear() 
+    return redirect('/login') 
+
+# View User Profile
+@app.route('/users/view/<int:user_id>') 
+@login_required
+def view_user(user_id):
+    if (user_id != session['user_id']):
+        connection_check = Connection.get_one_by_ids({ 'follower_user_id': session['user_id'], 'following_user_id': user_id })
+        if connection_check:
+            connected = True
+        else: 
+            connected = False
+    else:
+        connected = False
+    session['latest_user_profile_id'] = user_id
+    users_data = User.get_one_by_id({'id': user_id})
+    users_reviews = Review.get_all_by_user_id({'user_id': user_id})
+    latest_reviews = Review.get_latest_by_user({'user_id': user_id})
+    artist_count = Review.get_count_all_artists({'user_id': user_id})
+    reviews_this_year = Review.get_count_of_current_year_reviews({'user_id': user_id})
+    top_rated_reviews = Review.get_top_rated_of_user({'user_id': user_id})
+    following_count = Connection.get_following_count_by_id({'user_id': user_id})
+    followers_count = Connection.get_followers_count_by_id({'user_id': user_id})
+    connections_data = {
+        'following': following_count[0]['COUNT(id)'],
+        'followers': followers_count[0]['COUNT(id)']
+    }
+    return render_template('user_view.html', users_data = users_data, users_reviews = users_reviews, latest_reviews = latest_reviews, artist_count = artist_count, reviews_this_year = reviews_this_year, top_rated_reviews = top_rated_reviews, connected=connected, connections_data=connections_data)
 
 # Search Users Form
 @app.route('/users/search') 
@@ -111,30 +138,3 @@ def search_users():
         }
         all_users.append(this_user)
     return jsonify(all_users)
-
-# View User Profile
-@app.route('/users/view/<int:user_id>') 
-@login_required
-def view_user(user_id):
-    if (user_id != session['user_id']):
-        connection_check = User_Connection.get_one_by_ids({ 'follower_user_id': session['user_id'], 'following_user_id': user_id })
-        if connection_check:
-            connected = True
-        else: 
-            connected = False
-    else:
-        connected = False
-    session['latest_user_profile_id'] = user_id
-    users_data = User.get_one_by_id({'id': user_id})
-    users_reviews = Review.get_all_by_user_id({'user_id': user_id})
-    latest_reviews = Review.get_latest_by_user({'user_id': user_id})
-    artist_count = Review.get_count_all_artists({'user_id': user_id})
-    reviews_this_year = Review.get_count_of_current_year_reviews({'user_id': user_id})
-    top_rated_reviews = Review.get_top_rated_of_user({'user_id': user_id})
-    following_count = User_Connection.get_following_count_by_id({'user_id': user_id})
-    followers_count = User_Connection.get_followers_count_by_id({'user_id': user_id})
-    connections_data = {
-        'following': following_count[0]['COUNT(id)'],
-        'followers': followers_count[0]['COUNT(id)']
-    }
-    return render_template('user_view.html', users_data = users_data, users_reviews = users_reviews, latest_reviews = latest_reviews, artist_count = artist_count, reviews_this_year = reviews_this_year, top_rated_reviews = top_rated_reviews, connected=connected, connections_data=connections_data)

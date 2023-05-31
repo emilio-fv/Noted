@@ -27,8 +27,8 @@ class User:
         query = "INSERT INTO users (username, first_name, last_name, email, password) VALUES (%(username)s, %(first_name)s, %(last_name)s, %(email)s, %(password)s);"
         return connectToMySQL(DATABASE).query_db(query, data)
 
-# ==== READ ====
-    @classmethod # Get all users
+    # Get all users
+    @classmethod 
     def get_all_users(self):
         query = "SELECT * FROM users;"
         results = connectToMySQL(DATABASE).query_db(query);
@@ -43,7 +43,8 @@ class User:
             return all_users
         return False
 
-    @classmethod # Get all users except logged in user
+    # Get all users except logged in user
+    @classmethod 
     def get_all_not_logged_in_users(self, data):
         query = "SELECT * FROM users WHERE NOT id = %(user_id)s;"
         results = connectToMySQL(DATABASE).query_db(query, data);
@@ -58,7 +59,8 @@ class User:
             return all_users
         return False
 
-    @classmethod # Get a user's data by id
+    # Get a user's data by id
+    @classmethod 
     def get_one_by_id(self, data):
         query = "SELECT * FROM users WHERE id = %(id)s;"
         results = connectToMySQL(DATABASE).query_db(query, data)
@@ -67,7 +69,8 @@ class User:
             return user # Return instance
         return False
 
-    @classmethod # Get user's data by email
+    # Get user's data by email
+    @classmethod 
     def get_one_by_email(self, data):
         query = "SELECT * FROM users WHERE email = %(email)s;"
         results = connectToMySQL(DATABASE).query_db(query, data)
@@ -76,7 +79,8 @@ class User:
             return user
         return False
 
-    @classmethod # Query database with search category 
+    # Query database with search category 
+    @classmethod 
     def get_many_by_user_input(self, data):
         if data['category'] == 'username':
             query = "SELECT * FROM users WHERE username LIKE %(input)s;"
@@ -96,12 +100,8 @@ class User:
             return all_users
         return []
 
-# ==== UPDATE ====
-
-# ==== DELETE ====
-
-# ==== STATIC ====
-    @staticmethod # Validate register form data
+    # STATIC: Validate register form data
+    @staticmethod 
     def validate(user_data):
         is_valid = True
         username_len = len(user_data['username'])
