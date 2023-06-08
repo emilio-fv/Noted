@@ -1,14 +1,14 @@
+import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Landing from './pages/Landing';
-import './App.css';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#3F5769',
+      main: '#273947',
       dark: '#403228',
-      light: '#66A9A9'
+      light: '#4d7d7d'
     }
   },
   custom: {
@@ -24,7 +24,7 @@ function App() {
         {/* TODO: Landing Page */}
           <Route path='/' element={ <Landing /> }/>
         {/* TODO: Register */}
-          {/* <Route path='/register' Component={}/> */}
+          {/* <Route path='/register' element={}/> */}
         {/* TODO: Login */}
           {/* <Route path='/login' Component={}/> */}
         {/* TODO: Dashboard */}

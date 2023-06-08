@@ -1,19 +1,23 @@
 import React from 'react';
 import MainLayout from '../layouts/Main';
-import Button from '@mui/material/Button';
+import StyledButton from '../components/Button';
+
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { useNavigate } from 'react-router-dom';
 
-const src = ["", "", "", "", ""];
+// const src = ["", "", "", "", ""];
 
 const Landing = () => {
+  const navigate = useNavigate();
+
+  const handleJoinNotedClick = () => navigate('/register')
+
   return (
     <MainLayout>
       <Box 
         sx={{ 
           height: '90vh',
-          bgcolor: '#33271F', 
-          color: '#cbf1d7',
           display: 'flex',
           justifyContent: 'center',
           flexDirection: 'column',
@@ -77,7 +81,7 @@ const Landing = () => {
         <Typography sx={{ fontSize: '1.3rem' }}>Track what you listen to.</Typography>
         <Typography sx={{ fontSize: '1.3rem' }}>Share your thoughts.</Typography>
         <Typography sx={{ fontSize: '1.3rem' }}>Connect.</Typography>
-        <Button sx={{ my: 2 }} variant='contained'>Join Note-d</Button>
+        <StyledButton onClick={handleJoinNotedClick} text={'Join Note-d'}/>
         <Typography variant='subtitle'>The social network for music lovers.</Typography>
       </Box>
     </MainLayout>

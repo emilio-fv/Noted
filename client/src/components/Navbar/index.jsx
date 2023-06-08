@@ -37,7 +37,7 @@ const Navbar = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* Logo - Desktop */}
-          <Logo sx={{ display: { xs: 'none', md: 'flex' }, fontSize: '1.75rem' }}/>
+          <Logo sx={{ mr: 2, display: { xs: 'none', md: 'flex' }, fontSize: '1.75rem' }}/>
           {/* Menu - Mobile */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -50,7 +50,6 @@ const Navbar = () => {
             >
               <MenuIcon />
             </IconButton>
-            {/* Links - Mobile */}
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -76,12 +75,11 @@ const Navbar = () => {
               ))}
             </Menu>
           </Box>
-          {/* Logo - Mobile */}
+          {/* Logo - Desktop */}
           <Logo sx={{ display: { xs: 'flex', md: 'none' }, flexGrow: 1, fontSize: '1.5rem' }}/>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                // color='primary.light'
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
@@ -90,11 +88,11 @@ const Navbar = () => {
               </Button>
             ))}
           </Box>
-
+          {/* Account Menu */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton sx={{ p: 0 }} onClick={handleOpenUserMenu}>
-                <AccountCircleIcon fontSize='large'/>
+                <AccountCircleIcon fontSize='large' sx={{ color: '#BEE0C9' }}/>
               </IconButton>
             </Tooltip>
             <Menu

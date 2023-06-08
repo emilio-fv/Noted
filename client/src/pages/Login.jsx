@@ -1,8 +1,11 @@
 import React from 'react';
+import MainLayout from '../layouts/Main';
 
 const Login = () => {
   return (
-    <h1>Login</h1>
+    <MainLayout>
+      
+    </MainLayout>
   )
 };
 
