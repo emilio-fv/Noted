@@ -1,14 +1,17 @@
 import React from 'react';
-import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
+import { Link as RouterLink } from 'react-router-dom';
 
 const Logo = ({ sx }) => {
   return (
-    <Typography
-      variant='h6'
+    <Link
+      component={RouterLink}
+      variant='h5'
       sx={sx}
+      to='/'
     >
       Note-d
-    </Typography>
+    </Link>
   )
 };
 
