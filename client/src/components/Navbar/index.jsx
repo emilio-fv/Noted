@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 
 import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
@@ -13,8 +14,9 @@ import Menu from '@mui/material/Menu';
 import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
+import Link from '@mui/material/Link';
 
-const settings = ["Login", "Profile", "Account", "Logout"];
+// const settings = ["Login", "Profile", "Account", "Logout"];
 const pages = ["Dashboard", "Music", "Reviews", "Connect"];
 
 const Navbar = () => {
@@ -37,7 +39,7 @@ const Navbar = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* Logo - Desktop */}
-          <Logo sx={{ mr: 2, display: { xs: 'none', md: 'flex' }, fontSize: '1.75rem' }}/>
+          <Logo sx={{ mr: 2, display: { xs: 'none', md: 'flex' }, fontSize: '1.75rem', color: 'inherit', textDecoration: 'none' }}/>
           {/* Menu - Mobile */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -111,14 +113,13 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem 
-                  key={setting} 
-                  onClick={handleCloseUserMenu}
-                  >
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              {/* If no logged in user */}
+              <MenuItem
+                onClick={handleCloseUserMenu}
+              >
+                <Link to='/login' component={RouterLink} sx={{ textDecoration: 'none', color: 'black' }}>Login</Link>
+              </MenuItem>
+              {/* TODO: if logged in user */}
             </Menu>
           </Box>
         </Toolbar>

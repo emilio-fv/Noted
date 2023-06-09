@@ -1,8 +1,11 @@
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
+
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 import Landing from './pages/Landing';
 import Register from './pages/Register';
-import { Routes, Route } from 'react-router-dom';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Login from './pages/Login';
 
 const theme = createTheme({
   // palette: {
@@ -24,10 +27,8 @@ function App() {
       <Routes>
           <Route path='/' element={ <Landing /> }/>
           <Route path='/register' element={ <Register /> }/>
-        {/* TODO: Login */}
-          {/* <Route path='/login' Component={}/> */}
-        {/* TODO: Dashboard */}
-          {/* <Route path='/home' Component={}/> */}
+          <Route path='/login' element={ <Login /> }/>
+          {/* TODO: Dashboard */}
       </Routes>
     </ThemeProvider>
   );
