@@ -1,30 +1,29 @@
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
 import Landing from './pages/Landing';
+import Register from './pages/Register';
+import { Routes, Route } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#273947',
-      dark: '#403228',
-      light: '#4d7d7d'
-    }
-  },
-  custom: {
-    background: '#403228'
-  },
-  white: '#BEE0C9'
+  // palette: {
+  //   primary: {
+  //     main: '#273947',
+  //     dark: '#403228',
+  //     light: '#4d7d7d'
+  //   }
+  // },
+  // custom: {
+  //   background: '#403228'
+  // },
+  // white: '#BEE0C9'
 });
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Routes>
-        {/* TODO: Landing Page */}
           <Route path='/' element={ <Landing /> }/>
-        {/* TODO: Register */}
-          {/* <Route path='/register' element={}/> */}
+          <Route path='/register' element={ <Register /> }/>
         {/* TODO: Login */}
           {/* <Route path='/login' Component={}/> */}
         {/* TODO: Dashboard */}
