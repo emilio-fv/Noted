@@ -7,7 +7,7 @@ const MainLayout = ({ children }) => {
   return (
     <Box sx={{ }}>
       <Navbar />
-      <Box sx={{ height: '90vh' }}>
+      <Box sx={{ height: '90vh', width: '100vw' }}>
         { 
           children 
         }
