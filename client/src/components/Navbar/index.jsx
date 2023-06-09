@@ -33,7 +33,7 @@ const Navbar = () => {
   const handleCloseUserMenu = () => { setAnchorElUser(null) };
 
   return (
-    <AppBar position="static" sx={{ height: '10vh'}}>
+    <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* Logo - Desktop */}
