@@ -92,7 +92,7 @@ const Navbar = () => {
           </Box>
           {/* Account Menu */}
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title="Account">
               <IconButton sx={{ p: 0 }} onClick={handleOpenUserMenu}>
                 <AccountCircleIcon fontSize='large' sx={{ color: '#BEE0C9' }}/>
               </IconButton>
