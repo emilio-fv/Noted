@@ -5,10 +5,12 @@ import StyledButton from '../Button';
 
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { useTheme } from '@emotion/react';
 
 const Hero = () => {
   const navigate = useNavigate();
   const handleJoinNotedClick = () => navigate('/register');
+  const theme = useTheme();
 
   return (
     <>
@@ -70,7 +72,7 @@ const Hero = () => {
         <Typography sx={{ fontSize: '1.3rem' }}>Track the music you listen to.</Typography>
         <Typography sx={{ fontSize: '1.3rem' }}>Share your thoughts.</Typography>
         <Typography sx={{ fontSize: '1.3rem' }}>Connect.</Typography>
-        <StyledButton sx={{ my: 2 }} onClick={handleJoinNotedClick} text={'Join Note-d'}/>
+        <StyledButton sx={{ my: 2, backgroundColor: theme.accent.light, '&:hover': { backgroundColor: theme.accent.dark} }} onClick={handleJoinNotedClick} text={'Join Note-d'}/>
         <Typography variant='subtitle'>The social network for music lovers.</Typography>
       </Box>
     </>
