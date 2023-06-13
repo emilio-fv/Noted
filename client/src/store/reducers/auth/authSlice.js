@@ -56,9 +56,10 @@ export const authSlice = createSlice({
       state.errors = action.payload
     })
     builder.addCase(register.fulfilled, (state, action) => {
-      const {accessToken, userData} = action.payload
+      const {accessToken, refreshToken, userData} = action.payload
+      state.accessToken = accessToken
+      state.refreshToken = refreshToken
       state.status = 'success'
-      state.token = accessToken
       state.loggedInUser = userData
       state.errors = null
     })
@@ -70,8 +71,9 @@ export const authSlice = createSlice({
       state.errors = action.payload
     })
     builder.addCase(login.fulfilled, (state, action) => {
-      const {accessToken, userData} = action.payload
-      state.token = accessToken
+      const {accessToken, refreshToken, userData} = action.payload
+      state.accessToken = accessToken
+      state.refreshToken = refreshToken
       state.loggedInUser = userData
       state.status = 'success'
       state.errors = null
@@ -80,7 +82,8 @@ export const authSlice = createSlice({
       state.status = 'loading'
     })
     builder.addCase(logout.fulfilled, (state) => {
-      state.token = null
+      state.accessToken = null
+      state.refreshToken = null
       state.loggedInUser = null
       state.status = 'idle'
       state.errors = null
@@ -94,7 +97,7 @@ export const authSlice = createSlice({
   }
 });
 
-export const selectToken = (state) => state.auth.token;
+export const selectAccessToken = (state) => state.auth.accessToken;
 export const selectLoggedInUser = (state) => state.auth.loggedInUser;
 export const selectStatus = (state) => state.auth.status;
 export const selectErrors = (state) => state.auth.errors;

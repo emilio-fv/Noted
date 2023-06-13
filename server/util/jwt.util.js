@@ -5,7 +5,7 @@ const generateAccessToken = (payload) => {
     payload,
     process.env.ACCESS_SECRET_KEY, 
     { 
-      expiresIn: process.env.ACCESS_EXPIRATION 
+      expiresIn: process.env.ACCESS_EXPIRATION
     }
   )
 };
@@ -15,17 +15,12 @@ const generateRefreshToken = (payload) => {
     payload, 
     process.env.REFRESH_SECRET_KEY, 
     { 
-      expiresIn: process.env.REFRESH_EXPIRATION 
+      expiresIn: process.env.REFRESH_EXPIRATION
     }
   )
 }
 
-const verifyToken = (token, secretKey) => {
-  return jwt.verify(token, secretKey)
-};
-
 module.exports = {
   generateAccessToken,
   generateRefreshToken,
-  verifyToken,
 };

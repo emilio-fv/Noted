@@ -23,7 +23,7 @@ const LoginForm = () => {
   // Helpers
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { token, status, errors } = useSelector(state => state.auth);
+  const { accessToken, status, errors } = useSelector(state => state.auth);
 
   // Password Visibility
   const [showPassword, setShowPassword] = useState(false);
@@ -44,10 +44,10 @@ const LoginForm = () => {
       setFormErrors(errors);
     }
 
-    if (token) {
+    if (accessToken) {
       navigate('/dashboard');
     }
-  }, [token, status])
+  }, [accessToken, status])
 
   const onSubmit = data => {
     dispatch(login(data))
