@@ -6,6 +6,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Landing from './pages/Landing';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import PrivateRoutes from './components/PrivateRoutes'
 
 const theme = createTheme({
   // palette: {
@@ -28,7 +30,9 @@ function App() {
           <Route path='/' element={ <Landing /> }/>
           <Route path='/register' element={ <Register /> }/>
           <Route path='/login' element={ <Login /> }/>
-          {/* TODO: Dashboard */}
+          <Route element={<PrivateRoutes />}>
+            <Route path='/dashboard' element={ <Dashboard /> }/>
+          </Route>
       </Routes>
     </ThemeProvider>
   );

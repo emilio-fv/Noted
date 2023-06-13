@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../store/reducers/auth/authSlice';
 
 import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
@@ -16,10 +18,14 @@ import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import Link from '@mui/material/Link';
 
-// const settings = ["Login", "Profile", "Account", "Logout"];
+const settings = ["profile", "logout"];
 const pages = ["Dashboard", "Music", "Reviews", "Connect"];
 
 const Navbar = () => {
+  // Helpers
+  const { token } = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+
   // Handle Open Nav Menu
   const [anchorElNav, setAnchorElNav] = useState(null);
   const handleOpenNavMenu = (event) => {
@@ -33,6 +39,11 @@ const Navbar = () => {
     setAnchorElUser(event.currentTarget);
   }
   const handleCloseUserMenu = () => { setAnchorElUser(null) };
+
+  // Handle Logout
+  const handleLogout = (event) => {
+    dispatch(logout());
+  }
 
   return (
     <AppBar position="static">
@@ -92,7 +103,7 @@ const Navbar = () => {
           </Box>
           {/* Account Menu */}
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title="Account">
               <IconButton sx={{ p: 0 }} onClick={handleOpenUserMenu}>
                 <AccountCircleIcon fontSize='large' sx={{ color: '#BEE0C9' }}/>
               </IconButton>
@@ -113,13 +124,20 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {/* If no logged in user */}
-              <MenuItem
-                onClick={handleCloseUserMenu}
-              >
+              {token 
+                ?
+                  <>
+                    <MenuItem>
+                    <Link to='/profile' component={RouterLink} sx={{ textDecoration: 'none', color: 'black', textTransform: 'capitalize' }}>Profile</Link>
+                    </MenuItem>
+                    <MenuItem onClick={handleLogout}>
+                      <Link sx={{ textDecoration: 'none', color: 'black', textTransform: 'capitalize' }}>Logout</Link>
+                    </MenuItem>
+                  </>
+                : <MenuItem onClick={handleCloseUserMenu}>
                 <Link to='/login' component={RouterLink} sx={{ textDecoration: 'none', color: 'black' }}>Login</Link>
               </MenuItem>
-              {/* TODO: if logged in user */}
+              }
             </Menu>
           </Box>
         </Toolbar>
