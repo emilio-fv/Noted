@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../store/reducers/auth/authSlice';
+import { logout, selectAccessToken } from '../../store/reducers/auth/authSlice';
 
 import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
@@ -18,12 +18,11 @@ import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import Link from '@mui/material/Link';
 
-const settings = ["profile", "logout"];
 const pages = ["Dashboard", "Music", "Reviews", "Connect"];
 
 const Navbar = () => {
   // Helpers
-  const { token } = useSelector(state => state.auth);
+  const accessToken = useSelector(selectAccessToken);
   const dispatch = useDispatch();
 
   // Handle Open Nav Menu
@@ -124,7 +123,7 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {token 
+              {accessToken 
                 ?
                   <>
                     <MenuItem>
