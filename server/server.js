@@ -23,8 +23,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Server Endpoints
-app.use('/users', userRouter);
 app.use('/auth', authRouter);
+app.use('/users', userRouter);
 
 mongoose.connection.once('open', () => {
   console.log('Connected to MongoDB');

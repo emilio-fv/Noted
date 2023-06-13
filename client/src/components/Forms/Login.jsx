@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { login } from '../../store/reducers/auth/authSlice';
 
 import StyledButton from '../Button';
 
@@ -11,11 +14,17 @@ import FormHelperText from '@mui/material/FormHelperText';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import InputLabel from '@mui/material/InputLabel';
+import Link from '@mui/material/Link';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import OutlinedInput from '@mui/material/OutlinedInput';
 
 const LoginForm = () => {
+  // Helpers
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { token, status, errors } = useSelector(state => state.auth);
+
   // Password Visibility
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
@@ -26,7 +35,23 @@ const LoginForm = () => {
     email: '',
     password: ''
   })
-  const onSubmit = data => console.log(data);
+
+  // Form Errors
+  const [formErrors, setFormErrors] = useState(null);
+
+  useEffect(() => {
+    if (status === 'failed') {
+      setFormErrors(errors);
+    }
+
+    if (token) {
+      navigate('/dashboard');
+    }
+  }, [token, status])
+
+  const onSubmit = data => {
+    dispatch(login(data))
+  };
 
   return (
     <Box
@@ -36,6 +61,7 @@ const LoginForm = () => {
         display: 'flex', 
         justifyContent: 'center', 
         alignItems: 'center', 
+        flexDirection: 'column'
       }}
     >
       <Box
@@ -105,8 +131,13 @@ const LoginForm = () => {
             </FormControl>
           )}
         />
+        {formErrors
+          ? <Typography>{formErrors.message}</Typography>
+          : null
+        }
         <StyledButton type={'submit'} text={'Login'}/>
       </Box>
+      <Typography>Don't have an account? <Link to='/register' component={RouterLink} >Register here.</Link></Typography>
     </Box>
   )
 };
