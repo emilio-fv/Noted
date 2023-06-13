@@ -10,17 +10,28 @@ import Dashboard from './pages/Dashboard';
 import PrivateRoutes from './components/PrivateRoutes'
 
 const theme = createTheme({
-  // palette: {
-  //   primary: {
-  //     main: '#273947',
-  //     dark: '#403228',
-  //     light: '#4d7d7d'
-  //   }
-  // },
-  // custom: {
-  //   background: '#403228'
-  // },
-  // white: '#BEE0C9'
+  palette: {
+    primary: {
+      main: '#1e232c',
+    },
+    secondary: {
+      main: '#6d6e75',
+    },
+  },
+  background: '#272d38',
+  accent: {
+    light: '#039408',
+    dark: '#017305'
+  },
+  components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          color: 'white'
+        }
+      }
+    }
+  }
 });
 
 function App() {
