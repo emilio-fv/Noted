@@ -1,6 +1,7 @@
 const express = require('express');
 
 const {
+  handleRegister,
   handleLogin,
   handleRefresh,
   handleLogout
@@ -8,6 +9,7 @@ const {
 
 const router = express.Router();
 
+router.post('/register', handleRegister);
 router.post('/login', handleLogin)
 router.get('/refresh', handleRefresh)
 router.post('/logout', handleLogout)
