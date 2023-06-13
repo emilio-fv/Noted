@@ -1,19 +1,21 @@
-import { refreshAccessToken, logout } from '../reducers/auth/authSlice';
-// import { useNavigate } from 'react-router-dom';
+import { refreshAccessToken, updateAccessToken, logout } from '../reducers/auth/authSlice';
 
 const tokenExpiration = store => next => action => {
+  // Check error type & status
+
   if (action.type === 'API_REQUEST_FAILURE') {
     const { error } = action;
 
     if (error && error.status === 401) {
-      const { accessToken } = store.getState().auth;
+      const { refreshToken } = store.getState().auth;
 
-      if (accessToken) {
+      if (refreshToken) {
         store.dispatch(refreshAccessToken())
         .then(response => {
           const { newAccessToken } = response.payload;
-          const { originalRequest } = error.config;
+          store.dispatch(updateAccessToken(newAccessToken));
 
+          const { originalRequest } = error.config;
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
           store.dispatch(originalRequest);
         })

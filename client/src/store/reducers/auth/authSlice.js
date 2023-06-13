@@ -2,7 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authService from "./authService";
 
 const initialState = {
-  token: null,
+  accessToken: null,
+  refreshToken: null,
   loggedInUser: null,
   status: 'idle', // 'idle' | 'loading' | 'success' | 'failed'
   errors: null
@@ -42,6 +43,9 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState: initialState,
   reducers: {
+    updateAccessToken: (state, action) => {
+      state.accessToken = action.payload
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(register.pending, (state) => {
@@ -95,6 +99,6 @@ export const selectLoggedInUser = (state) => state.auth.loggedInUser;
 export const selectStatus = (state) => state.auth.status;
 export const selectErrors = (state) => state.auth.errors;
 
-// export const { setCredentials, logOut } = authSlice.actions;
+export const { updateAccessToken } = authSlice.actions;
 
 export default authSlice.reducer;
