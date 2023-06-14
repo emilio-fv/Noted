@@ -45,8 +45,8 @@ function App() {
           <Route path='/register' element={ <Register /> }/>
           <Route path='/login' element={ <Login /> }/>
           <Route element={<PrivateRoutes />}>
+            <Route path='/dashboard' element={ <Dashboard /> }/>
           </Route>
-          <Route path='/dashboard' element={ <Dashboard /> }/>
       </Routes>
     </ThemeProvider>
   );

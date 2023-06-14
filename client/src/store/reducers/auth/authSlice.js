@@ -30,13 +30,13 @@ export const login = createAsyncThunk('auth/login', async (data, thunkAPI) => {
 })
 
 export const refreshAccessToken = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
-  const { token } = thunkAPI.getState();
-  return await authService.refreshToken(token);
+  const { refreshToken } = thunkAPI.getState();
+  return await authService.refreshToken(refreshToken);
 })
 
 export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
-  const { token } = thunkAPI.getState();
-  return await authService.logout(token);
+  const { accessToken } = thunkAPI.getState();
+  return await authService.logout(accessToken);
 })
 
 export const authSlice = createSlice({
