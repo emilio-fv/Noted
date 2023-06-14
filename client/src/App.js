@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 
+import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import Landing from './pages/Landing';
@@ -19,6 +20,7 @@ const theme = createTheme({
     },
   },
   background: '#272d38',
+  text: '#E8EBEB',
   accent: {
     light: '#039408',
     dark: '#017305'
@@ -27,12 +29,12 @@ const theme = createTheme({
     MuiTypography: {
       styleOverrides: {
         root: {
-          color: 'white'
+          color: '#E8EBEB'
         }
       }
-    }
+    },
   }
-});
+})
 
 function App() {
   return (

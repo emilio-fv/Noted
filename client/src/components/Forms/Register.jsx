@@ -5,35 +5,20 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { register } from '../../store/reducers/auth/authSlice';
 
 import StyledButton from '../Button';
+import TextInput from './Inputs/TextInput';
+import PasswordInput from './Inputs/PasswordInput';
 
 import Box from '@mui/material/Box';
-import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import InputLabel from '@mui/material/InputLabel';
 import Link from '@mui/material/Link';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { useTheme } from '@emotion/react';
 
 const RegisterForm = () => {
   // Helpers
+  const theme = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { accessToken, status, errors } = useSelector(state => state.auth);
-
-  // Password Visibility
-  const [showPassword, setShowPassword] = useState(false);
-  const handleShowPassword = () => setShowPassword(!showPassword);
-  const handleMouseDownPassword = (event) => event.preventDefault();
-  
-  // Confirm Password Visibility
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const handleShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
-  const handleMouseDownConfirmPassword = (event) => event.preventDefault();
 
   // Form Changes & Submit
   const { handleSubmit, control } = useForm({
@@ -50,7 +35,7 @@ const RegisterForm = () => {
   // Form Errors
   const [formErrors, setFormErrors] = useState(null);
 
-  // TODO: Check if user logged in
+  // Check if user logged in
   useEffect(() => {
     if (status === 'failed') {
       setFormErrors(errors);
@@ -84,168 +69,59 @@ const RegisterForm = () => {
           minWidth: '200px',
           display: 'flex', 
           flexDirection: 'column',
+          justifyContent: 'center',
           gap: 2,
         }}
       >
         <Typography variant='h5' textAlign='center'>Register</Typography>
-        <Controller 
+        <TextInput 
           name={'firstName'}
           control={control}
           rules={{ required: 'First name required.'}}
-          render={({ field: { onChange, value }, fieldState: { error }, formState }) => (
-            <TextField 
-              label='First Name'
-              variant='outlined'
-              size='small'
-              value={value} 
-              onChange={onChange} 
-              error={!!error}
-              helperText={error ? error.message : null}
-              FormHelperTextProps={{ 
-                sx: { 
-                  mb: -1.5,
-                } 
-              }}
-            />
-          )}
+          label={'First Name'}
         />
-        <Controller 
+        <TextInput 
           name={'lastName'}
           control={control}
           rules={{ required: 'Last name required.'}}
-          render={({ field: { onChange, value }, fieldState: { error }, formState }) => (
-            <TextField 
-              label='Last Name'
-              variant='outlined'
-              size='small'
-              value={value} 
-              onChange={onChange} 
-              error={!!error}
-              helperText={error ? error.message : null}
-              FormHelperTextProps={{ 
-                sx: { 
-                  mb: -1.5,
-                } 
-              }}
-            />
-          )}
+          label={'Last Name'}
         />
-        <Controller 
+        <TextInput 
           name={'username'}
           control={control}
           rules={{ required: 'Username required.'}}
-          render={({ field: { onChange, value }, fieldState: { error }, formState }) => (
-            <TextField 
-              label='Username'
-              variant='outlined'
-              size='small'
-              value={value} 
-              onChange={onChange} 
-              error={!!error}
-              helperText={error ? error.message : null}
-              FormHelperTextProps={{ 
-                sx: { 
-                  mb: -1.5,
-                } 
-              }}
-            />
-          )}
+          label={'Username'}
         />
-        <Controller 
+        <TextInput 
           name={'email'}
           control={control}
-          rules={{ required: 'Email required.'}}
-          render={({ field: { onChange, value }, fieldState: { error }, formState }) => (
-            <TextField 
-              label='Email'
-              variant='outlined'
-              size='small'
-              value={value} 
-              onChange={onChange} 
-              error={!!error}
-              helperText={error ? error.message : null}
-              FormHelperTextProps={{ 
-                sx: { 
-                  mb: -1.5,
-                } 
-              }}
-            />
-          )}
+          label={'Email'}
+          rules={{ 
+            required: 'Email required.', 
+            pattern: { 
+              value: /^[\w-]+(\.[\w-]+)*@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/, 
+              message: "Invalid email."}
+          }}
         />
-        <Controller 
+        <PasswordInput 
           name={'password'}
           control={control}
           rules={{ required: 'Password required.'}}
-          render={({ field: { onChange, value }, fieldState: { error }, formState }) => (
-            <FormControl sx={{ }} size='small'>
-              <InputLabel htmlFor='password'>Password</InputLabel>
-              <OutlinedInput
-                id='password'
-                size='small'
-                label='Password'
-                type={showPassword ? 'text' : 'password'}
-                value={value}
-                onChange={onChange}
-                error={error}
-                endAdornment={
-                  <InputAdornment position='end'>
-                    <IconButton
-                      aria-label='toggle password visibility'
-                      onClick={handleShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge='end'
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-              {
-                error ? <FormHelperText sx={{ color: 'red', mb: -1.5, }}>{error.message}</FormHelperText> : null
-              }
-            </FormControl>
-          )}
+          label={"Password"}
         />
-        <Controller 
+        <PasswordInput 
           name={'confirmPassword'}
           control={control}
-          rules={{ required: 'Confirm password required.'}}
-          render={({ field: { onChange, value }, fieldState: { error }, formState }) => (
-            <FormControl sx={{ }} size='small'>
-              <InputLabel htmlFor='confirm-password'>Confirm Password</InputLabel>
-              <OutlinedInput
-                id='confirm-password'
-                label='Confirm Password'
-                type={showConfirmPassword ? 'text' : 'password'}
-                value={value}
-                onChange={onChange}
-                error={error}
-                endAdornment={
-                  <InputAdornment position='end'>
-                    <IconButton
-                      aria-label='toggle password visibility'
-                      onClick={handleShowConfirmPassword}
-                      onMouseDown={handleMouseDownConfirmPassword}
-                      edge='end'
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-              {
-                error ? <FormHelperText sx={{ color: 'red' }}>{error.message}</FormHelperText> : null
-              }
-            </FormControl>
-          )}
+          rules={{ required: 'Confirm Password required.'}}
+          label={"Confirm Password"}
         />
         {formErrors 
-          ? Object.values(formErrors).map((error, key) => <Typography sx={{ color: 'red' }} key={key}>{error.message}</Typography>)
+          ? Object.values(formErrors).map((error, key) => <Typography sx={{ color: '#D32F2F' }} key={key}>{error.message}</Typography>)
           : null
         }
-        <StyledButton type={'submit'} text={'Register'}/>
+        <StyledButton type={'submit'} text={'Register'} sx={{ backgroundColor: theme.accent.light, '&:hover': { backgroundColor: theme.accent.dark} }}/>
       </Box>
-      <Typography>Already have an account? <Link to='/login' component={RouterLink} >Register here.</Link></Typography>
+      <Typography mt={2}>Already have an account? <Link to='/login' component={RouterLink} sx={{ color: 'inherit'}}>Login here.</Link></Typography>
     </Box>
   )
 };
