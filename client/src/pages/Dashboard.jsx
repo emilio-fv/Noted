@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { requestAccessToken } from '../store/reducers/music/musicSlice';
 import MainLayout from '../layouts/Main';
 import ReviewsFeed from '../components/ReviewsFeed';
 
@@ -6,9 +7,15 @@ import ReviewsFeed from '../components/ReviewsFeed';
 // import { useSelector } from 'react-redux';
 
 import Typography from '@mui/material/Typography';
+import { useDispatch } from 'react-redux';
 
 const Dashboard = () => {
   // const { username } = useSelector(selectLoggedInUser);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(requestAccessToken());
+  })
 
   return (
     <MainLayout>
