@@ -1,15 +1,19 @@
 import React from 'react';
 import MainLayout from '../layouts/Main';
-import { Typography } from '@mui/material';
-import { selectLoggedInUser } from '../store/reducers/auth/authSlice';
-import { useSelector } from 'react-redux';
+import ReviewsFeed from '../components/ReviewsFeed';
+
+// import { selectLoggedInUser } from '../store/reducers/auth/authSlice';
+// import { useSelector } from 'react-redux';
+
+import Typography from '@mui/material/Typography';
 
 const Dashboard = () => {
-  const { username } = useSelector(selectLoggedInUser);
+  // const { username } = useSelector(selectLoggedInUser);
 
   return (
     <MainLayout>
-      <Typography>Welcome, {username}</Typography>
+      <Typography variant='h5' marginTop={5}>Welcome, username</Typography>
+      <ReviewsFeed />
     </MainLayout>
   )
 };

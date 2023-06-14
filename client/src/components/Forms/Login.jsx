@@ -20,11 +20,6 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const { accessToken, status, errors } = useSelector(state => state.auth);
 
-  // Password Visibility
-  const [showPassword, setShowPassword] = useState(false);
-  const handleShowPassword = () => setShowPassword(!showPassword);
-  const handleMouseDownPassword = (event) => event.preventDefault();
-
   // Form Changes & Submit
   const { handleSubmit, control } = useForm({
     email: '',
@@ -51,7 +46,7 @@ const LoginForm = () => {
   return (
     <Box
       sx={{
-        height: '100%',
+        height: '90vh',
         width: '100%',
         display: 'flex', 
         justifyContent: 'center', 

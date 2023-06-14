@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { register } from '../../store/reducers/auth/authSlice';
@@ -46,6 +46,7 @@ const RegisterForm = () => {
     }
   }, [accessToken, status])
 
+  // Handle Submit
   const onSubmit = data => {
     dispatch(register(data));
   };
@@ -53,12 +54,12 @@ const RegisterForm = () => {
   return (
     <Box
       sx={{
-        height: '100%',
+        height: '90vh',
         width: '100%',
         display: 'flex', 
         justifyContent: 'center', 
         alignItems: 'center',
-        flexDirection: 'column'
+        flexDirection: 'column',
       }}
     >
       <Box
