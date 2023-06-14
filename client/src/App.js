@@ -1,8 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 
-import { outlinedInputClasses } from '@mui/material/OutlinedInput';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 
 import Landing from './pages/Landing';
 import Register from './pages/Register';
@@ -10,7 +9,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import PrivateRoutes from './components/PrivateRoutes'
 
-const theme = createTheme({
+let theme = createTheme({
   palette: {
     primary: {
       main: '#1e232c',
@@ -36,6 +35,8 @@ const theme = createTheme({
   }
 })
 
+theme = responsiveFontSizes(theme);
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -44,8 +45,8 @@ function App() {
           <Route path='/register' element={ <Register /> }/>
           <Route path='/login' element={ <Login /> }/>
           <Route element={<PrivateRoutes />}>
-            <Route path='/dashboard' element={ <Dashboard /> }/>
           </Route>
+          <Route path='/dashboard' element={ <Dashboard /> }/>
       </Routes>
     </ThemeProvider>
   );
