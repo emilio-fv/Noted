@@ -1,26 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { login } from '../../store/reducers/auth/authSlice';
 
 import StyledButton from '../Button';
+import TextInput from './Inputs/TextInput';
+import PasswordInput from './Inputs/PasswordInput';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import InputLabel from '@mui/material/InputLabel';
 import Link from '@mui/material/Link';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import OutlinedInput from '@mui/material/OutlinedInput';
+import { useTheme } from '@emotion/react';
 
 const LoginForm = () => {
   // Helpers
+  const theme = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { accessToken, status, errors } = useSelector(state => state.auth);
@@ -76,68 +71,30 @@ const LoginForm = () => {
         }}
       >
         <Typography variant='h5' textAlign='center'>Login</Typography>
-        <Controller
-          name='email'
+        <TextInput 
+          name={'email'}
           control={control}
-          rules={{ required: 'Email required.'}}
-          render={({ field: { onChange, value }, fieldState: { error }, formState }) => (
-            <TextField 
-              label='Email'
-              variant='outlined'
-              size='small'
-              value={value}
-              onChange={onChange}
-              error={!!error}
-              helperText={error ? error.message : null}
-              FormHelperTextProps={{
-                sx: {
-                  mb: -1.5
-                }
-              }}
-            />
-          )}
+          label={'Email'}
+          rules={{ 
+            required: 'Email required.', 
+            pattern: { 
+              value: /^[\w-]+(\.[\w-]+)*@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/, 
+              message: "Invalid email."}
+          }}
         />
-        <Controller 
+        <PasswordInput 
           name={'password'}
           control={control}
           rules={{ required: 'Password required.'}}
-          render={({ field: { onChange, value }, fieldState: { error }, formState }) => (
-            <FormControl sx={{ }} size='small'>
-              <InputLabel htmlFor='password'>Password</InputLabel>
-              <OutlinedInput
-                id='password'
-                size='small'
-                label='Password'
-                type={showPassword ? 'text' : 'password'}
-                value={value}
-                onChange={onChange}
-                error={error}
-                endAdornment={
-                  <InputAdornment position='end'>
-                    <IconButton
-                      aria-label='toggle password visibility'
-                      onClick={handleShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge='end'
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-              {
-                error ? <FormHelperText sx={{ color: 'red', mb: -1.5, }}>{error.message}</FormHelperText> : null
-              }
-            </FormControl>
-          )}
+          label={'Password'}
         />
         {formErrors
           ? <Typography>{formErrors.message}</Typography>
           : null
         }
-        <StyledButton type={'submit'} text={'Login'}/>
+        <StyledButton type={'submit'} text={'Login'} sx={{ backgroundColor: theme.accent.light, '&:hover': { backgroundColor: theme.accent.dark} }}/>
       </Box>
-      <Typography>Don't have an account? <Link to='/register' component={RouterLink} >Register here.</Link></Typography>
+      <Typography mt={2}>Don't have an account? <Link to='/register' component={RouterLink} sx={{ color: 'inherit'}}>Register here.</Link></Typography>
     </Box>
   )
 };
