@@ -17,6 +17,15 @@ export const requestAccessToken = createAsyncThunk('music/requestAccessToken', a
   }
 })
 
+export const searchSpotify = createAsyncThunk('music/searchSpotify', async (data, thunkAPI) => {
+  try {
+    const { accessToken } = thunkAPI.getState();
+    return await musicServices.searchSpotify( accessToken, data);
+  } catch (error) {
+    console.log(error);
+  }
+})
+
 export const musicSlice = createSlice({
   name: 'music',
   initialState: initialState,
@@ -33,6 +42,14 @@ export const musicSlice = createSlice({
       .addCase(requestAccessToken.rejected, (state, action) => {
         state.error = action.payload
         state.status = 'failed'
+      })
+      .addCase(searchSpotify.fulfilled, (state, action) => {
+        state.status = 'success'
+        state.searchResults = action.payload
+      })
+      .addCase(searchSpotify.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.payload
       })
   }
 });

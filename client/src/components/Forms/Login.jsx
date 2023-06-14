@@ -39,7 +39,7 @@ const LoginForm = () => {
     }
   }, [accessToken, status])
 
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     dispatch(login(data))
   };
 

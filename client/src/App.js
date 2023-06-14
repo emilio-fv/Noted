@@ -7,6 +7,7 @@ import Landing from './pages/Landing';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import Music from './pages/Music';
 import PrivateRoutes from './components/PrivateRoutes'
 
 let theme = createTheme({
@@ -32,6 +33,19 @@ let theme = createTheme({
         }
       }
     },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        input: {
+          '&::placeholder': {
+            color: '#E8EBEB', // Replace 'red' with your desired color
+            fontSize: '.8rem',
+            '@media (min-width:600px)': {
+              fontSize: '1rem'
+            }
+          },
+        },
+      },
+    },
   }
 })
 
@@ -47,6 +61,7 @@ function App() {
           <Route element={<PrivateRoutes />}>
             <Route path='/dashboard' element={ <Dashboard /> }/>
           </Route>
+          <Route path='/music' element={ <Music /> }/>
       </Routes>
     </ThemeProvider>
   );
