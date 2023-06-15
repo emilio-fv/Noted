@@ -5,8 +5,7 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-const ArtistCard = () => {
-
+const ArtistCard = (artist) => {
   return (
     <Paper
       elevation={4}
@@ -17,19 +16,19 @@ const ArtistCard = () => {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: '',
         gap: { xs: .5, sm: 2}
       }}
     >
       <Box 
         component='img'
-        src={img}
+        src={artist.artist.images.length > 0 ? artist.artist.images[0].url : img}
         sx={{
           width: '100%',
           borderRadius: '50%'
         }}
       />
-      <Typography align='center' sx={{ fontSize: { xs: '.5rem', sm: '.75rem', md: '1rem'}}}>Artist Name</Typography>
+      <Typography align='center' sx={{ fontSize: { xs: '.5rem', sm: '.75rem', md: '1rem'}}}>{artist.artist.name}</Typography>
     </Paper>
   )
 };

@@ -3,7 +3,12 @@ import musicServices from './musicService';
 
 const initialState = {
   accessToken: null,
-  searchResults: null,
+  expiration: null,
+  searchResults: {
+    albums: null,
+    artists: null,
+    tracks: null
+  },
   status: 'idle', // 'idle' | 'loading' | 'success' | 'failed'
   error: null
 };
@@ -15,28 +20,37 @@ export const requestAccessToken = createAsyncThunk('music/requestAccessToken', a
   } catch (error) {
     console.log(error);
   }
-})
+});
 
 export const searchSpotify = createAsyncThunk('music/searchSpotify', async (data, thunkAPI) => {
   try {
-    const { accessToken } = thunkAPI.getState();
-    return await musicServices.searchSpotify( accessToken, data);
+    const response = await musicServices.searchSpotify(data);
+    console.log(response);
+    return response;
   } catch (error) {
     console.log(error);
   }
-})
+});
 
 export const musicSlice = createSlice({
   name: 'music',
   initialState: initialState,
   reducers: {
-    
+    resetSearchResults: (state, action) => {
+      state.searchResults = {
+        albums: null,
+        artists: null,
+        tracks: null
+      }
+    }
   },
   extraReducers: (builder) => {
     builder
       .addCase(requestAccessToken.fulfilled, (state, action) => {
         const { access_token } = action.payload
+        const currentTime = new Date();
         state.accessToken = access_token
+        state.expiration = new Date(currentTime.getTime() + (60 * 60 * 1000));
         state.status = 'success'
       })
       .addCase(requestAccessToken.rejected, (state, action) => {
@@ -47,6 +61,9 @@ export const musicSlice = createSlice({
         state.status = 'success'
         state.searchResults = action.payload
       })
+      .addCase(searchSpotify.pending, (state, action) => {
+        state.status = 'loading'
+      })
       .addCase(searchSpotify.rejected, (state, action) => {
         state.status = 'failed'
         state.error = action.payload
@@ -54,4 +71,6 @@ export const musicSlice = createSlice({
   }
 });
 
+
+export const { resetSearchResults } = musicSlice.actions;
 export default musicSlice.reducer;

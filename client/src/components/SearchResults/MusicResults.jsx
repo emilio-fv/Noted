@@ -1,16 +1,44 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetSearchResults } from '../../store/reducers/music/musicSlice.js';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
+
 import ArtistCard from './ResultCards/ArtistCard';
 import AlbumCard from './ResultCards/AlbumCard';
 import TrackCard from './ResultCards/TrackCard';
-
-const artists = ["", "", "", "", ""];
-const albums = ["", "", "", "", ""];
-const tracks = ["", "", "", "", ""];
+import { useTheme } from '@emotion/react';
 
 const MusicResults = () => {
+  const theme = useTheme();
+  const { searchResults, status } = useSelector(state => state.music);
+  const { albums, artists, tracks } = searchResults;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetSearchResults());
+    }
+  }, []);
+
+  if (status === 'loading') {
+    return (
+      <Box 
+        sx={{
+          width: '100%',
+          height: '65vh',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
+        <CircularProgress size={70} sx={{ color: theme.accent.light }}/>
+      </Box>
+    )
+  }
+
   return (
     <Box
       sx={{
@@ -20,46 +48,61 @@ const MusicResults = () => {
         gap: 2,
         paddingBottom: 6
       }}
-    >
-      <Typography variant='h5'>Artists</Typography>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          gap: { xs: 2, md: 4 }
-        }}
       >
-        {artists.map(() => (
-          <ArtistCard />
-        ))}
-      </Box>
-      <Typography variant='h5'>Albums</Typography>
-      <Box
+      {artists 
+        ? <>
+        <Typography variant='h5'>Artists</Typography>
+        <Box
         sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          gap: { xs: 2, md: 4 }
-        }}
-      >
-          {albums.map(() => (
-            <AlbumCard />
-          ))}
-      </Box>
-      <Typography variant='h5'>Tracks</Typography>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          gap: { xs: 2, md: 4 }
-        }}
-      >
-        {tracks.map(() => (
-          <TrackCard />
-        ))}
-      </Box>
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                gap: { xs: 2, md: 4 }
+              }}
+            >
+              {artists.items.slice(0,6).map((artist, key) => (
+                  <ArtistCard key={key} artist={artist} />
+              ))}
+            </Box> 
+          </>
+        : null
+      }
+      {albums
+        ? <>
+            <Typography variant='h5'>Albums</Typography>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                gap: { xs: 2, md: 4 }
+              }}
+            >
+              {albums.items.slice(0,6).map((album, key) => (
+                  <AlbumCard key={key} album={album}/>
+              ))}
+            </Box>
+          </>
+        : null
+      }
+      {tracks 
+        ? <>
+            <Typography variant='h5'>Tracks</Typography>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                gap: { xs: 2, md: 4 }
+              }}
+            >
+              {tracks.items.slice(0,6).map((track, key) => (
+                <TrackCard key={key} track={track}/>
+              ))}
+            </Box>
+          </>
+        : null
+      }
     </Box>
   )
 };

@@ -1,8 +1,6 @@
 import { refreshAccessToken, updateAccessToken, logout } from '../reducers/auth/authSlice';
 
-const tokenExpiration = store => next => action => {
-  // Check error type & status
-
+const tokenExpiration = store => next => async action => {
   if (action.type === 'API_REQUEST_FAILURE') {
     const { error } = action;
 
@@ -17,7 +15,7 @@ const tokenExpiration = store => next => action => {
 
           const { originalRequest } = error.config;
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-          store.dispatch(originalRequest);
+          store.dispatch(originalRequest());
         })
         .catch(error => {
           store.dispatch(logout());

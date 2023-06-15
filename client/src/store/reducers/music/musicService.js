@@ -5,22 +5,24 @@ export const requestAccessToken = async () => {
   return response.data;
 };
 
-export const searchSpotify = async (accessToken, data) => {
+export const searchSpotify = async (data) => {
   const response = await spotifyAPI.get('/search', {
     params: {
-      'q': data
+      q: data.query,
+      type: 'album,artist,track',
+      limit: 10,
+      offset: 0
     },
     headers: {
-      'Authorization': `Bearer ${accessToken}`
+      'Authorization': `Bearer ${data.accessToken}`,
     }
   })
-
-  console.log(response.data);
   return response.data;
 }
 
 const musicServices = {
   requestAccessToken,
+  // refreshAccessToken,
   searchSpotify
 }
 
