@@ -60,8 +60,8 @@ function App() {
           <Route path='/login' element={ <Login /> }/>
           <Route element={<PrivateRoutes />}>
             <Route path='/dashboard' element={ <Dashboard /> }/>
+            <Route path='/music' element={ <Music /> }/>
           </Route>
-          <Route path='/music' element={ <Music /> }/>
       </Routes>
     </ThemeProvider>
   );

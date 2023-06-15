@@ -10,18 +10,20 @@ import Logo from '../Text/Logo';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Menu from '@mui/material/Menu';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import Link from '@mui/material/Link';
+import { useTheme } from '@emotion/react';
 
-const pages = ["Dashboard", "Music", "Reviews", "Connect"];
+const pages = ["dashboard", "music", "reviews", "connect"];
 
 const Navbar = () => {
   // Helpers
+  const theme = useTheme();
   const accessToken = useSelector(selectAccessToken);
   const dispatch = useDispatch();
 
@@ -82,22 +84,16 @@ const Navbar = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Link to={`/${page}`} component={RouterLink} sx={{ textDecoration: 'none', color: 'black', textTransform: 'capitalize' }}>{page}</Link>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
           {/* Logo - Desktop */}
-          <Logo sx={{ display: { xs: 'flex', md: 'none' }, flexGrow: 1, fontSize: '1.5rem' }}/>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Logo sx={{ color: 'inherit', display: { xs: 'flex', md: 'none' }, flexGrow: 1, fontSize: '1.5rem' }}/>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, gap: 2 }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
+              <Link to={`/${page}`} component={RouterLink} sx={{ textDecoration: 'none', color: theme.text, textTransform: 'capitalize' }}>{page}</Link>
             ))}
           </Box>
           {/* Account Menu */}
@@ -127,7 +123,7 @@ const Navbar = () => {
                 ?
                   <>
                     <MenuItem>
-                    <Link to='/profile' component={RouterLink} sx={{ textDecoration: 'none', color: 'black', textTransform: 'capitalize' }}>Profile</Link>
+                      <Link to='/profile' component={RouterLink} sx={{ textDecoration: 'none', color: 'black', textTransform: 'capitalize' }}>Profile</Link>
                     </MenuItem>
                     <MenuItem onClick={handleLogout}>
                       <Link sx={{ textDecoration: 'none', color: 'black', textTransform: 'capitalize' }}>Logout</Link>
