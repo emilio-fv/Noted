@@ -11,11 +11,14 @@ import { useDispatch } from 'react-redux';
 
 const Dashboard = () => {
   const { username } = useSelector(selectLoggedInUser);
+  const { accessToken } = useSelector(state => state.music);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(requestAccessToken());
-  })
+    if (!accessToken) {
+      dispatch(requestAccessToken());
+    }
+  }, [])
 
   return (
     <MainLayout>

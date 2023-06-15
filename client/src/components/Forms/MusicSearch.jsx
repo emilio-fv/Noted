@@ -1,18 +1,32 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import SearchInput from './Inputs/SearchInput';
+import { requestAccessToken, searchSpotify, resetSearchResults } from '../../store/reducers/music/musicSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Box from '@mui/material/Box';
 
-import SearchInput from './Inputs/SearchInput';
 
 const MusicSearch = () => {
+  // Helpers
+  const dispatch = useDispatch();
+  const { accessToken, expiration } = useSelector(state => state.music);
+
   // Form Changes & Submit
   const { handleSubmit, control } = useForm({
     query: ''
   })
 
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(resetSearchResults());
+
+    const currentTime = new Date();
+
+    if (currentTime > expiration) {
+      dispatch(requestAccessToken());
+    }
+
+    dispatch(searchSpotify({ accessToken: accessToken, ...data }));
   }
 
   return (
