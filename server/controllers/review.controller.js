@@ -1,7 +1,7 @@
 const {
   createReview,
-  getReviewsByAlbum,
-  getReviewsByArtist,
+  getReviewsByAlbumId,
+  getReviewsByArtistId,
   getReviewsByUserId,
   getReviewsByUsername,
   updateReview,
@@ -45,9 +45,9 @@ const handleGetReviewsByUsername = async (req, res) => {
   }
 };
 
-const handleGetReviewsByArtist = async (req, res) => {
+const handleGetReviewsByArtistId = async (req, res) => {
   try {
-    const reviews = await getReviewsByArtist(req.params.artist);
+    const reviews = await getReviewsByArtistId(req.params.artistId);
     return res.json(reviews);
   } catch (error) {
     console.log(error);
@@ -55,9 +55,9 @@ const handleGetReviewsByArtist = async (req, res) => {
   }
 };
 
-const handleGetReviewsByAlbum = async (req, res) => {
+const handleGetReviewsByAlbumId = async (req, res) => {
   try {
-    const reviews = await getReviewsByAlbum(req.params.album);
+    const reviews = await getReviewsByAlbumId(req.params.albumId);
     return res.json(reviews);
   } catch (error) {
     console.log(error);
@@ -79,7 +79,7 @@ module.exports = {
   handleCreateReview,
   handleGetReviewsByUserId,
   handleGetReviewsByUsername,
-  handleGetReviewsByArtist,
-  handleGetReviewsByAlbum,
+  handleGetReviewsByArtistId,
+  handleGetReviewsByAlbumId,
   handleDeleteReview
 };
