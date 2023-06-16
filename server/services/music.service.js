@@ -9,7 +9,6 @@ const authOptions = {
 }
 
 const requestAccessToken = async () => {
-  console.log("Service: requestAccessToken");
   const response = await axios.post('https://accounts.spotify.com/api/token', 
     {
       'grant_type': 'client_credentials'
