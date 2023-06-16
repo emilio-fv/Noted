@@ -8,8 +8,8 @@ const {
   handleCreateReview,
   handleGetReviewsByUserId,
   handleGetReviewsByUsername,
-  handleGetReviewsByArtist,
-  handleGetReviewsByAlbum,
+  handleGetReviewsByArtistId,
+  handleGetReviewsByAlbumId,
   handleDeleteReview
 } = require('../controllers/review.controller');
 
@@ -18,8 +18,8 @@ const router = express.Router();
 router.post('/create', verifyJWT, handleCreateReview);
 router.get('/userId', verifyJWT, handleGetReviewsByUserId);
 router.get('/:username/username', verifyJWT, handleGetReviewsByUsername);
-router.get('/:artist/artist', verifyJWT, handleGetReviewsByArtist);
-router.get('/:album/album', verifyJWT, handleGetReviewsByAlbum);
+router.get('/:artistId/artist', verifyJWT, handleGetReviewsByArtistId);
+router.get('/:albumId/album', verifyJWT, handleGetReviewsByAlbumId);
 router.delete('/:id', verifyJWT, handleDeleteReview);
 
 module.exports = {

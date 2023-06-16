@@ -6,8 +6,16 @@ const reviewSchema = new Schema({
     type: String,
     required: true,
   },
+  artistId: {
+    type: String,
+    required: true
+  },
   album: {
     type: String, 
+    required: true
+  },
+  albumId: {
+    type: String,
     required: true
   },
   track: {

@@ -37,7 +37,7 @@ let theme = createTheme({
       styleOverrides: {
         input: {
           '&::placeholder': {
-            color: '#E8EBEB', // Replace 'red' with your desired color
+            color: '#E8EBEB',
             fontSize: '.8rem',
             '@media (min-width:600px)': {
               fontSize: '1rem'
@@ -61,6 +61,8 @@ function App() {
           <Route element={<PrivateRoutes />}>
             <Route path='/dashboard' element={ <Dashboard /> }/>
             <Route path='/music' element={ <Music /> }/>
+            {/* artist */}
+            {/* album */}
           </Route>
       </Routes>
     </ThemeProvider>

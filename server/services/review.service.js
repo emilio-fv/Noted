@@ -18,13 +18,13 @@ const getReviewsByUsername = async (username) => {
   return reviews;
 }
 
-const getReviewsByArtist = async (artist) => {
-  const foundReviews = await Review.find({ artist: artist });
+const getReviewsByArtistId = async (artistId) => {
+  const foundReviews = await Review.find({ artistId: artistId });
   return foundReviews;
 }
 
-const getReviewsByAlbum = async (album) => {
-  const foundReviews = await Review.find({ album: album });
+const getReviewsByAlbumId = async (albumId) => {
+  const foundReviews = await Review.find({ album: albumId });
   return foundReviews;
 }
 
@@ -42,8 +42,8 @@ const deleteReview = async (id) => {
 module.exports = {
   createReview,
   getReviewsByUserId,
-  getReviewsByAlbum,
-  getReviewsByArtist,
+  getReviewsByAlbumId,
+  getReviewsByArtistId,
   getReviewsByUsername,
   updateReview,
   deleteReview
