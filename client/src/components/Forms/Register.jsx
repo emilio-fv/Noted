@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { register } from '../../store/reducers/auth/authSlice';
 
-import StyledButton from '../Button';
+import StyledButton from '../Button/StyledButton';
 import TextInput from './Inputs/TextInput';
 import PasswordInput from './Inputs/PasswordInput';
 

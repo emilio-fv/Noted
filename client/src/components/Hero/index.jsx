@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import StyledButton from '../Button';
+import StyledButton from '../Button/StyledButton';
 
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';

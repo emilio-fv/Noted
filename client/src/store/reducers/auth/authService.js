@@ -7,7 +7,6 @@ const register = async (data) => {
 
 const login = async (data) => {
   const response = await authAPI.post('/login', data, { withCredentials: true });
-  // const response = await authAPI.post('/login', data, { withCredentials: true });
   return response.data;
 }
 

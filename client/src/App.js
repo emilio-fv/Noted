@@ -3,12 +3,14 @@ import './App.css';
 
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 
+import PrivateRoutes from './components/PrivateRoutes'
 import Landing from './pages/Landing';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Music from './pages/Music';
-import PrivateRoutes from './components/PrivateRoutes'
+import Artist from './pages/Artist';
+import Album from './pages/Album';
 
 let theme = createTheme({
   palette: {
@@ -61,8 +63,8 @@ function App() {
           <Route element={<PrivateRoutes />}>
             <Route path='/dashboard' element={ <Dashboard /> }/>
             <Route path='/music' element={ <Music /> }/>
-            {/* artist */}
-            {/* album */}
+            <Route path='/artist/:artistId' element={ <Artist />} />
+            <Route path='/album/:albumId' element={ <Album />} />
           </Route>
       </Routes>
     </ThemeProvider>

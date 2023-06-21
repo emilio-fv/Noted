@@ -1,16 +1,15 @@
 import React from 'react';
-import img from '../../../assets/Demo_Album_Cover.png';
 import truncateText from '../../../utils/truncateText';
 import { Link as RouterLink } from 'react-router-dom';
-
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import img from '../../../assets/Demo_Album_Cover.png';
 
-const TrackCard = (track) => {
+const AlbumCard = (album) => {
   return (
-    <Link to={`/album/${track.track.album.id}`} component={RouterLink}>
+    <Link to={`/album/${album.album.id}`} component={RouterLink}> 
       <Paper
         elevation={4}
         sx={{
@@ -24,7 +23,8 @@ const TrackCard = (track) => {
       >
         <Box
           component='img'
-          src={track.track.album.images[0].url}
+          // src={album.album.images[0].url}
+          src={img}
           sx={{
             width: '100%',
             marginBottom: 1
@@ -34,16 +34,17 @@ const TrackCard = (track) => {
           sx={{
             width: '100%',
             height: '100%',
-            paddingY: 2
           }}
         >
           <Typography
             align='center'
             sx={{
-              fontSize: { xs: '.5rem', sm: '.75rem', md: '1rem'}
+              fontSize: { xs: '.5rem', sm: '.75rem', md: '1rem'},
+              color: 'white'
             }}
           >
-            {truncateText(track.track.name, 12)}
+            Album Name
+            {/* {truncateText(album.album.name, 12)} */}
           </Typography>
           <Typography
             align='center'
@@ -52,7 +53,8 @@ const TrackCard = (track) => {
               marginBottom: 1
             }}
           >
-            {track.track.artists[0].name}
+            Year
+            {/* {album.album.year} */}
           </Typography>
         </Box>
       </Paper>
@@ -60,4 +62,4 @@ const TrackCard = (track) => {
   )
 };
 
-export default TrackCard;
+export default AlbumCard;
