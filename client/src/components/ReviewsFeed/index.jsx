@@ -22,12 +22,12 @@ const ReviewsFeed = () => {
           <ReviewCard />
           ))}
       </Box>
-      <Typography marginBottom={1}>Popular reviews</Typography>
+      {/* <Typography marginBottom={1}>Popular reviews</Typography>
       <Box marginBottom={6} sx={{ display: 'flex', justifyContent: 'space-between' }}>
         {reviews.map(() => (
           <ReviewCard />
           ))}
-      </Box>
+      </Box> */}
       <Typography marginBottom={1}>Your recent reviews</Typography>
       <Box marginBottom={6} sx={{ display: 'flex', justifyContent: 'space-between' }}>
         {reviews.map(() => (

@@ -9,6 +9,7 @@ const initialState = {
     artists: null,
     tracks: null
   },
+  selectedResult: null,
   status: 'idle', // 'idle' | 'loading' | 'success' | 'failed'
   error: null
 };
@@ -36,12 +37,16 @@ export const musicSlice = createSlice({
   name: 'music',
   initialState: initialState,
   reducers: {
-    resetSearchResults: (state, action) => {
+    resetSearchResults: (state) => {
       state.searchResults = {
         albums: null,
         artists: null,
         tracks: null
       }
+      state.selectedResult = null
+    },
+    setSelected: (state, action) => {
+      state.selectedResult = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -72,5 +77,5 @@ export const musicSlice = createSlice({
 });
 
 
-export const { resetSearchResults } = musicSlice.actions;
+export const { resetSearchResults, setSelected } = musicSlice.actions;
 export default musicSlice.reducer;

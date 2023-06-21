@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { login } from '../../store/reducers/auth/authSlice';
 
-import StyledButton from '../Button';
+import StyledButton from '../Button/StyledButton';
 import TextInput from './Inputs/TextInput';
 import PasswordInput from './Inputs/PasswordInput';
 
@@ -26,9 +26,14 @@ const LoginForm = () => {
     password: ''
   })
 
+  const onSubmit = (data) => {
+    dispatch(login(data))
+  };
+
   // Form Errors
   const [formErrors, setFormErrors] = useState(null);
 
+  // Logged in user check
   useEffect(() => {
     if (status === 'failed') {
       setFormErrors(errors);
@@ -38,10 +43,6 @@ const LoginForm = () => {
       navigate('/dashboard');
     }
   }, [accessToken, status])
-
-  const onSubmit = (data) => {
-    dispatch(login(data))
-  };
 
   return (
     <Box
