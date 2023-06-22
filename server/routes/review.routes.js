@@ -7,6 +7,7 @@ const {
 const {
   handleCreateReview,
   handleGetReviewsByUserId,
+  handleGetAllReviews,
   handleGetReviewsByUsername,
   handleGetReviewsByArtistId,
   handleGetReviewsByAlbumId,
@@ -16,7 +17,10 @@ const {
 const router = express.Router();
 
 router.post('/create', verifyJWT, handleCreateReview);
-router.get('/userId', verifyJWT, handleGetReviewsByUserId);
+router.get('/loggedInUser', verifyJWT, handleGetReviewsByUserId);
+router.get('/allOthers', verifyJWT, handleGetAllReviews);
+
+// Unused
 router.get('/:username/username', verifyJWT, handleGetReviewsByUsername);
 router.get('/:artistId/artist', verifyJWT, handleGetReviewsByArtistId);
 router.get('/:albumId/album', verifyJWT, handleGetReviewsByAlbumId);

@@ -24,11 +24,9 @@ const reviewSchema = new Schema({
   }, 
   rating: {
     type: Number,
-    required: true
   },
   text: {
     type: String,
-    required: true
   },
   user: {
     type: Schema.Types.ObjectId,

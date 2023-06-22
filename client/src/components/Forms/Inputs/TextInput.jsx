@@ -4,7 +4,7 @@ import { Controller } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import { useTheme } from '@emotion/react';
 
-const TextInput = ({ name, control, rules, label }) => {
+const TextInput = ({ name, control, rules, label, disabled }) => {
   const theme = useTheme();
 
   return (
@@ -14,6 +14,7 @@ const TextInput = ({ name, control, rules, label }) => {
       rules={rules}
       render={({ field: { onChange, value}, fieldState: { error }, formState }) => (
         <TextField 
+          disabled={disabled}
           label={label}
           variant='outlined'
           size='small'

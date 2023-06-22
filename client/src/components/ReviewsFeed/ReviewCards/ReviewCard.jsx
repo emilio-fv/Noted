@@ -1,19 +1,22 @@
 import React from 'react';
-import img from '../../../assets/Demo_Album_Cover.png';
+import formatReviewDate from '../../../utils/formatReviewDate';
 
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import NotesIcon from '@mui/icons-material/Notes';
 import StarIcon from '@mui/icons-material/Star';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+// import FavoriteIcon from '@mui/icons-material/Favorite';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@emotion/react';
 
-const stars = ["","","","",""];
-
-const ReviewCard = () => {
+const ReviewCard = ({ review }) => {
   const theme = useTheme();
+
+  let rating = [];
+  for (let i = 0; i < review.rating; i++) {
+    rating.push(0);
+  }
 
   return (
     <Box
@@ -36,7 +39,7 @@ const ReviewCard = () => {
             width: '100%',
           }}
           component='img'
-          src={img}
+          src={review.src}
           alt='Album cover'
         />
         <Box 
@@ -63,7 +66,7 @@ const ReviewCard = () => {
               fontSize: { xs: '.4rem', sm: '.6rem', md: '.8rem' }
             }}
           >
-            Username
+            {review.user.username}
           </Typography>
         </Box>
       </Paper>
@@ -77,13 +80,7 @@ const ReviewCard = () => {
         }}
       >
         <Box>
-          <FavoriteIcon 
-            htmlColor={theme.text} 
-            sx={{ 
-              fontSize: { xs: 6, sm: 10, md: 15 } 
-            }}
-          />
-          {stars.map(() => (
+          {rating.map(() => (
             <StarIcon 
               htmlColor={theme.text} 
               sx={{
@@ -106,7 +103,7 @@ const ReviewCard = () => {
             display: { xs: 'none', md: 'flex'}
           }}
         >
-          May 25
+          {formatReviewDate(review.createdAt)}
         </Typography>
       </Box>
     </Box>

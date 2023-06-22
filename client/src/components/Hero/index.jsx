@@ -1,11 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { useTheme } from '@emotion/react';
 import StyledButton from '../Button/StyledButton';
-
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { useTheme } from '@emotion/react';
 
 const Hero = () => {
   const navigate = useNavigate();

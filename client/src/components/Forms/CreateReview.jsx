@@ -1,5 +1,5 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { createReview } from '../../store/reducers/review/reviewSlice';
@@ -12,30 +12,47 @@ import Modal from '@mui/material/Modal';
 import MultilineInput from './Inputs/MultilineInput';
 import RatingInput from './Inputs/RatingInput';
 
-const CreateReviewForm = ({ open, handleCloseReviewForm }) => {
+const CreateReviewForm = ({ open, handleCloseReviewForm, musicData }) => {
   // Helpers
+  const { accessToken } = useSelector(state => state.auth);
+  const { status } = useSelector(state => state.review);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // Form Changes & Submit 
-  const { handleSubmit, control } = useForm({
-    artist: '',
-    album: '',
-    rating: 0,
-    text: '',
+  const { handleSubmit, control, reset } = useForm({
+    defaultValues: {
+      artist: musicData.artists[0].name,
+      album: musicData.name,
+      rating: null,
+      text: '',
+    }
   });
 
   const onSubmit = data => {
     const reviewData = {
       ...data,
-      artistId: null,
-      albumId: null,
-      src: null
+      artistId: musicData.artists[0].id,
+      albumId: musicData.id,
+      src: musicData.images[0].url,
     }
-
-    console.log(reviewData);
-    // dispatch(createReview())
+    
+    const requestData = {
+      accessToken: accessToken,
+      reviewData: {
+        ...reviewData
+      }
+    }
+    dispatch(createReview(requestData));
   };
+
+  // Close modal upon successful addition
+  useEffect(() => {
+    if (status === 'added') {
+      handleCloseReviewForm();
+      reset();
+    }
+  }, [status]);
 
   return (
     <Modal
@@ -65,11 +82,13 @@ const CreateReviewForm = ({ open, handleCloseReviewForm }) => {
           name={'artist'}
           control={control}
           label={'Artist'}
+          disabled={true}
         />
         <TextInput
           name={'album'}
           control={control}
           label={'Album'}
+          disabled={true}
         />
         <MultilineInput
           name={'text'}

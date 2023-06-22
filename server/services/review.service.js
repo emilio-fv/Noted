@@ -8,7 +8,12 @@ const createReview = async (data) => {
 };
 
 const getReviewsByUserId = async (id) => {
-  const foundReviews = await Review.find({ user: id });
+  const foundReviews = await Review.find({ user: id }).sort({ createdAt: 'desc' });
+  return foundReviews;
+};
+
+const getReviewsNotByUserId = async (id) => {
+  const foundReviews = await Review.find({ user: { $not: { $eq: id}}}).populate('user').sort({ createdAt: 'desc' });
   return foundReviews;
 };
 
@@ -42,6 +47,7 @@ const deleteReview = async (id) => {
 module.exports = {
   createReview,
   getReviewsByUserId,
+  getReviewsNotByUserId,
   getReviewsByAlbumId,
   getReviewsByArtistId,
   getReviewsByUsername,
