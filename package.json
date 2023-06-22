@@ -1,0 +1,17 @@
+{
+  "name": "note-d",
+  "version": "1.0.0",
+  "description": "A MERN social media web application for music enthusiasts to track, review, and share the music they listen to with others.",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run start:client\" \"npm run start:server\"",
+    "start:client": "cd client && npm start run",
+    "start:server": "cd server && nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
