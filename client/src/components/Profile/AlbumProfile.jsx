@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import formatReleaseDate from '../../utils/formatReleaseDate.js';
+import { getAlbumTracks } from '../../store/reducers/music/musicSlice.js';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -6,10 +8,14 @@ import Divider from '@mui/material/Divider';
 import ReviewCard from './Cards/Review';
 import CreateReviewButton from '../Button/CreateReviewButton';
 import CreateReviewForm from '../Forms/CreateReview';
+import { useDispatch, useSelector } from 'react-redux';
 
 const reviews = ["", "", ""];
 
 const AlbumProfile = () => {
+  // Album Data
+  const { selectedResult } = useSelector((state) => state.music);
+
   // Review Form modal
   const [open, setOpen] = useState(false);
   const handleOpenReviewForm = () => setOpen(true);
@@ -23,15 +29,16 @@ const AlbumProfile = () => {
           display: 'flex',
           flexDirection: 'row',
           gap: 4,
-          marginBottom: 2
+          marginBottom: 2,
+          paddingY: 4,
         }}
       >
         <Box 
           component='img'
+          src={selectedResult.album.images[0].url}
           sx={{
             height: '200px',
             width: '200px',
-            border: '2px solid red'
           }}
         />
         <Box
@@ -49,11 +56,11 @@ const AlbumProfile = () => {
               justifyContent: 'space-between'
             }}
           >
-            <Typography variant='h4'>Album Name</Typography>
+            <Typography variant='h4'>{selectedResult.album.name}</Typography>
             <CreateReviewButton onClick={handleOpenReviewForm}/>
           </Box>
           <Box>
-            <Typography>Artist Name | Year | Average Rating | # of Reviews</Typography>
+            <Typography>{selectedResult.album.artists[0].name} | Released: {formatReleaseDate(selectedResult.album.release_date)} | Average Rating | # of Reviews</Typography>
           </Box>
         </Box>
       </Box>
@@ -65,7 +72,7 @@ const AlbumProfile = () => {
           gap: 4
         }}
       >
-        {/* Discography */}
+        {/* Track List */}
         <Box
           sx={{
             flex: 2,
@@ -82,11 +89,13 @@ const AlbumProfile = () => {
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              gap: 4,
-              paddingX: 6,
+              alignItems: 'center'
             }}
           >
-            {/* TODO */}
+            {selectedResult?.tracks ? selectedResult?.tracks.items.map((track, key) => (
+              <Typography key={key}>{track.name}</Typography>
+            )) : null
+            }
           </Box>
         </Box>
         {/* Reviews */}
@@ -128,7 +137,7 @@ const AlbumProfile = () => {
           </Box>
         </Box>
       </Box>
-      <CreateReviewForm open={open} handleCloseReviewForm={handleCloseReviewForm}/>
+      <CreateReviewForm open={open} handleCloseReviewForm={handleCloseReviewForm} musicData={selectedResult.album}/>
     </>
   )
 };

@@ -44,7 +44,7 @@ const AlbumCard = (album) => {
             }}
           >
             Album Name
-            {/* {truncateText(album.album.name, 12)} */}
+            {truncateText(album.album.name, 12)}
           </Typography>
           <Typography
             align='center'

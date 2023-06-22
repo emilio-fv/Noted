@@ -33,6 +33,15 @@ export const searchSpotify = createAsyncThunk('music/searchSpotify', async (data
   }
 });
 
+export const getAlbumTracks = createAsyncThunk('music/getAlbumTracks', async (data) => {
+  try {
+    const response = await musicServices.getAlbumTracks(data);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 export const musicSlice = createSlice({
   name: 'music',
   initialState: initialState,
@@ -43,9 +52,9 @@ export const musicSlice = createSlice({
         artists: null,
         tracks: null
       }
-      state.selectedResult = null
     },
     setSelected: (state, action) => {
+      console.log(action.payload);
       state.selectedResult = action.payload
     }
   },
@@ -72,6 +81,18 @@ export const musicSlice = createSlice({
       .addCase(searchSpotify.rejected, (state, action) => {
         state.status = 'failed'
         state.error = action.payload
+      })
+      .addCase(getAlbumTracks.fulfilled, (state, action) => {
+        state.selectedResult = {
+          ...state.selectedResult,
+          tracks: {
+            ...action.payload
+          }
+        }
+      })
+      .addCase(getAlbumTracks.rejected, (state, action) => {
+        state.error = action.payload
+        state.status = 'failed'
       })
   }
 });

@@ -5,14 +5,25 @@ import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { setSelected } from '../../../store/reducers/music/musicSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAlbumTracks } from '../../../store/reducers/music/musicSlice';
+
 
 const AlbumCard = (album) => {
-  const handleClick = (event) => {
-    
+  const dispatch = useDispatch();
+  const { accessToken } = useSelector((state) => state.music);
+
+  const handleClick = () => {
+    dispatch(setSelected(album));
+    dispatch(getAlbumTracks({
+      accessToken: accessToken,
+       albumId: album.album.id
+    }));
   }
 
   return (
-    <Link to={`/album/${album.album.id}`} component={RouterLink} onClick={handleClick}> 
+    <Link to={`/album/${album.album.id}`} component={RouterLink} onClick={() => handleClick()}> 
       <Paper
         elevation={4}
         sx={{

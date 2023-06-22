@@ -34,7 +34,6 @@ const handleRegister = async (req, res) => {
 
     return res.cookie("accessToken", accessToken, {
         httpOnly: true,
-        httpOnly: true,
         secure: true,
         sameSite: 'None',
         maxAge: 1000 * 60

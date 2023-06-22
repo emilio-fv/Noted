@@ -3,6 +3,7 @@ const {
   getReviewsByAlbumId,
   getReviewsByArtistId,
   getReviewsByUserId,
+  getReviewsNotByUserId,
   getReviewsByUsername,
   updateReview,
   deleteReview
@@ -28,6 +29,17 @@ const handleGetReviewsByUserId = async (req, res) => {
   try {
     const { id } = req.decoded;
     const reviews = await getReviewsByUserId(id);
+    return res.json(reviews);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json(error);
+  }
+};
+
+const handleGetAllReviews = async (req, res) => {
+  try {
+    const { id } = req.decoded;
+    const reviews = await getReviewsNotByUserId(id);
     return res.json(reviews);
   } catch (error) {
     console.log(error);
@@ -78,6 +90,7 @@ const handleDeleteReview = async (req, res) => {
 module.exports = {
   handleCreateReview,
   handleGetReviewsByUserId,
+  handleGetAllReviews,
   handleGetReviewsByUsername,
   handleGetReviewsByArtistId,
   handleGetReviewsByAlbumId,
