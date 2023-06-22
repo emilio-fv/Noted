@@ -10,6 +10,7 @@ const {
 
 const router = express.Router();
 
+// Unused
 router.get('/all', verifyJWT, handleGetAllUsers);
 
 module.exports = { 
