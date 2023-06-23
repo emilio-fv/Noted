@@ -1,35 +1,35 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setSelected } from '../../../store/reducers/music/musicSlice';
 import truncateText from '../../../utils/truncateText';
-import { Link as RouterLink } from 'react-router-dom';
+
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { setSelected } from '../../../store/reducers/music/musicSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAlbumTracks } from '../../../store/reducers/music/musicSlice';
 
-
-const AlbumCard = (album) => {
+const AlbumCard = ({ album }) => {
+  // Helpers
   const dispatch = useDispatch();
-  const { accessToken } = useSelector((state) => state.music);
+  const navigate = useNavigate();
 
+  // Handle click album card
   const handleClick = () => {
-    dispatch(setSelected(album));
-    dispatch(getAlbumTracks({
-      accessToken: accessToken,
-       albumId: album.album.id
+    dispatch(setSelected({
+      album: album
     }));
+
+    navigate(`/album/${album.id}`);
   }
 
   return (
-    <Link to={`/album/${album.album.id}`} component={RouterLink} onClick={() => handleClick()}> 
+    <Link onClick={() => handleClick()}> 
       <Paper
         elevation={4}
         sx={{
           width: '100%',
           bgcolor: '#303745',
-          // padding: { xs: .5, sm: 1, md: 2 },
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
@@ -38,7 +38,7 @@ const AlbumCard = (album) => {
       >
         <Box
           component='img'
-          src={album.album.images[0].url}
+          src={album.images[0].url}
           sx={{
             width: '100%',
             marginBottom: 1
@@ -58,7 +58,7 @@ const AlbumCard = (album) => {
               color: 'white'
             }}
           >
-            {truncateText(album.album.name, 12)}
+            {truncateText(album.name, 12)}
           </Typography>
           <Typography
             align='center'
@@ -67,7 +67,7 @@ const AlbumCard = (album) => {
               marginBottom: 1
             }}
           >
-            {album.album.artists[0].name}
+            {album.artists[0].name}
           </Typography>
         </Box>
       </Paper>

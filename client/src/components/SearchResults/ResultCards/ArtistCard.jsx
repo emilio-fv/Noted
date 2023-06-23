@@ -1,15 +1,31 @@
 import React from 'react';
-import img from '../../../assets/Demo_Album_Cover.png';
-import { Link as RouterLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setSelected } from '../../../store/reducers/music/musicSlice';
+import { useNavigate } from 'react-router-dom';
+import truncateString from '../../../utils/truncateText';
+import img from '../../../assets/imgPlaceholder.png';
 
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 
-const ArtistCard = (artist) => {
+const ArtistCard = ({ artist }) => {
+  // Helpers
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // Handle click artist card
+  const handleClick = () => {
+    dispatch(setSelected({
+      artist: artist
+    }));
+
+    navigate(`/artist/${artist.id}`);
+  };
+
   return (
-    <Link to={`/artist/${artist.artist.id}`} component={RouterLink}>
+    <Link onClick={() => handleClick()}>
       <Paper
         elevation={4}
         sx={{
@@ -25,13 +41,19 @@ const ArtistCard = (artist) => {
       >
         <Box
           component='img'
-          src={artist.artist.images.length > 0 ? artist.artist.images[0].url : img}
+          src={artist.images.length > 0 ? artist.images[0].url : img}
           sx={{
             width: '100%',
+            maxWidth: '150px',
             borderRadius: '50%'
           }}
         />
-        <Typography align='center' sx={{ fontSize: { xs: '.5rem', sm: '.75rem', md: '1rem'}}}>{artist.artist.name}</Typography>
+        <Typography 
+          align='center' 
+          sx={{ fontSize: { xs: '.5rem', sm: '.75rem', md: '1rem'}}}
+        >
+          {truncateString(artist.name, 12)}
+        </Typography>
       </Paper>
     </Link>
   )

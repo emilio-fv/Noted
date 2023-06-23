@@ -1,9 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
-import './App.css';
 import { store } from './store/store';
 import { requestAccessToken } from './store/reducers/music/musicSlice';
-
 import PrivateRoutes from './components/PrivateRoutes'
 import Landing from './pages/Landing';
 import Register from './pages/Register';
@@ -12,6 +10,7 @@ import Dashboard from './pages/Dashboard';
 import Music from './pages/Music';
 import Artist from './pages/Artist';
 import Album from './pages/Album';
+import './App.css';
 
 // MUI Theme
 let theme = createTheme({

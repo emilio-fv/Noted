@@ -1,20 +1,19 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetSearchResults } from '../../store/reducers/music/musicSlice.js';
+import ArtistCard from './ResultCards/ArtistCard';
+import AlbumCard from './ResultCards/AlbumCard';
 
+import { useTheme } from '@emotion/react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import ArtistCard from './ResultCards/ArtistCard';
-import AlbumCard from './ResultCards/AlbumCard';
-import TrackCard from './ResultCards/TrackCard';
-import { useTheme } from '@emotion/react';
 
 const MusicResults = () => {
   const theme = useTheme();
   const { searchResults, status } = useSelector(state => state.music);
-  const { albums, artists, tracks } = searchResults;
+  const { albums, artists } = searchResults;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -85,7 +84,7 @@ const MusicResults = () => {
           </>
         : null
       }
-      {tracks 
+      {/* {tracks 
         ? <>
             <Typography variant='h5'>Tracks</Typography>
             <Box
@@ -102,7 +101,7 @@ const MusicResults = () => {
             </Box>
           </>
         : null
-      }
+      } */}
     </Box>
   )
 };
