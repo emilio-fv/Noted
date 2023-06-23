@@ -29,10 +29,23 @@ export const getAlbumTracks = async (data) => {
   return response.data;
 }
 
+export const getArtistsAlbums = async (data) => {
+  const response = await spotifyAPI.get(`/artists/${data.artistId}/albums`, {
+    params: {
+      include_groups: 'album'
+    },
+    headers: {
+      'Authorization': `Bearer ${data.accessToken}`
+    }
+  })
+  return response.data;
+}
+
 const musicServices = {
   requestAccessToken,
   searchSpotify,
-  getAlbumTracks
+  getAlbumTracks,
+  getArtistsAlbums
 }
 
 export default musicServices;

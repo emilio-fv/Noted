@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import formatReleaseDate from '../../utils/formatReleaseDate.js';
-import { getAlbumTracks } from '../../store/reducers/music/musicSlice.js';
+import calculateAverageRating from '../../utils/calculateAverageRating.js';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -8,18 +9,44 @@ import Divider from '@mui/material/Divider';
 import ReviewCard from './Cards/Review';
 import CreateReviewButton from '../Button/CreateReviewButton';
 import CreateReviewForm from '../Forms/CreateReview';
-import { useDispatch, useSelector } from 'react-redux';
-
-const reviews = ["", "", ""];
+import { getAlbumTracks } from '../../store/reducers/music/musicSlice.js';
+import { useParams } from 'react-router-dom';
+import { getReviewsByAlbum } from '../../store/reducers/review/reviewSlice.js';
 
 const AlbumProfile = () => {
+  // Helpers
+  const dispatch = useDispatch();
+  const { albumId } = useParams();
+  const { accessToken: spotifyToken } = useSelector(state => state.music);
+  const { accessToken: jwt } = useSelector(state => state.auth);
+
   // Album Data
   const { selectedResult } = useSelector((state) => state.music);
+
+  // Review Data
+  const { albumReviews } = useSelector((state) => state.review);
 
   // Review Form modal
   const [open, setOpen] = useState(false);
   const handleOpenReviewForm = () => setOpen(true);
   const handleCloseReviewForm = () => setOpen(false);
+
+  // Get album tracks & reviews
+  useEffect(() => {
+    dispatch(getAlbumTracks({
+      accessToken: spotifyToken,
+      albumId: albumId
+    }));
+
+    dispatch(getReviewsByAlbum({
+      accessToken: jwt,
+      albumId: albumId
+    }));
+  }, []);
+
+  if (!selectedResult || !selectedResult.album || !selectedResult.tracks || !albumReviews) {
+    return null
+  }
 
   return (
     <>
@@ -56,11 +83,11 @@ const AlbumProfile = () => {
               justifyContent: 'space-between'
             }}
           >
-            <Typography variant='h4'>{selectedResult.album.name}</Typography>
+            <Typography variant='h4'>{selectedResult.album?.name}</Typography>
             <CreateReviewButton onClick={handleOpenReviewForm}/>
           </Box>
           <Box>
-            <Typography>{selectedResult.album.artists[0].name} | Released: {formatReleaseDate(selectedResult.album.release_date)} | Average Rating | # of Reviews</Typography>
+            <Typography>{selectedResult.album?.artists[0].name} | Released: {formatReleaseDate(selectedResult.album?.release_date)} | Average Rating: {calculateAverageRating(albumReviews)} | # of Reviews: {albumReviews.length}</Typography>
           </Box>
         </Box>
       </Box>
@@ -92,7 +119,7 @@ const AlbumProfile = () => {
               alignItems: 'center'
             }}
           >
-            {selectedResult?.tracks ? selectedResult?.tracks.items.map((track, key) => (
+            {selectedResult.tracks ? selectedResult?.tracks.items.map((track, key) => (
               <Typography key={key}>{track.name}</Typography>
             )) : null
             }
@@ -107,20 +134,6 @@ const AlbumProfile = () => {
             borderRadius: '8px'
           }}
         >
-          {/* <Typography fontSize={14} marginBottom={1}>POPULAR REVIEWS</Typography>
-          <Divider sx={{ borderColor: 'white', marginBottom: 2 }}/>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 2,
-              marginBottom: 2,
-            }}
-          >
-            {reviews.map((review, key) => (
-              <ReviewCard key={key} review={review}/>
-            ))}
-          </Box> */}
           <Typography fontSize={14} marginBottom={1}>RECENT REVIEWS</Typography>
           <Divider sx={{ borderColor: 'white', marginBottom: 2 }}/>
           <Box
@@ -131,9 +144,10 @@ const AlbumProfile = () => {
               marginBottom: 2,
             }}
           >
-            {reviews.map((review, key) => (
+            {albumReviews ? albumReviews.map((review, key) => (
               <ReviewCard key={key} review={review}/>
-            ))}
+            )) : "No reviews yet"
+          }
           </Box>
         </Box>
       </Box>

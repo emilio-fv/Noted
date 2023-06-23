@@ -6,7 +6,7 @@ import { selectLoggedInUser } from '../store/reducers/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Typography from '@mui/material/Typography';
-import { getLoggedInUsersReview, getReviewsByOtherUsers } from '../store/reducers/review/reviewSlice';
+import { getLoggedInUsersReviews, getReviewsByOtherUsers } from '../store/reducers/review/reviewSlice';
 
 const Dashboard = () => {
   const { username } = useSelector(selectLoggedInUser);
@@ -14,7 +14,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getLoggedInUsersReview({
+    dispatch(getLoggedInUsersReviews({
       accessToken: accessToken
     }));
 

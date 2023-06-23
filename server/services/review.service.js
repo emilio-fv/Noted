@@ -24,12 +24,12 @@ const getReviewsByUsername = async (username) => {
 }
 
 const getReviewsByArtistId = async (artistId) => {
-  const foundReviews = await Review.find({ artistId: artistId });
+  const foundReviews = await Review.find({ artistId: artistId }).populate('user').sort({ createdAt: 'desc' });
   return foundReviews;
 }
 
 const getReviewsByAlbumId = async (albumId) => {
-  const foundReviews = await Review.find({ album: albumId });
+  const foundReviews = await Review.find({ albumId: albumId }).populate('user').sort({ createdAt: 'desc' });
   return foundReviews;
 }
 

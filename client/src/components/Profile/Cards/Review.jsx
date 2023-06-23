@@ -3,12 +3,17 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import StarIcon from '@mui/icons-material/Star';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+// import FavoriteIcon from '@mui/icons-material/Favorite';
+import formatReviewDate from '../../../utils/formatReviewDate';
+import { useTheme } from '@emotion/react';
 
-const ReviewCard = (review) => {
-  const rating = Array.from({ length: 5 }, (_, index) => (
-    <StarIcon key={index} htmlColor='white' fontSize={'.5px'}/>
-  ))
+const ReviewCard = ({ review }) => {
+  const theme = useTheme();
+
+  let rating = [];
+  for (let i = 0; i < review.rating; i++) {
+    rating.push(0);
+  };
 
   return (
     <Box
@@ -49,15 +54,21 @@ const ReviewCard = (review) => {
               alignItems: 'center'
             }}
           >
-            <Typography marginRight={2} fontSize={12}>Review by USERNAME</Typography>
-            <FavoriteIcon htmlColor='white' fontSize={'.5px'} sx={{ marginRight: .5, fontSize: '14px' }}/>
-            {rating}
+            <Typography marginRight={2} fontSize={12}>Review by {review.user.username}</Typography>
+            {rating.map(() => (
+              <StarIcon 
+                htmlColor={theme.text} 
+                sx={{
+                  fontSize: { xs: 6, sm: 10, md: 15 } 
+                }}
+              />
+            ))}
           </Box>
-          <Typography fontSize={10}>May 23 2023</Typography>
+          <Typography fontSize={10}>{formatReviewDate(review.createdAt)}</Typography>
         </Box>
         {/* Bottom */}
         <Box>
-          <Typography fontSize={14}>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Et atque velit nobis ratione incidunt. Libero ducimus numquam perferendis quam? Tempora cupiditate distinctio suscipit quo quibusdam ipsum minima adipisci similique esse.</Typography>
+          <Typography fontSize={14}>{review.text}</Typography>
         </Box>
       </Box>
     </Box>

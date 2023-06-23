@@ -1,15 +1,49 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import AlbumCard from './Cards/Album';
 import ReviewCard from './Cards/Review';
+import { useDispatch, useSelector } from 'react-redux';
+import { getArtistsAlbums, resetSelected } from '../../store/reducers/music/musicSlice';
+import { useParams } from 'react-router-dom';
+import { getReviewsByArtist } from '../../store/reducers/review/reviewSlice';
+import calculateAverageRating from '../../utils/calculateAverageRating';
 
 const albums = ["", "", "", "", "", ""];
 const reviews = ["", "", ""];
 
 const ArtistProfile = () => {
+  // Helpers
+  const dispatch = useDispatch();
+  const { artistId } = useParams();
+  const { accessToken: spotifyToken } = useSelector(state => state.music);
+  const { accessToken: jwt } = useSelector(state => state.auth);
+
+  // Artist Data
+  const { selectedResult } = useSelector(state => state.music);
+
+  // Review Data
+  const { artistReviews } = useSelector(state => state.review);
+
+  // Get artist's albums & reviews
+  useEffect(() => {
+    dispatch(getArtistsAlbums({
+      accessToken: spotifyToken,
+      artistId: artistId
+    }));
+
+    dispatch(getReviewsByArtist({
+      accessToken: jwt,
+      artistId: artistId
+    }));
+  }, []);
+
+  if (!selectedResult || !selectedResult.artist || !selectedResult.albums || !artistReviews) {
+    return null
+  }
+
   return (
     <>
       {/* Header */}
@@ -18,15 +52,16 @@ const ArtistProfile = () => {
           display: 'flex',
           flexDirection: 'row',
           gap: 4,
-          marginBottom: 2
+          marginBottom: 2,
+          paddingY: 4,
         }}
       >
         <Box 
           component='img'
+          src={selectedResult.artist.images[0].url}
           sx={{
             height: '200px',
             width: '200px',
-            border: '2px solid red'
           }}
         />
         <Box
@@ -36,9 +71,9 @@ const ArtistProfile = () => {
             justifyContent: 'center'
           }}
         >
-          <Typography variant='h4'>Artist Name</Typography>
+          <Typography variant='h4'>{selectedResult.artist.name}</Typography>
           <Box>
-            <Typography>Average Rating | # of Reviews</Typography>
+            <Typography>Average Rating: {calculateAverageRating(artistReviews)} | # of Reviews {artistReviews.length}</Typography>
           </Box>
         </Box>
       </Box>
@@ -71,7 +106,7 @@ const ArtistProfile = () => {
               paddingX: 6,
             }}
           >
-            {albums.map((album, key) => (
+            {selectedResult.albums.items.map((album) => (
               <AlbumCard album={album}/>
             ))}
           </Box>
@@ -85,20 +120,6 @@ const ArtistProfile = () => {
             borderRadius: '8px'
           }}
         >
-          {/* <Typography fontSize={14} marginBottom={1}>POPULAR REVIEWS</Typography>
-          <Divider sx={{ borderColor: 'white', marginBottom: 2 }}/>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 2,
-              marginBottom: 2,
-            }}
-          >
-            {reviews.map((review, key) => (
-              <ReviewCard key={key} review={review}/>
-            ))}
-          </Box> */}
           <Typography fontSize={14} marginBottom={1}>RECENT REVIEWS</Typography>
           <Divider sx={{ borderColor: 'white', marginBottom: 2 }}/>
           <Box
@@ -109,8 +130,8 @@ const ArtistProfile = () => {
               marginBottom: 2,
             }}
           >
-            {reviews.map((review, key) => (
-              <ReviewCard key={key} review={review}/>
+            {artistReviews.map((review) => (
+              <ReviewCard review={review}/>
             ))}
           </Box>
         </Box>
