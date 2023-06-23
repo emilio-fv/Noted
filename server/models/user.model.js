@@ -28,7 +28,19 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true,
-  }
+  },
+  reviews: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Review'
+  }],
+  following: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+  followers: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }]
 }, { timestamps: true, collection: 'users' });
 
 // Confirm Password Virtual Field

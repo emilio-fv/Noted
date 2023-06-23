@@ -18,8 +18,11 @@ import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import Link from '@mui/material/Link';
 import { useTheme } from '@emotion/react';
+import { resetMusicSlice } from '../../store/reducers/music/musicSlice';
+import { resetReviewSlice } from '../../store/reducers/review/reviewSlice';
 
-const pages = ["dashboard", "music", "reviews", "connect"];
+// , "reviews", "connect"
+const pages = ["dashboard", "music"];
 
 const Navbar = () => {
   // Helpers
@@ -42,7 +45,9 @@ const Navbar = () => {
   const handleCloseUserMenu = () => { setAnchorElUser(null) };
 
   // Handle Logout
-  const handleLogout = (event) => {
+  const handleLogout = () => {
+    dispatch(resetMusicSlice());
+    dispatch(resetReviewSlice());
     dispatch(logout());
   }
 
@@ -122,9 +127,9 @@ const Navbar = () => {
               {accessToken 
                 ?
                   <>
-                    <MenuItem>
+                    {/* <MenuItem>
                       <Link to='/profile' component={RouterLink} sx={{ textDecoration: 'none', color: 'black', textTransform: 'capitalize' }}>Profile</Link>
-                    </MenuItem>
+                    </MenuItem> */}
                     <MenuItem onClick={handleLogout}>
                       <Link sx={{ textDecoration: 'none', color: 'black', textTransform: 'capitalize' }}>Logout</Link>
                     </MenuItem>

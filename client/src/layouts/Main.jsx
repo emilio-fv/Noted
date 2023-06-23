@@ -11,7 +11,7 @@ const MainLayout = ({ children }) => {
   return (
     <Box sx={{ bgcolor: theme.background }}>
       <Navbar />
-      <Container sx={{ minHeight: '91vh' }}>
+      <Container sx={{ minHeight: '100vh' }}>
         { 
           children 
         }

@@ -7,6 +7,7 @@ const connectDB = require('./config/mongoose.config');
 const { userRouter } = require('./routes/user.routes');
 const { authRouter } = require('./routes/auth.routes');
 const { musicRouter } = require('./routes/music.routes');
+const { reviewRouter } = require('./routes/review.routes');
 const port = process.env.PORT || 8000;
 
 require('dotenv').config();
@@ -27,6 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/auth', authRouter);
 app.use('/users', userRouter);
 app.use('/music', musicRouter);
+app.use('/review', reviewRouter);
 
 mongoose.connection.once('open', () => {
   console.log('Connected to MongoDB');

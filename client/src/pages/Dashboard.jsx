@@ -1,24 +1,27 @@
 import React, { useEffect } from 'react';
-import { requestAccessToken } from '../store/reducers/music/musicSlice';
 import MainLayout from '../layouts/Main';
 import ReviewsFeed from '../components/ReviewsFeed';
 
 import { selectLoggedInUser } from '../store/reducers/auth/authSlice';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Typography from '@mui/material/Typography';
-import { useDispatch } from 'react-redux';
+import { getLoggedInUsersReviews, getReviewsByOtherUsers } from '../store/reducers/review/reviewSlice';
 
 const Dashboard = () => {
   const { username } = useSelector(selectLoggedInUser);
-  const { accessToken } = useSelector(state => state.music);
+  const { accessToken } = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!accessToken) {
-      dispatch(requestAccessToken());
-    }
-  }, [])
+    dispatch(getLoggedInUsersReviews({
+      accessToken: accessToken
+    }));
+
+    dispatch(getReviewsByOtherUsers({
+      accessToken: accessToken
+    }));
+  }, []);
 
   return (
     <MainLayout>

@@ -16,6 +16,7 @@ const verifyJWT = (req, res, next) => {
       if (err) {
         return res.status(401).json({ verified: false });
       }
+      req.decoded = decoded;
       next();
   })
 };

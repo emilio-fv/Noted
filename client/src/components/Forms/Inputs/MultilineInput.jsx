@@ -4,7 +4,7 @@ import { Controller } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import { useTheme } from '@emotion/react';
 
-const TextInput = ({ name, control, rules, label, disabled }) => {
+const MultilineInput = ({ name, control, placeholder, rules }) => {
   const theme = useTheme();
 
   return (
@@ -14,12 +14,13 @@ const TextInput = ({ name, control, rules, label, disabled }) => {
       rules={rules}
       render={({ field: { onChange, value}, fieldState: { error }, formState }) => (
         <TextField 
-          disabled={disabled}
-          label={label}
           variant='outlined'
           size='small'
+          multiline
           value={value}
+          rows={4}
           onChange={onChange}
+          placeholder={placeholder}
           error={!!error}
           helperText={error ? error.message : null}
           sx={{
@@ -56,4 +57,4 @@ const TextInput = ({ name, control, rules, label, disabled }) => {
   )
 };
 
-export default TextInput;
+export default MultilineInput;

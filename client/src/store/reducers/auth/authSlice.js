@@ -13,7 +13,6 @@ export const register = createAsyncThunk('auth/register', async (data, thunkAPI)
   try {
     return await authService.register(data);
   } catch (error) {
-    console.log(error);
     const errors = error.response.data.errors;
     return thunkAPI.rejectWithValue(errors);
   }
@@ -23,7 +22,6 @@ export const login = createAsyncThunk('auth/login', async (data, thunkAPI) => {
   try {
     return await authService.login(data);
   } catch (error) {
-    console.log(error);
     const errors = error.response.data;
     return thunkAPI.rejectWithValue(errors);
   }
@@ -48,9 +46,6 @@ export const authSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(register.pending, (state) => {
-      state.status = 'loading'
-    })
     builder.addCase(register.rejected, (state, action) => {
       state.status = 'failed'
       state.errors = action.payload
@@ -62,9 +57,6 @@ export const authSlice = createSlice({
       state.status = 'success'
       state.loggedInUser = userData
       state.errors = null
-    })
-    builder.addCase(login.pending, (state) => {
-      state.status = 'loading'
     })
     builder.addCase(login.rejected, (state, action) => {
       state.status = 'failed'
@@ -78,9 +70,6 @@ export const authSlice = createSlice({
       state.status = 'success'
       state.errors = null
     })
-    builder.addCase(logout.pending, (state) => {
-      state.status = 'loading'
-    })
     builder.addCase(logout.fulfilled, (state) => {
       state.accessToken = null
       state.refreshToken = null
@@ -89,10 +78,10 @@ export const authSlice = createSlice({
       state.errors = null
     })
     builder.addCase(refreshAccessToken.fulfilled, (state, action) => {
-      state.token = action.payload
+      state.accessToken = action.payload
     })
     builder.addCase(refreshAccessToken.rejected, (state) => {
-      state.token = null
+      state.accessToken = null
     })
   }
 });

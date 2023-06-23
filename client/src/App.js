@@ -1,15 +1,18 @@
 import { Routes, Route } from 'react-router-dom';
-import './App.css';
-
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
-
+import { store } from './store/store';
+import { requestAccessToken } from './store/reducers/music/musicSlice';
+import PrivateRoutes from './components/PrivateRoutes'
 import Landing from './pages/Landing';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Music from './pages/Music';
-import PrivateRoutes from './components/PrivateRoutes'
+import Artist from './pages/Artist';
+import Album from './pages/Album';
+import './App.css';
 
+// MUI Theme
 let theme = createTheme({
   palette: {
     primary: {
@@ -37,7 +40,7 @@ let theme = createTheme({
       styleOverrides: {
         input: {
           '&::placeholder': {
-            color: '#E8EBEB', // Replace 'red' with your desired color
+            color: '#E8EBEB',
             fontSize: '.8rem',
             '@media (min-width:600px)': {
               fontSize: '1rem'
@@ -51,6 +54,9 @@ let theme = createTheme({
 
 theme = responsiveFontSizes(theme);
 
+// Request Spotify API Access Token
+store.dispatch(requestAccessToken());
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -61,6 +67,8 @@ function App() {
           <Route element={<PrivateRoutes />}>
             <Route path='/dashboard' element={ <Dashboard /> }/>
             <Route path='/music' element={ <Music /> }/>
+            <Route path='/artist/:artistId' element={ <Artist />} />
+            <Route path='/album/:albumId' element={ <Album />} />
           </Route>
       </Routes>
     </ThemeProvider>
