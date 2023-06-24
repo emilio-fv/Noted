@@ -50,7 +50,8 @@ const handleRegister = async (req, res) => {
           firstName: newUser.firstName,
           lastName: newUser.lastName,
           username: newUser.username,
-        }
+        },
+        message: "worked!"
       });
   } catch (error) {
     return res.status(400).json(error);

@@ -1,7 +1,8 @@
 import axios from "axios";
+import baseUrl from "./baseAPI";
 
 const reviewAPI = axios.create({
-  baseURL: 'http://localhost:8000/review'
+  baseURL: baseUrl + '/review'
 });
 
 export default reviewAPI;

@@ -1,18 +1,24 @@
+// Configure Environment Variables
+require('dotenv').config({ path: `./.env.${process.env.NODE_ENV}`});
+
+// Standard Imports
 const express = require('express');
-const app = express();
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const connectDB = require('./config/mongoose.config');
+
+// Initialize Express Server
+const app = express();
+
+// Import Services Routers
 const { userRouter } = require('./routes/user.routes');
 const { authRouter } = require('./routes/auth.routes');
 const { musicRouter } = require('./routes/music.routes');
 const { reviewRouter } = require('./routes/review.routes');
-const port = process.env.PORT || 8000;
 
-require('dotenv').config();
-
-connectDB();
+// Configure Server
+const port = process.env.SERVER_PORT;
 
 // Middleware
 app.use(cors({ 
@@ -30,13 +36,18 @@ app.use('/users', userRouter);
 app.use('/music', musicRouter);
 app.use('/review', reviewRouter);
 
+// Database Connection
+connectDB();
+
 mongoose.connection.once('open', () => {
   console.log('Connected to MongoDB');
-  app.listen(port, () => {
-    console.log(`Server is listening on port ${port}`);
-  })
 })
 
 mongoose.connection.on('error', err => {
   console.log(err);
+})
+
+// Start Server
+app.listen(port, () => {
+  console.log(`Server is listening on port ${port}`);
 })
