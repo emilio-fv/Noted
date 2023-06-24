@@ -1,7 +1,8 @@
 import axios from 'axios';
+import baseUrl from "./baseAPI";
 
 export const musicAPI = axios.create({
-  baseURL: 'http://localhost:8000/music',
+  baseURL: baseUrl + '/music',
 });
 
 export const spotifyAPI = axios.create({
