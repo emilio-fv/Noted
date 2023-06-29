@@ -25,7 +25,7 @@ const Dashboard = () => {
 
   return (
     <MainLayout>
-      <Typography variant='h5' marginTop={5}>Welcome, {username}</Typography>
+      <Typography variant='h5' marginTop={5}>Good morning, {username}</Typography>
       <ReviewsFeed />
     </MainLayout>
   )

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout, selectAccessToken } from '../../store/reducers/auth/authSlice';
+import { logout } from '../../store/reducers/auth/authSlice';
 
 import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
@@ -10,10 +10,8 @@ import Logo from '../Text/Logo';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-// import Button from '@mui/material/Button';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Menu from '@mui/material/Menu';
-// import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import Link from '@mui/material/Link';
@@ -27,7 +25,7 @@ const pages = ["dashboard", "music"];
 const Navbar = () => {
   // Helpers
   const theme = useTheme();
-  const accessToken = useSelector(selectAccessToken);
+  const accessToken = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
   // Handle Open Nav Menu
