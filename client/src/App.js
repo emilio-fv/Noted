@@ -54,7 +54,7 @@ let theme = createTheme({
 
 theme = responsiveFontSizes(theme);
 
-// Request Spotify API Access Token
+// Request Spotify API Access   
 store.dispatch(requestAccessToken());
 
 function App() {
