@@ -15,6 +15,7 @@ export const createReview = createAsyncThunk('review/create', async (data, thunk
     return await reviewServices.createReview(data);
   } catch (error) {
     console.log(error);
+    // TODO handle errors
   }
 });
 
@@ -23,7 +24,9 @@ export const getLoggedInUsersReviews = createAsyncThunk('review/getLoggedInUsers
     const response = await reviewServices.getLoggedInUsersReviews(data);
     return response.data;
   } catch (error) {
-    console.log(error);
+    // TODO handle errors
+    const errors = error.response.data;
+    return thunkAPI.rejectWithValue(errors);
   }
 });
 
@@ -33,6 +36,9 @@ export const getReviewsByOtherUsers = createAsyncThunk('review/getReviewsByOther
     return response.data;
   } catch (error) {
     console.log(error);
+    // TODO handle errors
+    const errors = error.response.data;
+    return thunkAPI.rejectWithValue(errors);
   }
 });
 
@@ -42,6 +48,7 @@ export const getReviewsByAlbum = createAsyncThunk('review/getReviewsByAlbum', as
     return response.data;
   } catch (error) {
     console.log(error);
+    // TODO handle errors
   }
 })
 
@@ -50,9 +57,11 @@ export const getReviewsByArtist = createAsyncThunk('review/getReviewsByArtist', 
     const response = await reviewServices.getReviewsByArtist(data);
     return response.data;
   } catch (error) {
-    
+    console.log(error);
+    // TODO handle errors
   }
 })
+
 export const reviewSlice = createSlice({
   name: 'review',
   initialState: initialState,
@@ -67,29 +76,38 @@ export const reviewSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(createReview.fulfilled, (state, action) => {
-      state.status = 'added'
-    })
-    builder.addCase(createReview.rejected, (state, action) => {
-      state.status = 'failed'
-      state.errors = action.payload
-    })
-    builder.addCase(getLoggedInUsersReviews.fulfilled, (state, action) => {
-      state.status = 'success'
-      state.loggedInUsersReviews = action.payload
-    })
-    builder.addCase(getReviewsByOtherUsers.fulfilled, (state, action) => {
-      state.status = 'success'
-      state.recentReviews = action.payload
-    })
-    builder.addCase(getReviewsByAlbum.fulfilled, (state, action) => {
-      state.status = 'success'
-      state.albumReviews = action.payload
-    })
-    builder.addCase(getReviewsByArtist.fulfilled, (state, action) => {
-      state.status = 'success'
-      state.artistReviews = action.payload
-    })
+    builder
+      .addCase(createReview.fulfilled, (state, action) => {
+        state.status = 'added'
+      })
+      .addCase(createReview.rejected, (state, action) => {
+        state.status = 'failed'
+        state.errors = action.payload
+      })
+      .addCase(getLoggedInUsersReviews.fulfilled, (state, action) => {
+        state.status = 'success'
+        state.loggedInUsersReviews = action.payload
+      })
+      .addCase(getLoggedInUsersReviews.rejected, (state, action) => {
+        state.status = 'failed'
+        state.errors = action.payload
+      })
+      .addCase(getReviewsByOtherUsers.fulfilled, (state, action) => {
+        state.status = 'success'
+        state.recentReviews = action.payload
+      })
+      .addCase(getReviewsByOtherUsers.rejected, (state, action) => {
+        state.status = 'failed'
+        state.errors = action.payload
+      })
+      .addCase(getReviewsByAlbum.fulfilled, (state, action) => {
+        state.status = 'success'
+        state.albumReviews = action.payload
+      })
+      .addCase(getReviewsByArtist.fulfilled, (state, action) => {
+        state.status = 'success'
+        state.artistReviews = action.payload
+      })
   }
 });
 

@@ -9,6 +9,8 @@ import Box from '@mui/material/Box';
 const MusicSearch = () => {
   // Helpers
   const dispatch = useDispatch();
+
+  // Redux State
   const { accessToken } = useSelector(state => state.music);
 
   // Form Changes & Submit

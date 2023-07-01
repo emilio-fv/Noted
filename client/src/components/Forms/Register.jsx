@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { register } from '../../store/reducers/auth/authSlice';
-
 import StyledButton from '../Button/StyledButton';
 import TextInput from './Inputs/TextInput';
 import PasswordInput from './Inputs/PasswordInput';
@@ -18,6 +17,8 @@ const RegisterForm = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
+  // Redux State
   const { accessToken, status, errors } = useSelector(state => state.auth);
 
   // Form Changes & Submit

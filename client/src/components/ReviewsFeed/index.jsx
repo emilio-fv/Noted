@@ -7,8 +7,8 @@ import Typography from '@mui/material/Typography';
 import { useSelector } from 'react-redux';
 
 const ReviewsFeed = () => {
-  const { loggedInUsersReviews } = useSelector(state => state.review);
-  const { recentReviews } = useSelector(state => state.review);
+  // Redux State
+  const { loggedInUsersReviews, recentReviews } = useSelector(state => state.review);
 
   return (
     <Box padding={2}>

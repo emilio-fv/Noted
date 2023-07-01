@@ -6,25 +6,20 @@ import Divider from '@mui/material/Divider';
 import AlbumCard from './Cards/Album';
 import ReviewCard from './Cards/Review';
 import { useDispatch, useSelector } from 'react-redux';
-import { getArtistsAlbums, resetSelected } from '../../store/reducers/music/musicSlice';
+import { getArtistsAlbums } from '../../store/reducers/music/musicSlice';
 import { useParams } from 'react-router-dom';
 import { getReviewsByArtist } from '../../store/reducers/review/reviewSlice';
 import calculateAverageRating from '../../utils/calculateAverageRating';
-
-const albums = ["", "", "", "", "", ""];
-const reviews = ["", "", ""];
 
 const ArtistProfile = () => {
   // Helpers
   const dispatch = useDispatch();
   const { artistId } = useParams();
+
+  // Redux State
   const { accessToken: spotifyToken } = useSelector(state => state.music);
   const { accessToken: jwt } = useSelector(state => state.auth);
-
-  // Artist Data
   const { selectedResult } = useSelector(state => state.music);
-
-  // Review Data
   const { artistReviews } = useSelector(state => state.review);
 
   // Get artist's albums & reviews

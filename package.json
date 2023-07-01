@@ -4,8 +4,8 @@
   "description": "A MERN social media web application for music enthusiasts to track, review, and share the music they listen to with others.",
   "main": "index.js",
   "scripts": {
-    "start": "docker compose up -d",
-    "stop": "docker compose down"
+    "start": "docker compose -f docker-compose.development.yml up -d",
+    "stop": "docker compose -f docker-compose.development.yml down"
   },
   "keywords": [],
   "author": "emiliofv.sd@gmail.com",

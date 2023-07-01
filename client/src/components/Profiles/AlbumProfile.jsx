@@ -17,13 +17,11 @@ const AlbumProfile = () => {
   // Helpers
   const dispatch = useDispatch();
   const { albumId } = useParams();
+
+  // Redux State
   const { accessToken: spotifyToken } = useSelector(state => state.music);
   const { accessToken: jwt } = useSelector(state => state.auth);
-
-  // Album Data
   const { selectedResult } = useSelector((state) => state.music);
-
-  // Review Data
   const { albumReviews } = useSelector((state) => state.review);
 
   // Review Form modal

@@ -1,6 +1,8 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import authService from "./authService";
+// Imports
+import { createSlice } from "@reduxjs/toolkit";
+import { register, login, logout } from "./authService";
 
+// Set initial state
 const initialState = {
   accessToken: null,
   refreshToken: null,
@@ -9,34 +11,7 @@ const initialState = {
   errors: null
 }
 
-export const register = createAsyncThunk('auth/register', async (data, thunkAPI) => {
-  try {
-    return await authService.register(data);
-  } catch (error) {
-    const errors = error.response.data.errors;
-    return thunkAPI.rejectWithValue(errors);
-  }
-})
-
-export const login = createAsyncThunk('auth/login', async (data, thunkAPI) => {
-  try {
-    return await authService.login(data);
-  } catch (error) {
-    const errors = error.response.data;
-    return thunkAPI.rejectWithValue(errors);
-  }
-})
-
-export const refreshAccessToken = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
-  const { refreshToken } = thunkAPI.getState();
-  return await authService.refreshToken(refreshToken);
-})
-
-export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
-  const { accessToken } = thunkAPI.getState();
-  return await authService.logout(accessToken);
-})
-
+// Create auth slice
 export const authSlice = createSlice({
   name: 'auth',
   initialState: initialState,
@@ -76,12 +51,6 @@ export const authSlice = createSlice({
       state.loggedInUser = null
       state.status = 'idle'
       state.errors = null
-    })
-    builder.addCase(refreshAccessToken.fulfilled, (state, action) => {
-      state.accessToken = action.payload
-    })
-    builder.addCase(refreshAccessToken.rejected, (state) => {
-      state.accessToken = null
     })
   }
 });
