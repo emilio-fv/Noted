@@ -12,7 +12,7 @@ A MERN social media web application for music enthusiasts to track, review, and 
 
 **Client:** React, Redux, Material UI
 **Server:** Node, Express, Mongoose, JWT, Bcrypt
-
+**Other:** npm, nodemon, axios, Docker, 
 
 ## Docs
 [Documentation](https://www.notion.so/817e1a54ad1f444b9e7d17b2789dd272?v=0b306907583c460ea2e95a1a30e96663&pvs=4) for this project can be found here. 

@@ -8,4 +8,3 @@ const StyledButton = ({ type, sx, onClick, text }) => {
 };
 
 export default StyledButton;
-// bgcolor: 'primary.light', '&:hover': { border: '1px solid white', bgcolor: 'primary.light' }

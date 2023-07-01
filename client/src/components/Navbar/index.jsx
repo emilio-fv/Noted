@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../store/reducers/auth/authSlice';
+import { logout, selectAccessToken } from '../../store/reducers/auth/authSlice';
+import { resetMusicSlice } from '../../store/reducers/music/musicSlice';
+import { resetReviewSlice } from '../../store/reducers/review/reviewSlice';
 
 import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
@@ -16,17 +18,17 @@ import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import Link from '@mui/material/Link';
 import { useTheme } from '@emotion/react';
-import { resetMusicSlice } from '../../store/reducers/music/musicSlice';
-import { resetReviewSlice } from '../../store/reducers/review/reviewSlice';
 
-// , "reviews", "connect"
+// TODO: "reviews", "connect"
 const pages = ["dashboard", "music"];
 
 const Navbar = () => {
   // Helpers
   const theme = useTheme();
-  const accessToken = useSelector(state => state.auth);
   const dispatch = useDispatch();
+  
+  // Redux State
+  const accessToken = useSelector(selectAccessToken);
 
   // Handle Open Nav Menu
   const [anchorElNav, setAnchorElNav] = useState(null);

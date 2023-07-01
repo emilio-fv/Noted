@@ -11,11 +11,15 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 
 const MusicResults = () => {
+  // Helpers
   const theme = useTheme();
-  const { searchResults, status } = useSelector(state => state.music);
-  const { albums, artists } = searchResults;
   const dispatch = useDispatch();
 
+  // Redux State
+  const { searchResults, status } = useSelector(state => state.music);
+  const { albums, artists } = searchResults;
+
+  // Reset Results 
   useEffect(() => {
     return () => {
       dispatch(resetSearchResults());

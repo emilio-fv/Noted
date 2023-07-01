@@ -18,6 +18,8 @@ const LoginForm = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // Redux State
   const { accessToken, status, errors } = useSelector(state => state.auth);
 
   // Form Changes & Submit

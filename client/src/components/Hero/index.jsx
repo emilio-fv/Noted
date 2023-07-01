@@ -10,6 +10,8 @@ const Hero = () => {
   // Helpers
   const navigate = useNavigate();
   const theme = useTheme();
+
+  // Redux State
   const { accessToken } = useSelector(state => state.auth);
 
   // Handle Register Button
