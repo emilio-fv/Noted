@@ -1,7 +1,9 @@
+// Imports
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const bcrypt = require('bcrypt');
 
+// User schema
 const userSchema = new Schema({
   firstName: {
     type: String,
@@ -65,8 +67,10 @@ userSchema.pre('save', function(next) {
     })
 })
 
+// Generate user model
 const User = mongoose.model("User", userSchema);
 
+// Exports
 module.exports = { 
   User: User 
 };

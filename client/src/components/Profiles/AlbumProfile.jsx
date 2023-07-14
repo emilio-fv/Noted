@@ -1,48 +1,41 @@
+// Imports
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import formatReleaseDate from '../../utils/formatReleaseDate.js';
 import calculateAverageRating from '../../utils/calculateAverageRating.js';
+import CreateReviewButton from '../Button/CreateReviewButton';
+import CreateReviewForm from '../Forms/CreateReview';
+import { getAlbumTracks } from '../../store/reducers/music/musicService.js';
+import { getReviewsByAlbum } from '../../store/reducers/review/reviewService.js';
+import ReviewCard from './Cards/Review';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import ReviewCard from './Cards/Review';
-import CreateReviewButton from '../Button/CreateReviewButton';
-import CreateReviewForm from '../Forms/CreateReview';
-import { getAlbumTracks } from '../../store/reducers/music/musicSlice.js';
-import { useParams } from 'react-router-dom';
-import { getReviewsByAlbum } from '../../store/reducers/review/reviewSlice.js';
 
-const AlbumProfile = () => {
+const AlbumProfile = ({ selectedResult, albumReviews, status: reviewStatus, getAlbumTracks, getReviewsByAlbum }) => {
   // Helpers
-  const dispatch = useDispatch();
   const { albumId } = useParams();
 
-  // Redux State
-  const { accessToken: spotifyToken } = useSelector(state => state.music);
-  const { accessToken: jwt } = useSelector(state => state.auth);
-  const { selectedResult } = useSelector((state) => state.music);
-  const { albumReviews } = useSelector((state) => state.review);
-
-  // Review Form modal
+  // Review form modal
   const [open, setOpen] = useState(false);
   const handleOpenReviewForm = () => setOpen(true);
   const handleCloseReviewForm = () => setOpen(false);
 
   // Get album tracks & reviews
   useEffect(() => {
-    dispatch(getAlbumTracks({
-      accessToken: spotifyToken,
+    getAlbumTracks({
       albumId: albumId
-    }));
+    });
 
-    dispatch(getReviewsByAlbum({
-      accessToken: jwt,
+    getReviewsByAlbum({
       albumId: albumId
-    }));
+    });
   }, []);
 
-  if (!selectedResult || !selectedResult.album || !selectedResult.tracks || !albumReviews) {
+  if (reviewStatus === 'loading'|| !albumReviews || !selectedResult) {
     return null
   }
 
@@ -154,4 +147,19 @@ const AlbumProfile = () => {
   )
 };
 
-export default AlbumProfile;
+// Connect to Redux store
+const mapStateToProps = (state) => ({
+  selectedResult: state.music.selectedResult,
+  albumReviews: state.review.albumReviews,
+  status: state.review.status
+});
+
+const mapDispatchToProps = {
+  getAlbumTracks,
+  getReviewsByAlbum
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AlbumProfile);

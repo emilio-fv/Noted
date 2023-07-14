@@ -1,13 +1,13 @@
+// Imports
 import React from 'react';
-
-import MainLayout from '../layouts/Main';
+import Layout from '../components/Layout';
 import ArtistProfile from '../components/Profiles/ArtistProfile';
 
 const Artist = () => {
   return (
-    <MainLayout>
+    <Layout>
       <ArtistProfile />
-    </MainLayout>
+    </Layout>
   )
 };
 

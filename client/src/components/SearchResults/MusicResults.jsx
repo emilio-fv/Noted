@@ -1,5 +1,6 @@
+// Imports
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { resetSearchResults } from '../../store/reducers/music/musicSlice.js';
 import ArtistCard from './ResultCards/ArtistCard';
 import AlbumCard from './ResultCards/AlbumCard';
@@ -9,20 +10,14 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 
-
-const MusicResults = () => {
+const MusicResults = ({ albums, artists, status, resetSearchResults }) => {
   // Helpers
   const theme = useTheme();
-  const dispatch = useDispatch();
-
-  // Redux State
-  const { searchResults, status } = useSelector(state => state.music);
-  const { albums, artists } = searchResults;
 
   // Reset Results 
   useEffect(() => {
     return () => {
-      dispatch(resetSearchResults());
+      resetSearchResults();
     }
   }, []);
 
@@ -88,26 +83,22 @@ const MusicResults = () => {
           </>
         : null
       }
-      {/* {tracks 
-        ? <>
-            <Typography variant='h5'>Tracks</Typography>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                gap: { xs: 2, md: 4 }
-              }}
-            >
-              {tracks.items.slice(0,6).map((track, key) => (
-                <TrackCard key={key} track={track}/>
-              ))}
-            </Box>
-          </>
-        : null
-      } */}
     </Box>
   )
 };
 
-export default MusicResults;
+// Connect to Redux store
+const mapStateToProps = (state) => ({
+  albums: state.music.searchResults.albums,
+  artists: state.music.searchResults.artists,
+  status: state.music.status
+});
+
+const mapDispatchToProps = {
+  resetSearchResults
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MusicResults);

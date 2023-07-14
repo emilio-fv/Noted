@@ -1,27 +1,24 @@
+// Imports
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { register } from '../../store/reducers/auth/authSlice';
+import { register } from '../../store/reducers/auth/authService';
 import StyledButton from '../Button/StyledButton';
-import TextInput from './Inputs/TextInput';
-import PasswordInput from './Inputs/PasswordInput';
+import TextInput from '../Inputs/TextInput';
+import PasswordInput from '../Inputs/PasswordInput';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@emotion/react';
 
-const RegisterForm = () => {
+const RegisterForm = ({ isLoggedIn, status, errors, register }) => {
   // Helpers
   const theme = useTheme();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  
-  // Redux State
-  const { accessToken, status, errors } = useSelector(state => state.auth);
 
-  // Form Changes & Submit
+  // Set up form changes and submit functions
   const { handleSubmit, control } = useForm({
     defaultValues: {
       firstName: '',
@@ -33,23 +30,23 @@ const RegisterForm = () => {
     }
   })
 
-  // Form Errors
+  // Form errors
   const [formErrors, setFormErrors] = useState(null);
 
-  // Check if user logged in
+  // Handle register form status
   useEffect(() => {
     if (status === 'failed') {
       setFormErrors(errors);
     }
 
-    if (accessToken) {
+    if (isLoggedIn) {
       navigate('/dashboard')
     }
-  }, [accessToken, status])
+  }, [isLoggedIn, status])
 
-  // Handle Submit
+  // Handle register form submit
   const onSubmit = data => {
-    dispatch(register(data));
+    register(data);
   };
 
   return (
@@ -128,4 +125,18 @@ const RegisterForm = () => {
   )
 };
 
-export default RegisterForm;
+// Connect to Redux store
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.auth.isLoggedIn,
+  status: state.auth.status,
+  errors: state.auth.errors
+});
+
+const mapDispatchToProps = {
+  register
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RegisterForm);

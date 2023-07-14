@@ -1,9 +1,11 @@
+// Imports
 import React from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import IconButton from '@mui/material/IconButton';
 import { useTheme } from '@emotion/react';
 
 const CreateReviewButton = ({ onClick }) => {
+  // Helpers
   const theme = useTheme();
 
   return (

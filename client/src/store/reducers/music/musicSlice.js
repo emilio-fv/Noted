@@ -1,5 +1,6 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import musicServices from './musicService';
+// Imports
+import { createSlice } from '@reduxjs/toolkit';
+import { requestAccessToken, searchSpotify, getAlbumTracks, getArtistsAlbums } from './musicService';
 
 const initialState = {
   accessToken: null,
@@ -13,42 +14,7 @@ const initialState = {
   error: null
 };
 
-export const requestAccessToken = createAsyncThunk('music/requestAccessToken', async () => {
-  try {
-    const response = await musicServices.requestAccessToken();
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-export const searchSpotify = createAsyncThunk('music/searchSpotify', async (data, thunkAPI) => {
-  try {
-    const response = await musicServices.searchSpotify(data);
-    console.log(response);
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-export const getAlbumTracks = createAsyncThunk('music/getAlbumTracks', async (data) => {
-  try {
-    const response = await musicServices.getAlbumTracks(data);
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-export const getArtistsAlbums = createAsyncThunk('music/getArtistsAlbums', async (data) => {
-  try {
-    const response = await musicServices.getArtistsAlbums(data);
-    return response
-  } catch (error) {
-    console.log(error);
-  }
-})
+// Music slice
 export const musicSlice = createSlice({
   name: 'music',
   initialState: initialState,
@@ -75,13 +41,15 @@ export const musicSlice = createSlice({
       state.selectedResult = null
       state.status = 'idle'
       state.error = null
+    },
+    updateAccessToken: (state, action) => {
+      state.accessToken = action.payload
     }
   },
   extraReducers: (builder) => {
     builder
       .addCase(requestAccessToken.fulfilled, (state, action) => {
-        const { access_token } = action.payload
-        state.accessToken = access_token
+        state.accessToken = action.payload
         state.status = 'success'
       })
       .addCase(requestAccessToken.rejected, (state, action) => {
@@ -122,6 +90,9 @@ export const musicSlice = createSlice({
   }
 });
 
-export const { resetSearchResults, setSelected, resetSelected, resetMusicSlice } = musicSlice.actions;
 
+// Actions
+export const { resetSearchResults, setSelected, resetSelected, resetMusicSlice, updateAccessToken } = musicSlice.actions;
+
+// Reducer
 export default musicSlice.reducer;

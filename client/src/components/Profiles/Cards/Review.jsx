@@ -1,3 +1,4 @@
+// Imports
 import React from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Box from '@mui/material/Box';
@@ -8,8 +9,10 @@ import formatReviewDate from '../../../utils/formatReviewDate';
 import { useTheme } from '@emotion/react';
 
 const ReviewCard = ({ review }) => {
+  // Helpers
   const theme = useTheme();
 
+  // Configure star rating
   let rating = [];
   for (let i = 0; i < review.rating; i++) {
     rating.push(0);

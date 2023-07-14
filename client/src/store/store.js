@@ -1,3 +1,4 @@
+// Imports
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
 import {
@@ -10,10 +11,10 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-
 import authReducer from './reducers/auth/authSlice';
 import musicReducer from './reducers/music/musicSlice';
 import reviewReducer from './reducers/review/reviewSlice';
+import handleExpiredAccessToken from './middleware/handleExpiredAccessToken';
 
 const rootPersistConfig = {
   key: 'root',
@@ -37,8 +38,8 @@ export const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
+      }
+    }).concat(handleExpiredAccessToken)
 });
 
 export const persistor = persistStore(store);

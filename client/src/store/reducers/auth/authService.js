@@ -1,34 +1,30 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { publicAuthAPI, privateAuthAPI } from '../../api/authApi';
+import backendAPI from '../../api/backendApi';
 
 export const register = createAsyncThunk('auth/register', async (data, thunkAPI) => {
   try {
-    const response = await publicAuthAPI.post('/register', data, { withCredentials: true });
+    const response = await backendAPI.post('/auth/register', data);
     return response.data;
   } catch (error) {
+    console.log(error);
     return thunkAPI.rejectWithValue(error.response.data.errors);
   }
-})
+});
 
 export const login = createAsyncThunk('auth/login', async (data, thunkAPI) => {
   try {
-    const response = await publicAuthAPI.post('/login', data, { withCredentials: true });
+    const response = await backendAPI.post('/auth/login', data);
     return response.data;
   } catch (error) {
+    console.log(error);
     return thunkAPI.rejectWithValue(error.response.data.errors);
   }
+});
+
+export const logout = createAsyncThunk('auth/logout', async () => {
+  return await backendAPI.post('/auth/logout');
+});
+
+export const refreshAccessToken = createAsyncThunk('auth/refreshAccessToken', async () => {
+  return await backendAPI.get('/auth/refresh');
 })
-
-export const logout = createAsyncThunk('auth/logout', async (data, thunkAPI) => {
-  return await privateAuthAPI.post('/logout', null, {
-    withCredentials: true
-  });
-})
-
-const authService = {
-  register,
-  login,
-  logout
-};
-
-export default authService;

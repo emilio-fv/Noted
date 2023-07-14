@@ -1,3 +1,4 @@
+// Imports
 import React from 'react';
 import { Controller } from 'react-hook-form';
 
@@ -5,6 +6,7 @@ import TextField from '@mui/material/TextField';
 import { useTheme } from '@emotion/react';
 
 const MultilineInput = ({ name, control, placeholder, rules }) => {
+  // Helpers
   const theme = useTheme();
 
   return (

@@ -1,22 +1,25 @@
+// Imports
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '@emotion/react';
-import { useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import StyledButton from '../Button/StyledButton';
+// import { selectIsLoggedIn } from '../../store/reducers/auth/authSlice';
+
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-const Hero = () => {
+const Hero = ({ isLoggedIn }) => {
   // Helpers
   const navigate = useNavigate();
   const theme = useTheme();
 
-  // Redux State
-  const { accessToken } = useSelector(state => state.auth);
+  // Logged in user check
+  // const { isLoggedIn } = useSelector(selectIsLoggedIn);
 
-  // Handle Register Button
+  // Handle register button
   const handleJoinNotedClick = () => {
-    if (accessToken) {
+    if (isLoggedIn) {
       navigate('/dashboard');
     }
     navigate('/register')
@@ -107,4 +110,13 @@ const Hero = () => {
   )
 };
 
-export default Hero;
+// Connect to Redux store
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.auth.isLoggedIn
+});
+
+// const mapDispatchToProps = {}
+
+export default connect(
+  mapStateToProps
+)(Hero);

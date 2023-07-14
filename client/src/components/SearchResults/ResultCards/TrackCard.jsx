@@ -1,3 +1,4 @@
+// Imports
 import React from 'react';
 import img from '../../../assets/Demo_Album_Cover.png';
 import truncateText from '../../../utils/truncateText';

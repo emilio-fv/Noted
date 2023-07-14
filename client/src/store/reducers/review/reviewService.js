@@ -1,66 +1,54 @@
-import reviewAPI from '../../api/reviewApi';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import backendAPI from '../../api/backendApi';
 
-const createReview = async (data) => {
-  const response = reviewAPI.post('/create', data.reviewData, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${data.accessToken}`
-    },
-    withCredentials: true
-  });
-  return response.data;
-};
+export const createReview = createAsyncThunk('review/create', async (data, thunkAPI) => {
+  try {
+    const response = await backendAPI.post('/review/create', data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    const errors = error.response.data;
+    return thunkAPI.rejectWithValue(errors);
+  }
+});
 
-const getLoggedInUsersReviews = async (data) => {
-  const response = reviewAPI.get('/loggedInUser', {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${data.accessToken}`
-    },
-    withCredentials: true
-  });
-  return response;
-};
+export const getLoggedInUsersReviews = createAsyncThunk('review/getLoggedInUsersReviews', async (_, thunkAPI) => {
+  try {
+    const response = await backendAPI.get('/review/loggedInUser');
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    const errors = error.response.data;
+    return thunkAPI.rejectWithValue(errors);
+  }
+});
 
-const getReviewsByOtherUsers = async (data) => {
-  const response = reviewAPI.get('/allOthers', {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${data.accessToken}`
-    },
-    withCredentials: true
-  });
-  return response;
-};
+export const getReviewsByOtherUsers = createAsyncThunk('review/getReviewsByOtherUsers', async (_, thunkAPI) => {
+  try {
+    const response = await backendAPI.get('/review/allOthers');
+    return response.data;
+  } catch (error) {
+    const errors = error.response.data;
+    return thunkAPI.rejectWithValue(errors);
+  }
+});
 
-const getReviewsByAlbum = async (data) => {
-  const response = reviewAPI.get(`/${data.albumId}/album`, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${data.accessToken}`
-    },
-    withCredentials: true
-  });
-  return response;
-};
+export const getReviewsByAlbum = createAsyncThunk('review/getReviewsByAlbum', async (data, thunkAPI) => {
+  try {
+    const response = await backendAPI.get(`/review/${data.albumId}/album`);
+    return response.data;
+  } catch (error) {
+    const errors = error.response.data;
+    return thunkAPI.rejectWithValue(errors);
+  }
+});
 
-const getReviewsByArtist = async (data) => {
-  const response = reviewAPI.get(`/${data.artistId}/artist`, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${data.accessToken}`
-    },
-    withCredentials: true
-  });
-  return response;
-};
-
-const reviewServices = {
-  createReview,
-  getLoggedInUsersReviews,
-  getReviewsByOtherUsers,
-  getReviewsByAlbum,
-  getReviewsByArtist
-};
-
-export default reviewServices;
+export const getReviewsByArtist = createAsyncThunk('review/getReviewsByArtist', async (data, thunkAPI) => {
+  try {
+    const response = await backendAPI.get(`/review/${data.artistId}/artist`);
+    return response.data;
+  } catch (error) {
+    const errors = error.response.data;
+    return thunkAPI.rejectWithValue(errors);
+  }
+});

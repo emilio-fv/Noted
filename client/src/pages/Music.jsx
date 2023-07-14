@@ -1,14 +1,15 @@
+// Imports
 import React from 'react';
-import MainLayout from '../layouts/Main';
+import Layout from '../components/Layout';
 import MusicResults from '../components/SearchResults/MusicResults';
 import MusicSearch from '../components/Forms/MusicSearch';
 
 const Music = () => {
   return (
-    <MainLayout>
+    <Layout>
       <MusicSearch />
       <MusicResults />
-    </MainLayout>
+    </Layout>
   )
 };
 

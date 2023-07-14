@@ -1,17 +1,16 @@
 // Imports
 import { createSlice } from "@reduxjs/toolkit";
-import { register, login, logout } from "./authService";
+import { register, login, logout, refreshAccessToken } from "./authService";
 
-// Set initial state
 const initialState = {
-  accessToken: null,
-  refreshToken: null,
+  tokenExpiration: null,
+  isLoggedIn: false,
   loggedInUser: null,
   status: 'idle', // 'idle' | 'loading' | 'success' | 'failed'
   errors: null
 }
 
-// Create auth slice
+// Auth slice
 export const authSlice = createSlice({
   name: 'auth',
   initialState: initialState,
@@ -21,45 +20,47 @@ export const authSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(register.rejected, (state, action) => {
-      state.status = 'failed'
-      state.errors = action.payload
-    })
-    builder.addCase(register.fulfilled, (state, action) => {
-      const {accessToken, refreshToken, userData} = action.payload
-      state.accessToken = accessToken
-      state.refreshToken = refreshToken
-      state.status = 'success'
-      state.loggedInUser = userData
-      state.errors = null
-    })
-    builder.addCase(login.rejected, (state, action) => {
-      state.status = 'failed'
-      state.errors = action.payload
-    })
-    builder.addCase(login.fulfilled, (state, action) => {
-      const {accessToken, refreshToken, userData} = action.payload
-      state.accessToken = accessToken
-      state.refreshToken = refreshToken
-      state.loggedInUser = userData
-      state.status = 'success'
-      state.errors = null
-    })
-    builder.addCase(logout.fulfilled, (state) => {
-      state.accessToken = null
-      state.refreshToken = null
-      state.loggedInUser = null
-      state.status = 'idle'
-      state.errors = null
-    })
+    builder
+      .addCase(register.rejected, (state, action) => {
+        state.status = 'failed'
+        state.errors = action.payload
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        const { loggedInUser, tokenExpiration } = action.payload
+        state.tokenExpiration = tokenExpiration
+        state.isLoggedIn = true
+        state.loggedInUser = loggedInUser
+        state.status = 'success'
+        state.errors = null
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.status = 'failed'
+        state.errors = action.payload
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        const { loggedInUser, tokenExpiration } = action.payload
+        state.tokenExpiration = tokenExpiration
+        state.isLoggedIn = true
+        state.loggedInUser = loggedInUser
+        state.status = 'success'
+        state.errors = null
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.tokenExpiration = null
+        state.isLoggedIn = false
+        state.loggedInUser = null
+        state.status = 'idle'
+        state.errors = null
+      })
+      .addCase(refreshAccessToken.fulfilled, (state, action) => {
+        const { tokenExpiration } = action.payload
+        state.tokenExpiration = tokenExpiration
+      })
   }
 });
 
-export const selectAccessToken = (state) => state.auth.accessToken;
-export const selectLoggedInUser = (state) => state.auth.loggedInUser;
-export const selectStatus = (state) => state.auth.status;
-export const selectErrors = (state) => state.auth.errors;
-
+// Actions
 export const { updateAccessToken } = authSlice.actions;
 
+// Reducer
 export default authSlice.reducer;
