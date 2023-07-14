@@ -1,25 +1,19 @@
+// Imports
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { createReview } from '../../store/reducers/review/reviewSlice';
+import { createReview } from '../../store/reducers/review/reviewService';
+import StyledButton from '../Button/StyledButton';
+import TextInput from '../Inputs/TextInput';
+import MultilineInput from '../Inputs/MultilineInput';
+import RatingInput from '../Inputs/RatingInput';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import TextInput from './Inputs/TextInput';
-import StyledButton from '../Button/StyledButton';
 import Modal from '@mui/material/Modal';
-import MultilineInput from './Inputs/MultilineInput';
-import RatingInput from './Inputs/RatingInput';
 
-const CreateReviewForm = ({ open, handleCloseReviewForm, musicData }) => {
-  // Helpers
-  const { accessToken } = useSelector(state => state.auth);
-  const { status } = useSelector(state => state.review);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  // Form Changes & Submit 
+const CreateReviewForm = ({ open, handleCloseReviewForm, musicData, status, createReview }) => {
+  // Set up form changes, submit, and reset functions
   const { handleSubmit, control, reset } = useForm({
     defaultValues: {
       artist: musicData.artists[0].name,
@@ -29,21 +23,14 @@ const CreateReviewForm = ({ open, handleCloseReviewForm, musicData }) => {
     }
   });
 
+  // Handle create review form submit
   const onSubmit = data => {
-    const reviewData = {
+    createReview({
       ...data,
       artistId: musicData.artists[0].id,
       albumId: musicData.id,
       src: musicData.images[0].url,
-    }
-    
-    const requestData = {
-      accessToken: accessToken,
-      reviewData: {
-        ...reviewData
-      }
-    }
-    dispatch(createReview(requestData));
+    });
   };
 
   // Close modal upon successful addition
@@ -106,4 +93,16 @@ const CreateReviewForm = ({ open, handleCloseReviewForm, musicData }) => {
   )
 };
 
-export default CreateReviewForm;
+// Connect to Redux store
+const mapStateToProps = (state) => ({
+  status: state.review.status
+});
+
+const mapDispatchToProps = {
+  createReview
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CreateReviewForm);

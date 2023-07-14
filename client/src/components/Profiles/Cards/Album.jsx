@@ -1,14 +1,15 @@
+// Imports
 import React from 'react';
 import truncateText from '../../../utils/truncateText';
 import formatReleaseDate from '../../../utils/formatReleaseDate';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { setSelected } from '../../../store/reducers/music/musicSlice';
 
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
-import { setSelected } from '../../../store/reducers/music/musicSlice';
 
 const AlbumCard = ({ album }) => {
   // Helpers

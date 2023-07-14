@@ -1,31 +1,31 @@
+// Imports
 const express = require('express');
-
 const {
-  verifyJWT
-} = require('../middleware/verifyJWT');
-
+  verifyAccessToken
+} = require('../middleware/verifyAccessToken')
 const {
   handleCreateReview,
-  handleGetReviewsByUserId,
-  handleGetAllReviews,
+  handleGetLoggedInUsersReviews,
+  handleGetOtherReviews,
   handleGetReviewsByUsername,
   handleGetReviewsByArtistId,
   handleGetReviewsByAlbumId,
-  handleDeleteReview
+  handleDeleteReviewById
 } = require('../controllers/review.controller');
 
+// Instantiate router
 const router = express.Router();
 
-router.post('/create', verifyJWT, handleCreateReview);
-router.get('/loggedInUser', verifyJWT, handleGetReviewsByUserId);
-router.get('/allOthers', verifyJWT, handleGetAllReviews);
+// API Endpoints
+router.post('/create', verifyAccessToken, handleCreateReview);
+router.get('/loggedInUser', verifyAccessToken, handleGetLoggedInUsersReviews);
+router.get('/allOthers', verifyAccessToken, handleGetOtherReviews);
+router.get('/:artistId/artist', verifyAccessToken, handleGetReviewsByArtistId);
+router.get('/:albumId/album', verifyAccessToken, handleGetReviewsByAlbumId);
+// router.get('/:username/username', verifyAccessToken, handleGetReviewsByUsername);
+// router.delete('/:id', verifyAccessToken, handleDeleteReviewById);
 
-// Unused
-router.get('/:username/username', verifyJWT, handleGetReviewsByUsername);
-router.get('/:artistId/artist', verifyJWT, handleGetReviewsByArtistId);
-router.get('/:albumId/album', verifyJWT, handleGetReviewsByAlbumId);
-router.delete('/:id', verifyJWT, handleDeleteReview);
-
+// Exports
 module.exports = {
   reviewRouter: router
 };

@@ -1,6 +1,8 @@
+// Imports
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+// Review schmea
 const reviewSchema = new Schema({
   artist: {
     type: String,
@@ -43,8 +45,10 @@ const reviewSchema = new Schema({
   // }]
 }, { timestamps: true, collection: 'reviews' });
 
+// Generate review model
 const Review = mongoose.model("Review", reviewSchema);
 
+// Exports
 module.exports = {
   Review: Review
 };

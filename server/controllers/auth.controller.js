@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const { createUser, getUserByEmail } = require('../services/user.service');
 const { generateAccessToken, generateRefreshToken } = require('../util/jwt.util');
 
+// Register
 const handleRegister = async (req, res) => {
   // Log controller method
   console.log('Controller: handleRegister');
@@ -22,42 +23,43 @@ const handleRegister = async (req, res) => {
 
     // Generate access token
     const accessToken = generateAccessToken({
-      id: newUser._id,
+      userId: newUser._id,
       email: newUser.email,
     });
 
     // Generate refresh token
     const refreshToken = generateRefreshToken({
-      id: newUser._id,
+      userId: newUser._id,
       email: newUser.email,
     });
+
+    // Calculate expiration
+    const tokenExpiration = Date.now() + process.env.EXPIRATION;
 
     // Attach tokens to cookies and user data to response object
     return res.cookie('accessToken', accessToken, {
         httpOnly: true,
         secure: true,
         sameSite: 'None',
-        maxAge: 1000 * 60
       })
       .cookie('refreshToken', refreshToken, {
         httpOnly: true,
         secure: true,
         sameSite: 'None',
-        maxAge: 24 * 60 * 60 * 1000
       }).json({ 
-        accessToken: accessToken,
-        refreshToken: refreshToken,
-        userData: {
+        loggedInUser: {
           firstName: newUser.firstName,
           lastName: newUser.lastName,
           username: newUser.username,
-        }
+        },
+        tokenExpiration: tokenExpiration
       });
   } catch (error) {
     return res.status(400).json(error);
   }
 };
 
+// Login
 const handleLogin = async (req, res) => {
   // Log controller method
   console.log('Controller: handleLogin');
@@ -81,19 +83,21 @@ const handleLogin = async (req, res) => {
 
     // Generate access token
     const accessToken = generateAccessToken({
-      id: foundUser._id,
+      userId: foundUser._id,
       email: foundUser.email,
     });
 
     // Generate refresh token
     const refreshToken = generateRefreshToken({
-      id: foundUser._id,
+      userId: foundUser._id,
       email: foundUser.email,
     });
 
+    // Calculate expiration
+    const tokenExpiration = Date.now() + process.env.EXPIRATION;
+
     // Attach tokens to cookies and user data to response object
     return res.cookie('accessToken', accessToken, {
-        httpOnly: true,
         httpOnly: true,
         secure: true,
         sameSite: 'None'
@@ -102,87 +106,70 @@ const handleLogin = async (req, res) => {
         secure: true,
         sameSite: 'None'
       }).json({
-        // TODO: only pass tokens through cookies
-        accessToken: accessToken,
-        refreshToken: refreshToken,
-        userData: {
+        loggedInUser: {
           firstName: foundUser.firstName,
           lastName: foundUser.lastName,
           username: foundUser.username,
-        }
+        },
+        tokenExpiration: tokenExpiration
       });
   } catch (error) {
     res.status(400).json(error);
   }
 };
 
+// Logout
+const handleLogout = async (req, res) => {
+  // Log controller method
+  console.log('Controller: handleLogout');
+
+  // Clear cookies
+  return res.clearCookie('accessToken').clearCookie('refreshToken').json({ message: 'Logged out' });
+};
+
+// Refresh Access Token
 const handleRefresh = async (req, res) => {
   // Log controller method
   console.log('Controller: handleRefresh');
 
-  try {
-    // Extract authorization header
-    const authHeader = req.headers.authorization || req.headers.Authorization;
+  // Extract refresh token
+  const { refreshToken } = req.cookies;
 
-    // Handle missing authorization header
-    if (!authHeader?.startsWith('Bearer ')) {
-      return res.status(401).json({ message: 'Unauthorized' })
-    }
-
-    // Extract refresh token 
-    const refreshToken = authHeader.split(' ')[1];
-
-    // Verify refresh token
-    jwt.verify(
-      refreshToken, 
-      process.env.REFRESH_SECRET_KEY,
-      async (err, decoded) => {
-        // Handle expired refresh token
-        if (err.name === 'TokenExpiredError') {
-          return res.status(401).json({ message: 'ExpiredRefreshToken' });
-        }
-
+  // Verify refresh token
+  jwt.verify(
+    refreshToken, 
+    process.env.REFRESH_SECRET_KEY,
+    (error, decoded) => {
+      // Handle expired refresh token
+      if (error?.name === 'TokenExpiredError') {
+        return res.status(401).json({ message: 'ExpiredRefreshToken' });
+      } else {
         // Generate new access token
-        const newAccessToken = generateAccessToken(decoded);
+        const newAccessToken = generateAccessToken({
+          userId: decoded.userId,
+          email: decoded.email
+        });
+
+        // Calculate expiration
+        const tokenExpiration = Date.now() + process.env.EXPIRATION;
 
         // Attach token to cookie
         return res.cookie('accessToken', newAccessToken, {
           httpOnly: true,
           secure: true,
           sameSite: 'None'
-        });
+        }).json({
+          tokenExpiration: tokenExpiration
+        })
       }
-    )
-  } catch (error) {
-    res.status(400).json(error);
-  }
-};
-
-
-const handleLogout = async (req, res) => {
-  // Log controller method
-  console.log('Controller: handleLogout');
-
-  // Extract access token
-  const { accessToken } = req.cookies;
-
-  // Clear cookies
-  return res.clearCookie('accessToken', {
-    httpOnly: true,
-    secure: true, 
-    sameSite: 'None'
-  }).clearCookie('refreshToken', {    
-    httpOnly: true,
-    secure: true, 
-    sameSite: 'None'
-  })
-  .json({ message: 'Cookie cleared' })
+    }
+  )
 };
 
 // Exports
 module.exports = {
   handleRegister,
   handleLogin,
-  handleRefresh,
-  handleLogout
+  handleLogout,
+  handleRefresh
 };

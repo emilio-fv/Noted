@@ -1,41 +1,33 @@
+// Import
 import React, { useEffect } from 'react';
+import AlbumCard from './Cards/Album';
+import ReviewCard from './Cards/Review';
+import { connect } from 'react-redux';
+import { getArtistsAlbums } from '../../store/reducers/music/musicService';
+import { useParams } from 'react-router-dom';
+import { getReviewsByArtist } from '../../store/reducers/review/reviewService';
+import calculateAverageRating from '../../utils/calculateAverageRating';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import AlbumCard from './Cards/Album';
-import ReviewCard from './Cards/Review';
-import { useDispatch, useSelector } from 'react-redux';
-import { getArtistsAlbums } from '../../store/reducers/music/musicSlice';
-import { useParams } from 'react-router-dom';
-import { getReviewsByArtist } from '../../store/reducers/review/reviewSlice';
-import calculateAverageRating from '../../utils/calculateAverageRating';
 
-const ArtistProfile = () => {
+const ArtistProfile = ({ selectedResult, artistReviews, status: reviewStatus, getArtistsAlbums, getReviewsByArtist }) => {
   // Helpers
-  const dispatch = useDispatch();
   const { artistId } = useParams();
 
-  // Redux State
-  const { accessToken: spotifyToken } = useSelector(state => state.music);
-  const { accessToken: jwt } = useSelector(state => state.auth);
-  const { selectedResult } = useSelector(state => state.music);
-  const { artistReviews } = useSelector(state => state.review);
-
-  // Get artist's albums & reviews
+  // Get artists albums & reviews
   useEffect(() => {
-    dispatch(getArtistsAlbums({
-      accessToken: spotifyToken,
+    getArtistsAlbums({
       artistId: artistId
-    }));
+    });
 
-    dispatch(getReviewsByArtist({
-      accessToken: jwt,
+    getReviewsByArtist({
       artistId: artistId
-    }));
+    });
   }, []);
 
-  if (!selectedResult || !selectedResult.artist || !selectedResult.albums || !artistReviews) {
+  if (reviewStatus === 'loading' || !artistReviews || !selectedResult) {
     return null
   }
 
@@ -135,4 +127,19 @@ const ArtistProfile = () => {
   )
 };
 
-export default ArtistProfile;
+// Connect to Redux store
+const mapStateToProps = (state) => ({
+  selectedResult: state.music.selectedResult,
+  artistReviews: state.review.artistReviews,
+  status: state.review.status
+});
+
+const mapDispatchToProps = {
+  getArtistsAlbums,
+  getReviewsByArtist
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ArtistProfile);

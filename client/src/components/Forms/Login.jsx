@@ -1,50 +1,47 @@
+// Imports
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { login } from '../../store/reducers/auth/authSlice';
-
+import { login } from '../../store/reducers/auth/authService';
 import StyledButton from '../Button/StyledButton';
-import TextInput from './Inputs/TextInput';
-import PasswordInput from './Inputs/PasswordInput';
+import TextInput from '../Inputs/TextInput';
+import PasswordInput from '../Inputs/PasswordInput';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import { useTheme } from '@emotion/react';
 
-const LoginForm = () => {
+const LoginForm = ({ isLoggedIn, status, errors, login }) => {
   // Helpers
   const theme = useTheme();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Redux State
-  const { accessToken, status, errors } = useSelector(state => state.auth);
-
-  // Form Changes & Submit
+  // Set up form changes and submit functions
   const { handleSubmit, control } = useForm({
     email: '',
     password: ''
   })
 
-  const onSubmit = (data) => {
-    dispatch(login(data))
-  };
-
-  // Form Errors
+  // Form errors
   const [formErrors, setFormErrors] = useState(null);
 
-  // Logged in user check
+  // Handle login form status
   useEffect(() => {
     if (status === 'failed') {
       setFormErrors(errors);
     }
 
-    if (accessToken) {
+    if (isLoggedIn) {
       navigate('/dashboard');
     }
-  }, [accessToken, status])
+  }, [isLoggedIn, status])
+
+  // Handle login form submit
+  const onSubmit = (data) => {
+    login(data);
+  };
 
   return (
     <Box
@@ -97,4 +94,18 @@ const LoginForm = () => {
   )
 };
 
-export default LoginForm;
+// Connect to Redux store
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.auth.isLoggedIn,
+  status: state.auth.status,
+  errors: state.auth.errors
+});
+
+const mapDispatchToProps = {
+  login
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginForm)

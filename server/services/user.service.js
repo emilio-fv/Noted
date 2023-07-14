@@ -1,21 +1,27 @@
 // Imports
 const { User } = require('../models/user.model');
 
-// Add new user to db
 const createUser = async (data) => {
+  // Add new user to db
   const newUser = await User.create(data);
+
+  // Return new user
   return newUser;
 };
 
-// Query db for users by email
 const getUserByEmail = async (data) => {
+  // Query db for users by email
   const user = await User.findOne({ email: data });
+
+  // Return found user
   return user;
 };
 
-// Query db for all users
 const getAllUsers = async () => {
+  // Query db for all users
   const allUsers = await User.find();
+
+  // Return all found users
   return allUsers;
 };
 

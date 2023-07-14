@@ -1,3 +1,4 @@
+// Imports
 import React from 'react';
 import formatReviewDate from '../../../utils/formatReviewDate';
 
@@ -11,8 +12,10 @@ import Typography from '@mui/material/Typography';
 import { useTheme } from '@emotion/react';
 
 const ReviewCard = ({ review }) => {
+  // Helpers
   const theme = useTheme();
 
+  // Configure star ratings
   let rating = [];
   for (let i = 0; i < review.rating; i++) {
     rating.push(0);

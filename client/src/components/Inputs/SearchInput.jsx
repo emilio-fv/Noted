@@ -1,3 +1,4 @@
+// Imports
 import React from 'react';
 import { Controller } from 'react-hook-form';
 
@@ -8,6 +9,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useTheme } from '@emotion/react';
 
 const SearchInput = ({ name, control, rules, placeholder}) => {
+  // Helpers
   const theme = useTheme();
 
   return (

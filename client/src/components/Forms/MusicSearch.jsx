@@ -1,26 +1,23 @@
+// Imports
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { searchSpotify, resetSearchResults } from '../../store/reducers/music/musicSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import SearchInput from './Inputs/SearchInput';
+import { connect } from 'react-redux';
+import { resetSearchResults } from '../../store/reducers/music/musicSlice';
+import { searchSpotify } from '../../store/reducers/music/musicService';
+import SearchInput from '../Inputs/SearchInput';
 
 import Box from '@mui/material/Box';
 
-const MusicSearch = () => {
-  // Helpers
-  const dispatch = useDispatch();
-
-  // Redux State
-  const { accessToken } = useSelector(state => state.music);
-
-  // Form Changes & Submit
+const MusicSearch = ({ searchSpotify, resetSearchResults }) => {
+  // Set up form changes and submit functions
   const { handleSubmit, control } = useForm({
     query: ''
   })
 
+  // Handle music search submit
   const onSubmit = (data) => {
-    dispatch(resetSearchResults());
-    dispatch(searchSpotify({ accessToken: accessToken, ...data }));
+    resetSearchResults();
+    searchSpotify(data);
   }
 
   return (
@@ -43,4 +40,13 @@ const MusicSearch = () => {
   )
 };
 
-export default MusicSearch;
+// Connect to Redux store
+const mapDispatchToProps = {
+  searchSpotify,
+  resetSearchResults
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(MusicSearch);

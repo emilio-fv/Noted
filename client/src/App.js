@@ -1,8 +1,6 @@
+// Imports
 import { Routes, Route } from 'react-router-dom';
-import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import { store } from './store/store';
-import { requestAccessToken } from './store/reducers/music/musicSlice';
-import PrivateRoutes from './components/PrivateRoutes'
 import Landing from './pages/Landing';
 import Register from './pages/Register';
 import Login from './pages/Login';
@@ -10,61 +8,30 @@ import Dashboard from './pages/Dashboard';
 import Music from './pages/Music';
 import Artist from './pages/Artist';
 import Album from './pages/Album';
-import './App.css';
+import { requestAccessToken } from './store/reducers/music/musicService';
+import PrivateRoute from './components/PrivateRoute';
+import './assets/App.css';
 
-// MUI Theme
-let theme = createTheme({
-  palette: {
-    primary: {
-      main: '#1e232c',
-    },
-    secondary: {
-      main: '#6d6e75',
-    },
-  },
-  background: '#272d38',
-  text: '#E8EBEB',
-  accent: {
-    light: '#039408',
-    dark: '#017305'
-  },
-  components: {
-    MuiTypography: {
-      styleOverrides: {
-        root: {
-          color: '#E8EBEB'
-        }
-      }
-    },
-    MuiOutlinedInput: {
-      styleOverrides: {
-        input: {
-          '&::placeholder': {
-            color: '#E8EBEB',
-            fontSize: '.8rem',
-            '@media (min-width:600px)': {
-              fontSize: '1rem'
-            }
-          },
-        },
-      },
-    },
-  }
-})
-
-theme = responsiveFontSizes(theme);
-
-// Request Spotify API Access   
-store.dispatch(requestAccessToken());
+import theme from './assets/muiTheme';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import spotifyAPI from './store/api/spotifyApi';
 
 function App() {
+  // Request Spotify access token 
+  store.dispatch(requestAccessToken()).then(response => {
+    const { accessToken } = response.payload;
+    spotifyAPI.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+  });
+
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Routes>
           <Route path='/' element={ <Landing /> }/>
           <Route path='/register' element={ <Register /> }/>
           <Route path='/login' element={ <Login /> }/>
-          <Route element={<PrivateRoutes />}>
+          <Route element={<PrivateRoute />}>
             <Route path='/dashboard' element={ <Dashboard /> }/>
             <Route path='/music' element={ <Music /> }/>
             <Route path='/artist/:artistId' element={ <Artist />} />
