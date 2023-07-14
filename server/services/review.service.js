@@ -17,7 +17,7 @@ const createReview = async (data) => {
 // Get reviews by user id
 const getReviewsByUserId = async (id) => {
   // Query db for reviews by user id
-  const foundReviews = await Review.find({ user: id }).sort({ createdAt: 'desc' });
+  const foundReviews = await Review.find({ user: id }).sort({ createdAt: 'desc' }).limit(5);
 
   // Return found reviews
   return foundReviews;
@@ -26,7 +26,7 @@ const getReviewsByUserId = async (id) => {
 // Get reviews by other users
 const getReviewsNotByUserId = async (id) => {
   // Query db for reviews by other users
-  const foundReviews = await Review.find({ user: { $not: { $eq: id }} }).populate('user').sort({ createdAt: 'desc' });
+  const foundReviews = await Review.find({ user: { $not: { $eq: id }} }).populate('user').sort({ createdAt: 'desc' }).limit(5);
 
   // Return found reviews
   return foundReviews;
