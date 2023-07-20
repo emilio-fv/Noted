@@ -33,9 +33,6 @@ const handleRegister = async (req, res) => {
       email: newUser.email,
     });
 
-    // Calculate expiration
-    const tokenExpiration = Date.now() + process.env.EXPIRATION;
-
     // Attach tokens to cookies and user data to response object
     return res.cookie('accessToken', accessToken, {
         httpOnly: true,
@@ -51,8 +48,7 @@ const handleRegister = async (req, res) => {
           firstName: newUser.firstName,
           lastName: newUser.lastName,
           username: newUser.username,
-        },
-        tokenExpiration: tokenExpiration
+        }
       });
   } catch (error) {
     return res.status(400).json(error);
@@ -93,9 +89,6 @@ const handleLogin = async (req, res) => {
       email: foundUser.email,
     });
 
-    // Calculate expiration
-    const tokenExpiration = Date.now() + process.env.EXPIRATION;
-
     // Attach tokens to cookies and user data to response object
     return res.cookie('accessToken', accessToken, {
         httpOnly: true,
@@ -110,8 +103,7 @@ const handleLogin = async (req, res) => {
           firstName: foundUser.firstName,
           lastName: foundUser.lastName,
           username: foundUser.username,
-        },
-        tokenExpiration: tokenExpiration
+        }
       });
   } catch (error) {
     res.status(400).json(error);
@@ -150,16 +142,13 @@ const handleRefresh = async (req, res) => {
           email: decoded.email
         });
 
-        // Calculate expiration
-        const tokenExpiration = Date.now() + process.env.EXPIRATION;
-
         // Attach token to cookie
         return res.cookie('accessToken', newAccessToken, {
           httpOnly: true,
           secure: true,
           sameSite: 'None'
         }).json({
-          tokenExpiration: tokenExpiration
+          message: "Token refreshed"
         })
       }
     }

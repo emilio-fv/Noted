@@ -9,7 +9,19 @@ const CreateReviewButton = ({ onClick }) => {
   const theme = useTheme();
 
   return (
-    <IconButton sx={{ paddingX: 1, color: theme.text, bgcolor: theme.accent.light, borderRadius: 2, fontSize: 15, '&:hover': { bgcolor: theme.accent.dark} }} variant='contained' size='small' onClick={onClick}>
+    <IconButton 
+      sx={{ 
+        paddingX: 1, 
+        color: theme.text, 
+        bgcolor: theme.accent.light, 
+        borderRadius: 2, 
+        fontSize: 15, 
+        '&:hover': { bgcolor: theme.accent.dark} 
+      }} 
+      variant='contained' 
+      size='small' 
+      onClick={onClick}
+    >
       <AddIcon sx={{ marginRight: 1 }}/> Review
     </IconButton>
   )

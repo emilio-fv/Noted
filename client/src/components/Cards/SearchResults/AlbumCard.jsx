@@ -1,8 +1,8 @@
 // Imports
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setSelected } from '../../../store/reducers/music/musicSlice';
+// import { connect } from 'react-redux';
+// import { setSelected } from '../../../store/reducers/music/musicSlice';
 import truncateText from '../../../utils/truncateText';
 
 import Link from '@mui/material/Link';
@@ -12,20 +12,16 @@ import Typography from '@mui/material/Typography';
 
 const AlbumCard = ({ album }) => {
   // Helpers
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // Handle click album card
-  const handleClick = () => {
-    dispatch(setSelected({
-      album: album
-    }));
-
+  const handleCardClick = () => {
+    // setSelected(album.id);
     navigate(`/album/${album.id}`);
   }
 
   return (
-    <Link onClick={() => handleClick()}> 
+    <Link onClick={() => handleCardClick()}> 
       <Paper
         elevation={4}
         sx={{

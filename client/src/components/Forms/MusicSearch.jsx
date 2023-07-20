@@ -1,14 +1,11 @@
 // Imports
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { connect } from 'react-redux';
-import { resetSearchResults } from '../../store/reducers/music/musicSlice';
-import { searchSpotify } from '../../store/reducers/music/musicService';
 import SearchInput from '../Inputs/SearchInput';
 
 import Box from '@mui/material/Box';
 
-const MusicSearch = ({ searchSpotify, resetSearchResults }) => {
+const MusicSearch = ({ setSearchQuery }) => {
   // Set up form changes and submit functions
   const { handleSubmit, control } = useForm({
     query: ''
@@ -16,8 +13,7 @@ const MusicSearch = ({ searchSpotify, resetSearchResults }) => {
 
   // Handle music search submit
   const onSubmit = (data) => {
-    resetSearchResults();
-    searchSpotify(data);
+    setSearchQuery(data.query);
   }
 
   return (
@@ -40,13 +36,4 @@ const MusicSearch = ({ searchSpotify, resetSearchResults }) => {
   )
 };
 
-// Connect to Redux store
-const mapDispatchToProps = {
-  searchSpotify,
-  resetSearchResults
-};
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(MusicSearch);
+export default MusicSearch;

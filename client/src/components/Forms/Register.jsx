@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { connect } from 'react-redux';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { register } from '../../store/reducers/auth/authService';
+import { resetErrors } from '../../store/reducers/auth/authSlice';
+import { useRegisterMutation } from '../../store/api/authApi';
 import StyledButton from '../Button/StyledButton';
 import TextInput from '../Inputs/TextInput';
 import PasswordInput from '../Inputs/PasswordInput';
@@ -13,10 +14,11 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@emotion/react';
 
-const RegisterForm = ({ isLoggedIn, status, errors, register }) => {
+const RegisterForm = ({ isLoggedIn, status, errors, resetErrors }) => {
   // Helpers
   const theme = useTheme();
   const navigate = useNavigate();
+  const [ register ] = useRegisterMutation();
 
   // Set up form changes and submit functions
   const { handleSubmit, control } = useForm({
@@ -40,7 +42,11 @@ const RegisterForm = ({ isLoggedIn, status, errors, register }) => {
     }
 
     if (isLoggedIn) {
-      navigate('/dashboard')
+      navigate('/dashboard');
+    }
+
+    return () => {
+      resetErrors();
     }
   }, [isLoggedIn, status])
 
@@ -133,8 +139,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  register
-}
+  resetErrors
+};
 
 export default connect(
   mapStateToProps,

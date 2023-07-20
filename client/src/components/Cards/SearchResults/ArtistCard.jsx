@@ -1,7 +1,7 @@
 // Imports
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { setSelected } from '../../../store/reducers/music/musicSlice';
+// import { connect } from 'react-redux';
+// import { setSelected } from '../../../store/reducers/music/musicSlice';
 import { useNavigate } from 'react-router-dom';
 import truncateString from '../../../utils/truncateText';
 import img from '../../../assets/imgPlaceholder.png';
@@ -13,20 +13,16 @@ import Link from '@mui/material/Link';
 
 const ArtistCard = ({ artist }) => {
   // Helpers
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // Handle click artist card
-  const handleClick = () => {
-    dispatch(setSelected({
-      artist: artist
-    }));
-
+  const handleCardClick = () => {
+    // setSelected(artist.id);
     navigate(`/artist/${artist.id}`);
   };
 
   return (
-    <Link onClick={() => handleClick()}>
+    <Link onClick={() => handleCardClick()}>
       <Paper
         elevation={4}
         sx={{
@@ -59,5 +55,12 @@ const ArtistCard = ({ artist }) => {
     </Link>
   )
 };
+
+// Connect to Redux store
+// const mapStateToProps = (state) => ({});
+
+// const mapDispatchToProps = {
+//   setSelected
+// };
 
 export default ArtistCard;

@@ -10,7 +10,7 @@ import StarIcon from '@mui/icons-material/Star';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@emotion/react';
 
-const LoggedInUserReviewCard = ({ review }) => {
+const LoggedInReviewCard = ({ review }) => {
   // Helpers
   const theme = useTheme();
 
@@ -104,4 +104,4 @@ const LoggedInUserReviewCard = ({ review }) => {
   )
 };
 
-export default LoggedInUserReviewCard;
+export default LoggedInReviewCard;

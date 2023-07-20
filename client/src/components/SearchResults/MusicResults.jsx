@@ -1,27 +1,34 @@
 // Imports
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { resetSearchResults } from '../../store/reducers/music/musicSlice.js';
-import ArtistCard from './ResultCards/ArtistCard';
-import AlbumCard from './ResultCards/AlbumCard';
+import { resetSearchResults } from '../../store/reducers/spotify/spotifySlice.js';
+import AlbumCard from '../Cards/SearchResults/AlbumCard.jsx';
+import ArtistCard from '../Cards/SearchResults/ArtistCard.jsx';
 
 import { useTheme } from '@emotion/react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useSearchSpotifyQuery } from '../../store/api/spotifyApi.js';
 
-const MusicResults = ({ albums, artists, status, resetSearchResults }) => {
+const MusicResults = ({ searchQuery, searchResults, resetSearchResults }) => {
   // Helpers
   const theme = useTheme();
 
-  // Reset Results 
+  // Handle search spotify
+  const { isLoading } = useSearchSpotifyQuery(searchQuery, { 
+    refetchOnMountOrArgChange: true,
+    skip: searchQuery === '' ? true : false
+  });
+
+  // Handle resetting search results 
   useEffect(() => {
     return () => {
       resetSearchResults();
     }
-  }, []);
+  }, [])
 
-  if (status === 'loading') {
+  if (isLoading && searchQuery !== '') {
     return (
       <Box 
         sx={{
@@ -37,6 +44,10 @@ const MusicResults = ({ albums, artists, status, resetSearchResults }) => {
     )
   }
 
+  if (!searchResults || searchQuery === '') {
+    return null;
+  }
+
   return (
     <Box
       sx={{
@@ -47,51 +58,40 @@ const MusicResults = ({ albums, artists, status, resetSearchResults }) => {
         paddingBottom: 6
       }}
       >
-      {artists 
-        ? <>
         <Typography variant='h5'>Artists</Typography>
         <Box
-        sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                gap: { xs: 2, md: 4 }
-              }}
-            >
-              {artists.items.slice(0,6).map((artist, key) => (
-                  <ArtistCard key={key} artist={artist} />
-              ))}
-            </Box> 
-          </>
-        : null
-      }
-      {albums
-        ? <>
-            <Typography variant='h5'>Albums</Typography>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                gap: { xs: 2, md: 4 }
-              }}
-            >
-              {albums.items.slice(0,6).map((album, key) => (
-                  <AlbumCard key={key} album={album}/>
-              ))}
-            </Box>
-          </>
-        : null
-      }
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            gap: { xs: 2, md: 4 }
+          }}
+        >
+          {searchResults.artists?.items.map((artist, key) => (
+            <ArtistCard key={key} artist={artist} />
+          ))}
+        </Box>
+        <Typography variant='h5'>Albums</Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            gap: { xs: 2, md: 4 }
+          }}
+        >
+          {searchResults.albums?.items.map((album, key) => (
+              <AlbumCard key={key} album={album}/>
+          ))}
+        </Box>
     </Box>
   )
 };
 
 // Connect to Redux store
 const mapStateToProps = (state) => ({
-  albums: state.music.searchResults.albums,
-  artists: state.music.searchResults.artists,
-  status: state.music.status
+  searchResults: state.spotify.searchResults,
+  status: state.spotify.status
 });
 
 const mapDispatchToProps = {

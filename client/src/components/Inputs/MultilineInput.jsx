@@ -5,7 +5,7 @@ import { Controller } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import { useTheme } from '@emotion/react';
 
-const MultilineInput = ({ name, control, placeholder, rules }) => {
+const MultilineInput = ({ name, control, placeholder, label, rules }) => {
   // Helpers
   const theme = useTheme();
 
@@ -16,6 +16,7 @@ const MultilineInput = ({ name, control, placeholder, rules }) => {
       rules={rules}
       render={({ field: { onChange, value}, fieldState: { error }, formState }) => (
         <TextField 
+          label={label}
           variant='outlined'
           size='small'
           multiline
