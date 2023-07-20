@@ -1,42 +1,35 @@
 // Imports
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-
+import { useParams } from 'react-router-dom';
 import formatReleaseDate from '../../utils/formatReleaseDate.js';
 import calculateAverageRating from '../../utils/calculateAverageRating.js';
 import CreateReviewButton from '../Button/CreateReviewButton';
 import CreateReviewForm from '../Forms/CreateReview';
-import { getAlbumTracks } from '../../store/reducers/music/musicService.js';
-import { getReviewsByAlbum } from '../../store/reducers/review/reviewService.js';
-import ReviewCard from './Cards/Review';
+import ReviewCard from '../Cards/Profiles/ReviewCard.jsx';
+import { useGetAlbumQuery, useGetAlbumTracksQuery } from '../../store/api/spotifyApi.js';
+import { useGetReviewsByAlbumQuery } from '../../store/api/reviewApi.js';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 
-const AlbumProfile = ({ selectedResult, albumReviews, status: reviewStatus, getAlbumTracks, getReviewsByAlbum }) => {
+const AlbumProfile = ({ reviews }) => {
   // Helpers
   const { albumId } = useParams();
+  const { data: album, isLoading: albumLoading } = useGetAlbumQuery(albumId);
+  const { data: tracks, isLoading: tracksLoading } = useGetAlbumTracksQuery(albumId);
+  const { isLoading: reviewsLoading } = useGetReviewsByAlbumQuery(albumId);
+  // const [] = useCreateReviewMutation();
 
   // Review form modal
   const [open, setOpen] = useState(false);
   const handleOpenReviewForm = () => setOpen(true);
   const handleCloseReviewForm = () => setOpen(false);
 
-  // Get album tracks & reviews
-  useEffect(() => {
-    getAlbumTracks({
-      albumId: albumId
-    });
-
-    getReviewsByAlbum({
-      albumId: albumId
-    });
-  }, []);
-
-  if (reviewStatus === 'loading'|| !albumReviews || !selectedResult) {
-    return null
+  // Handle loading state
+  if (albumLoading || tracksLoading || reviewsLoading) {
+    return null;
   }
 
   return (
@@ -53,7 +46,7 @@ const AlbumProfile = ({ selectedResult, albumReviews, status: reviewStatus, getA
       >
         <Box 
           component='img'
-          src={selectedResult.album.images[0].url}
+          src={album.images[0].url}
           sx={{
             height: '200px',
             width: '200px',
@@ -74,11 +67,11 @@ const AlbumProfile = ({ selectedResult, albumReviews, status: reviewStatus, getA
               justifyContent: 'space-between'
             }}
           >
-            <Typography variant='h4'>{selectedResult.album?.name}</Typography>
+            <Typography variant='h4'>{album.name}</Typography>
             <CreateReviewButton onClick={handleOpenReviewForm}/>
           </Box>
           <Box>
-            <Typography>{selectedResult.album?.artists[0].name} | Released: {formatReleaseDate(selectedResult.album?.release_date)} | Average Rating: {calculateAverageRating(albumReviews)} | # of Reviews: {albumReviews.length}</Typography>
+            <Typography>{album.artists[0].name} | Released: {formatReleaseDate(album.release_date)} | Average Rating: {calculateAverageRating(reviews)} | # of Reviews: {reviews.length}</Typography>
           </Box>
         </Box>
       </Box>
@@ -110,10 +103,9 @@ const AlbumProfile = ({ selectedResult, albumReviews, status: reviewStatus, getA
               alignItems: 'center'
             }}
           >
-            {selectedResult.tracks ? selectedResult?.tracks.items.map((track, key) => (
+            {tracks.items.map((track, key) => (
               <Typography key={key}>{track.name}</Typography>
-            )) : null
-            }
+            ))}
           </Box>
         </Box>
         {/* Reviews */}
@@ -135,31 +127,25 @@ const AlbumProfile = ({ selectedResult, albumReviews, status: reviewStatus, getA
               marginBottom: 2,
             }}
           >
-            {albumReviews ? albumReviews.map((review, key) => (
-              <ReviewCard key={key} review={review}/>
-            )) : "No reviews yet"
+            {reviews.length > 0
+              ? reviews.map((review, key) => (
+                  <ReviewCard key={key} review={review}/>
+                )) 
+              : <Typography>No reviews yet!</Typography>
           }
           </Box>
         </Box>
       </Box>
-      <CreateReviewForm open={open} handleCloseReviewForm={handleCloseReviewForm} musicData={selectedResult.album}/>
+      <CreateReviewForm open={open} handleCloseReviewForm={handleCloseReviewForm} musicData={album}/>
     </>
   )
 };
 
 // Connect to Redux store
 const mapStateToProps = (state) => ({
-  selectedResult: state.music.selectedResult,
-  albumReviews: state.review.albumReviews,
-  status: state.review.status
+  reviews: state.review.albumReviews,
 });
-
-const mapDispatchToProps = {
-  getAlbumTracks,
-  getReviewsByAlbum
-};
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
 )(AlbumProfile);

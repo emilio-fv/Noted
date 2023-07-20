@@ -1,17 +1,32 @@
 // Imports
 import React from 'react';
-import img from '../../../assets/Demo_Album_Cover.png';
 import truncateText from '../../../utils/truncateText';
-import { Link as RouterLink } from 'react-router-dom';
+import formatReleaseDate from '../../../utils/formatReleaseDate';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+// import { setSelected } from '../../../store/reducers/music/musicSlice';
 
-import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
 
-const TrackCard = (track) => {
+const AlbumCard = ({ album }) => {
+  // Helpers
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // Handle click 
+  // const handleClick = () => {
+  //   dispatch(setSelected({
+  //     album: album
+  //   }))
+
+  //   navigate(`/album/${album.id}`);
+  // }
+
   return (
-    <Link to={`/album/${track.track.album.id}`} component={RouterLink}>
+    // <Link onClick={() => handleClick()}>
       <Paper
         elevation={4}
         sx={{
@@ -25,7 +40,7 @@ const TrackCard = (track) => {
       >
         <Box
           component='img'
-          src={track.track.album.images[0].url}
+          src={album.images[0].url}
           sx={{
             width: '100%',
             marginBottom: 1
@@ -35,16 +50,16 @@ const TrackCard = (track) => {
           sx={{
             width: '100%',
             height: '100%',
-            paddingY: 2
           }}
         >
           <Typography
             align='center'
             sx={{
-              fontSize: { xs: '.5rem', sm: '.75rem', md: '1rem'}
+              fontSize: { xs: '.5rem', sm: '.75rem', md: '1rem'},
+              color: 'white'
             }}
           >
-            {truncateText(track.track.name, 12)}
+            {truncateText(album.name, 12)}
           </Typography>
           <Typography
             align='center'
@@ -53,12 +68,12 @@ const TrackCard = (track) => {
               marginBottom: 1
             }}
           >
-            {track.track.artists[0].name}
+            {formatReleaseDate(album.release_date)}
           </Typography>
         </Box>
       </Paper>
-    </Link>
+    // </Link>
   )
 };
 
-export default TrackCard;
+export default AlbumCard;

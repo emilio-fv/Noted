@@ -3,20 +3,22 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { connect } from 'react-redux';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { login } from '../../store/reducers/auth/authService';
 import StyledButton from '../Button/StyledButton';
 import TextInput from '../Inputs/TextInput';
 import PasswordInput from '../Inputs/PasswordInput';
+import { resetErrors } from '../../store/reducers/auth/authSlice';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import { useTheme } from '@emotion/react';
+import { useLoginMutation } from '../../store/api/authApi';
 
-const LoginForm = ({ isLoggedIn, status, errors, login }) => {
+const LoginForm = ({ isLoggedIn, status, errors, resetErrors }) => {
   // Helpers
   const theme = useTheme();
   const navigate = useNavigate();
+  const [ login ] = useLoginMutation();
 
   // Set up form changes and submit functions
   const { handleSubmit, control } = useForm({
@@ -35,6 +37,10 @@ const LoginForm = ({ isLoggedIn, status, errors, login }) => {
 
     if (isLoggedIn) {
       navigate('/dashboard');
+    }
+
+    return () => {
+      resetErrors();
     }
   }, [isLoggedIn, status])
 
@@ -102,8 +108,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  login
-};
+  resetErrors,
+}
 
 export default connect(
   mapStateToProps,

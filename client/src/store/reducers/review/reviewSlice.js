@@ -1,13 +1,14 @@
 // Imports
 import { createSlice } from '@reduxjs/toolkit';
-import { createReview, getLoggedInUsersReviews, getReviewsByAlbum, getReviewsByArtist, getReviewsByOtherUsers } from './reviewService';
+import { reviewApi } from '../../api/reviewApi';
 
+// Configure initial state
 const initialState = {
-  recentReviews: null,
   loggedInUsersReviews: null,
+  recentReviews: null,
   albumReviews: null,
   artistReviews: null,
-  status: 'idle', // 'idle' | 'loading' | 'success' | 'added' | 'failed'
+  status: 'idle', // 'idle' | 'loading' | 'success' | 'failed'
   errors: null
 };
 
@@ -16,59 +17,57 @@ export const reviewSlice = createSlice({
   name: 'review',
   initialState: initialState,
   reducers: {
-    resetReviewSlice: (state) => {
-      state.recentReviews = null
-      state.loggedInUsersReviews = null
-      state.albumReviews = null 
-      state.artistReviews = null 
+    resetReviewStatus: (state) => {
       state.status = 'idle'
-      state.errors = null
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(createReview.fulfilled, (state, action) => {
-        state.status = 'added'
-      })
-      .addCase(createReview.rejected, (state, action) => {
+      .addMatcher(reviewApi.endpoints.createReview.matchRejected, (state, action) => {
         state.status = 'failed'
         state.errors = action.payload
       })
-      .addCase(getLoggedInUsersReviews.fulfilled, (state, action) => {
+      .addMatcher(reviewApi.endpoints.createReview.matchFulfilled, (state, action) => {
+        state.status = 'success'
+        if (state.albumReviews === null) {
+          state.albumReviews = [...action.payload]
+        } else {
+          state.albumReviews.unshift(action.payload);
+        }
+      })
+      .addMatcher(reviewApi.endpoints.getLoggedInUsersReviews.matchPending, (state) => {
+        state.status = 'loading'
+      })
+      .addMatcher(reviewApi.endpoints.getLoggedInUsersReviews.matchFulfilled, (state, action) => {
         state.status = 'success'
         state.loggedInUsersReviews = action.payload
       })
-      .addCase(getLoggedInUsersReviews.rejected, (state, action) => {
-        state.status = 'failed'
-        state.errors = action.payload
+      .addMatcher(reviewApi.endpoints.getReviewsByOtherUsers.matchPending, (state) => {
+        state.status = 'loading'
       })
-      .addCase(getReviewsByOtherUsers.fulfilled, (state, action) => {
+      .addMatcher(reviewApi.endpoints.getReviewsByOtherUsers.matchFulfilled, (state, action) => {        
         state.status = 'success'
         state.recentReviews = action.payload
       })
-      .addCase(getReviewsByOtherUsers.rejected, (state, action) => {
-        state.status = 'failed'
-        state.errors = action.payload
+      .addMatcher(reviewApi.endpoints.getReviewsByAlbum.matchPending, (state,) => {
+        state.status = 'loading'
       })
-      .addCase(getReviewsByAlbum.fulfilled, (state, action) => {
+      .addMatcher(reviewApi.endpoints.getReviewsByAlbum.matchFulfilled, (state, action) => {
         state.status = 'success'
         state.albumReviews = action.payload
       })
-      .addCase(getReviewsByAlbum.pending, (state) => {
+      .addMatcher(reviewApi.endpoints.getReviewsByArtist.matchPending, (state) => {
         state.status = 'loading'
       })
-      .addCase(getReviewsByArtist.fulfilled, (state, action) => {
+      .addMatcher(reviewApi.endpoints.getReviewsByArtist.matchFulfilled, (state, action) => {
         state.status = 'success'
         state.artistReviews = action.payload
-      })
-      .addCase(getReviewsByArtist.pending, (state) => {
-        state.status = 'loading'
       })
   }
 });
 
 // Actions
-export const { resetReviewSlice } = reviewSlice.actions;
+export const { resetReviewStatus } = reviewSlice.actions;
 
 // Reducer
 export default reviewSlice.reducer;

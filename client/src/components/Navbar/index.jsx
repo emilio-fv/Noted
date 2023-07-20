@@ -2,9 +2,9 @@
 import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { resetMusicSlice } from '../../store/reducers/music/musicSlice';
-import { resetReviewSlice } from '../../store/reducers/review/reviewSlice';
-import { logout } from '../../store/reducers/auth/authService';
+// import { resetMusicSlice } from '../../store/reducers/music/musicSlice';
+// import { resetReviewSlice } from '../../store/reducers/review/reviewSlice';
+// import { logout } from '../../store/reducers/auth/authService';
 
 import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
@@ -18,12 +18,14 @@ import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import Link from '@mui/material/Link';
 import { useTheme } from '@emotion/react';
+import { useLogoutMutation } from '../../store/api/authApi';
 
 const pages = ["dashboard", "music"];
 
-const Navbar = ({ isLoggedIn, resetMusicSlice, resetReviewSlice, logout }) => {
+const Navbar = ({ isLoggedIn, resetMusicSlice, resetReviewSlice }) => {
   // Helpers
   const theme = useTheme();
+  const [logout] = useLogoutMutation();
 
   // Handle Open Nav Menu
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -45,8 +47,6 @@ const Navbar = ({ isLoggedIn, resetMusicSlice, resetReviewSlice, logout }) => {
 
   // Handle Logout
   const handleLogout = () => {
-    resetMusicSlice();
-    resetReviewSlice();
     logout();
   }
 
@@ -69,7 +69,6 @@ const Navbar = ({ isLoggedIn, resetMusicSlice, resetReviewSlice, logout }) => {
           >
             Note-d
           </Link>
-
           {/* Menu - Mobile */}
           <Box 
             sx={{ 
@@ -179,13 +178,10 @@ const mapStateToProps = (state) => ({
   isLoggedIn: state.auth.isLoggedIn
 });
 
-const mapDispatchToProps = {
-  resetReviewSlice,
-  resetMusicSlice,
-  logout
-};
+// const mapDispatchToProps = {
+// };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  // mapDispatchToProps
 )(Navbar);

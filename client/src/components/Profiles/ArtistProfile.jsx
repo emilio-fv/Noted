@@ -1,34 +1,26 @@
 // Import
-import React, { useEffect } from 'react';
-import AlbumCard from './Cards/Album';
-import ReviewCard from './Cards/Review';
-import { connect } from 'react-redux';
-import { getArtistsAlbums } from '../../store/reducers/music/musicService';
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import { getReviewsByArtist } from '../../store/reducers/review/reviewService';
 import calculateAverageRating from '../../utils/calculateAverageRating';
+import AlbumCard from '../Cards/Profiles/AlbumCard';
+import ReviewCard from '../Cards/Profiles/ReviewCard';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
+import { useGetArtistQuery, useGetArtistsAlbumsQuery } from '../../store/api/spotifyApi';
+import { useGetReviewsByArtistQuery } from '../../store/api/reviewApi';
 
-const ArtistProfile = ({ selectedResult, artistReviews, status: reviewStatus, getArtistsAlbums, getReviewsByArtist }) => {
+const ArtistProfile = () => {
   // Helpers
   const { artistId } = useParams();
+  const { data: artist, isLoading: artistLoading } = useGetArtistQuery(artistId);
+  const { data: albums, isLoading: albumsLoading } = useGetArtistsAlbumsQuery(artistId);
+  const { data: reviews, isLoading: reviewsLoading } = useGetReviewsByArtistQuery(artistId);
 
-  // Get artists albums & reviews
-  useEffect(() => {
-    getArtistsAlbums({
-      artistId: artistId
-    });
-
-    getReviewsByArtist({
-      artistId: artistId
-    });
-  }, []);
-
-  if (reviewStatus === 'loading' || !artistReviews || !selectedResult) {
-    return null
+  // Handle loading state
+  if (artistLoading || albumsLoading || reviewsLoading) {
+    return null;
   }
 
   return (
@@ -45,7 +37,7 @@ const ArtistProfile = ({ selectedResult, artistReviews, status: reviewStatus, ge
       >
         <Box 
           component='img'
-          src={selectedResult.artist.images[0].url}
+          src={artist.images[0].url}
           sx={{
             height: '200px',
             width: '200px',
@@ -58,9 +50,9 @@ const ArtistProfile = ({ selectedResult, artistReviews, status: reviewStatus, ge
             justifyContent: 'center'
           }}
         >
-          <Typography variant='h4'>{selectedResult.artist.name}</Typography>
+          <Typography variant='h4'>{artist.name}</Typography>
           <Box>
-            <Typography>Average Rating: {calculateAverageRating(artistReviews)} | # of Reviews {artistReviews.length}</Typography>
+            <Typography>Average Rating: {calculateAverageRating(reviews)} | # of Reviews {reviews.length}</Typography>
           </Box>
         </Box>
       </Box>
@@ -93,7 +85,7 @@ const ArtistProfile = ({ selectedResult, artistReviews, status: reviewStatus, ge
               paddingX: 6,
             }}
           >
-            {selectedResult.albums.items.map((album) => (
+            {albums.items.map((album) => (
               <AlbumCard album={album}/>
             ))}
           </Box>
@@ -117,9 +109,12 @@ const ArtistProfile = ({ selectedResult, artistReviews, status: reviewStatus, ge
               marginBottom: 2,
             }}
           >
-            {artistReviews.map((review) => (
-              <ReviewCard review={review}/>
-            ))}
+            {reviews.length > 0
+              ? reviews.map((review) => (
+                  <ReviewCard review={review}/>
+                ))
+              : <Typography>No reviews yet!</Typography>
+            }
           </Box>
         </Box>
       </Box>
@@ -127,19 +122,4 @@ const ArtistProfile = ({ selectedResult, artistReviews, status: reviewStatus, ge
   )
 };
 
-// Connect to Redux store
-const mapStateToProps = (state) => ({
-  selectedResult: state.music.selectedResult,
-  artistReviews: state.review.artistReviews,
-  status: state.review.status
-});
-
-const mapDispatchToProps = {
-  getArtistsAlbums,
-  getReviewsByArtist
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ArtistProfile);
+export default ArtistProfile;

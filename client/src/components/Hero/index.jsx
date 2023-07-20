@@ -1,87 +1,81 @@
 // Imports
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useTheme } from '@emotion/react';
-import { connect } from 'react-redux';
 import StyledButton from '../Button/StyledButton';
-// import { selectIsLoggedIn } from '../../store/reducers/auth/authSlice';
 
+import { useTheme } from '@emotion/react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { useGetNewReleasesQuery } from '../../store/api/spotifyApi';
+import { connect } from 'react-redux';
 
-const Hero = ({ isLoggedIn }) => {
+const Hero = ({ featured }) => {
   // Helpers
   const navigate = useNavigate();
   const theme = useTheme();
-
-  // Logged in user check
-  // const { isLoggedIn } = useSelector(selectIsLoggedIn);
-
-  // Handle register button
-  const handleJoinNotedClick = () => {
-    if (isLoggedIn) {
-      navigate('/dashboard');
-    }
-    navigate('/register')
-  };
+  useGetNewReleasesQuery();
 
   return (
     <>
       <Box sx={{ pt: 10, pb: 15, display: 'flex', justifyContent: 'center' }}>
-        {/* TODO: Populate with popular releases */}
         <Box 
           component='img'
           sx={{
             height: '200px',
             width: '200px',
-            border: '2px solid red',
             position: 'relative',
             top: '100px',
-            left: '100px'
+            left: '100px',
+            zIndex: -1
           }}
+          src={featured[4].images[0].url}
         />
         <Box 
           component='img'
           sx={{
             height: '200px',
             width: '200px',
-            border: '2px solid red',
             position: 'relative',
             top: '50px',
-            left: '50px'
+            left: '50px',
+            zIndex: -1
           }}
+          src={featured[2].images[0].url}
         />
         <Box 
           component='img'
           sx={{
             height: '200px',
             width: '200px',
-            border: '2px solid red'
           }}
+          src={featured[0].images[0].url}
         />
         <Box 
           component='img'
           sx={{
             height: '200px',
             width: '200px',
-            border: '2px solid red',
             position: 'relative',
             top: '50px',
-            right: '50px'
+            right: '50px',
+            zIndex: -1
           }}
+          src={featured[1].images[0].url}
         />
         <Box 
           component='img'
           sx={{
             height: '200px',
             width: '200px',
-            border: '2px solid red',
             position: 'relative',
             top: '100px',
-            right: '100px'
+            right: '100px',
+            zIndex: -1
           }}
+          src={featured[3].images[0].url}
         />
       </Box>
+      {/* Landing Page Text */}
       <Box 
         sx={{ 
           display: 'flex', 
@@ -101,7 +95,7 @@ const Hero = ({ isLoggedIn }) => {
               backgroundColor: theme.accent.dark
             } 
           }} 
-          onClick={handleJoinNotedClick} 
+          onClick={() => navigate('/register')}
           text={'Join Note-d'}
         />
         <Typography variant='subtitle'>The social network for music lovers.</Typography>
@@ -111,12 +105,10 @@ const Hero = ({ isLoggedIn }) => {
 };
 
 // Connect to Redux store
-const mapStateToProps = (state) => ({
-  isLoggedIn: state.auth.isLoggedIn
+const mapPropsToDispatch = (state) => ({
+  featured: state.spotify.featured
 });
 
-// const mapDispatchToProps = {}
-
 export default connect(
-  mapStateToProps
+  mapPropsToDispatch
 )(Hero);

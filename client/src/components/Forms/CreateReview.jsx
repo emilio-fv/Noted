@@ -1,8 +1,7 @@
 // Imports
 import React, { useEffect } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { createReview } from '../../store/reducers/review/reviewService';
 import StyledButton from '../Button/StyledButton';
 import TextInput from '../Inputs/TextInput';
 import MultilineInput from '../Inputs/MultilineInput';
@@ -11,8 +10,12 @@ import RatingInput from '../Inputs/RatingInput';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { useCreateReviewMutation } from '../../store/api/reviewApi';
 
-const CreateReviewForm = ({ open, handleCloseReviewForm, musicData, status, createReview }) => {
+const CreateReviewForm = ({ open, handleCloseReviewForm, musicData }) => {
+  // Helpers
+  const [createReview, { isSuccess }] = useCreateReviewMutation();
+
   // Set up form changes, submit, and reset functions
   const { handleSubmit, control, reset } = useForm({
     defaultValues: {
@@ -24,22 +27,25 @@ const CreateReviewForm = ({ open, handleCloseReviewForm, musicData, status, crea
   });
 
   // Handle create review form submit
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     createReview({
-      ...data,
       artistId: musicData.artists[0].id,
       albumId: musicData.id,
       src: musicData.images[0].url,
+      ...data
     });
   };
 
-  // Close modal upon successful addition
+  // Handle closing & resetting form
   useEffect(() => {
-    if (status === 'added') {
+    if (isSuccess) {
       handleCloseReviewForm();
+    }
+
+    return () => {
       reset();
     }
-  }, [status]);
+  }, [isSuccess]);
 
   return (
     <Modal
@@ -81,11 +87,11 @@ const CreateReviewForm = ({ open, handleCloseReviewForm, musicData, status, crea
           name={'text'}
           control={control}
           placeholder={'Add review here...'}
+          rules={{ required: 'Review required.' }}
         />
         <RatingInput 
           name={'rating'}
           control={control}
-          // rules={}
         />
         <StyledButton type={'submit'} text={'Submit'} />
       </Box>
@@ -95,14 +101,9 @@ const CreateReviewForm = ({ open, handleCloseReviewForm, musicData, status, crea
 
 // Connect to Redux store
 const mapStateToProps = (state) => ({
-  status: state.review.status
+  // errors: state.review.errors
 });
-
-const mapDispatchToProps = {
-  createReview
-}
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
 )(CreateReviewForm);
