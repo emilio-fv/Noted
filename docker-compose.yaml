@@ -3,9 +3,9 @@ services:
   server:
     container_name: server-prod
     image: milz6525/noted-server:v1
-    restart: unless-stopped
+    restart: "always"
     ports:
-      - "8000:8000"
+      - 8000:8000
     environment:
       - NODE_ENV=production
     env_file:
@@ -13,9 +13,9 @@ services:
   client:
     container_name: client-prod
     image: milz6525/noted-client:v1
-    restart: unless-stopped
+    restart: "always"
     ports:
-      - "3000:80"
+      - 3000:80
     environment:
       - NODE_ENV=production
     depends_on:
