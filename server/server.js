@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const { connectDB } = require('./config/mongoose.config');
+const helmet = require('helmet');
 
 // Instantiate server
 const app = express();
@@ -21,6 +22,7 @@ const { reviewRouter } = require('./routes/review.routes');
 const port = process.env.SERVER_PORT;
 
 // Middleware
+app.use(helmet());
 app.use(cors({ 
   origin: 'http://localhost:3000',
   methods: ['POST', 'PUT', 'GET'],
@@ -28,9 +30,11 @@ app.use(cors({
 }));
 app.use(cookieParser());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ 
+  extended: false 
+}));
 
-// Main API endpoints
+// API endpoints
 app.use('/auth', authRouter);
 app.use('/users', userRouter);
 app.use('/music', musicRouter);

@@ -1,10 +1,8 @@
 version: '1'
 services:
   server:
-    container_name: server
-    build: 
-      context: ./server
-      dockerfile: Dockerfile.prod
+    container_name: server-prod
+    image: milz6525/noted-server:v1
     restart: unless-stopped
     ports:
       - "8000:8000"
@@ -13,10 +11,8 @@ services:
     env_file:
       - ./server/.env.production
   client:
-    container_name: client
-    build: 
-      context: ./client
-      dockerfile: Dockerfile.prod
+    container_name: client-prod
+    image: milz6525/noted-client:v1
     restart: unless-stopped
     ports:
       - "3000:80"

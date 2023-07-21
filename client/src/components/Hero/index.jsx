@@ -26,7 +26,7 @@ const Hero = ({ featured }) => {
             position: 'relative',
             top: '100px',
             left: '100px',
-            zIndex: -1
+            zIndex: -2
           }}
           src={featured[4].images[0].url}
         />
@@ -70,7 +70,7 @@ const Hero = ({ featured }) => {
             position: 'relative',
             top: '100px',
             right: '100px',
-            zIndex: -1
+            zIndex: -2
           }}
           src={featured[3].images[0].url}
         />
