@@ -1,47 +1,26 @@
-import React, { useEffect } from 'react';
+// Import
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import calculateAverageRating from '../../utils/calculateAverageRating';
+import AlbumCard from '../Cards/Profiles/AlbumCard';
+import ReviewCard from '../Cards/Profiles/ReviewCard';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import AlbumCard from './Cards/Album';
-import ReviewCard from './Cards/Review';
-import { useDispatch, useSelector } from 'react-redux';
-import { getArtistsAlbums, resetSelected } from '../../store/reducers/music/musicSlice';
-import { useParams } from 'react-router-dom';
-import { getReviewsByArtist } from '../../store/reducers/review/reviewSlice';
-import calculateAverageRating from '../../utils/calculateAverageRating';
-
-const albums = ["", "", "", "", "", ""];
-const reviews = ["", "", ""];
+import { useGetArtistQuery, useGetArtistsAlbumsQuery } from '../../store/api/spotifyApi';
+import { useGetReviewsByArtistQuery } from '../../store/api/reviewApi';
 
 const ArtistProfile = () => {
   // Helpers
-  const dispatch = useDispatch();
   const { artistId } = useParams();
-  const { accessToken: spotifyToken } = useSelector(state => state.music);
-  const { accessToken: jwt } = useSelector(state => state.auth);
+  const { data: artist, isLoading: artistLoading } = useGetArtistQuery(artistId);
+  const { data: albums, isLoading: albumsLoading } = useGetArtistsAlbumsQuery(artistId);
+  const { data: reviews, isLoading: reviewsLoading } = useGetReviewsByArtistQuery(artistId);
 
-  // Artist Data
-  const { selectedResult } = useSelector(state => state.music);
-
-  // Review Data
-  const { artistReviews } = useSelector(state => state.review);
-
-  // Get artist's albums & reviews
-  useEffect(() => {
-    dispatch(getArtistsAlbums({
-      accessToken: spotifyToken,
-      artistId: artistId
-    }));
-
-    dispatch(getReviewsByArtist({
-      accessToken: jwt,
-      artistId: artistId
-    }));
-  }, []);
-
-  if (!selectedResult || !selectedResult.artist || !selectedResult.albums || !artistReviews) {
-    return null
+  // Handle loading state
+  if (artistLoading || albumsLoading || reviewsLoading) {
+    return null;
   }
 
   return (
@@ -58,7 +37,7 @@ const ArtistProfile = () => {
       >
         <Box 
           component='img'
-          src={selectedResult.artist.images[0].url}
+          src={artist.images[0].url}
           sx={{
             height: '200px',
             width: '200px',
@@ -71,9 +50,9 @@ const ArtistProfile = () => {
             justifyContent: 'center'
           }}
         >
-          <Typography variant='h4'>{selectedResult.artist.name}</Typography>
+          <Typography variant='h4'>{artist.name}</Typography>
           <Box>
-            <Typography>Average Rating: {calculateAverageRating(artistReviews)} | # of Reviews {artistReviews.length}</Typography>
+            <Typography>Average Rating: {calculateAverageRating(reviews)} | # of Reviews {reviews.length}</Typography>
           </Box>
         </Box>
       </Box>
@@ -106,7 +85,7 @@ const ArtistProfile = () => {
               paddingX: 6,
             }}
           >
-            {selectedResult.albums.items.map((album) => (
+            {albums.items.map((album) => (
               <AlbumCard album={album}/>
             ))}
           </Box>
@@ -130,9 +109,12 @@ const ArtistProfile = () => {
               marginBottom: 2,
             }}
           >
-            {artistReviews.map((review) => (
-              <ReviewCard review={review}/>
-            ))}
+            {reviews.length > 0
+              ? reviews.map((review) => (
+                  <ReviewCard review={review}/>
+                ))
+              : <Typography>No reviews yet!</Typography>
+            }
           </Box>
         </Box>
       </Box>

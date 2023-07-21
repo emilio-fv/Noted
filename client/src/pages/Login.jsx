@@ -1,12 +1,13 @@
+// Imports
 import React from 'react';
-import MainLayout from '../layouts/Main';
+import Layout from '../components/Layout';
 import LoginForm from '../components/Forms/Login';
 
 const Login = () => {
   return (
-    <MainLayout>
+    <Layout>
       <LoginForm />
-    </MainLayout>
+    </Layout>
   )
 };
 

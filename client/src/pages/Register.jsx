@@ -1,12 +1,13 @@
+// Imports
 import React from 'react';
-import MainLayout from '../layouts/Main';
+import Layout from '../components/Layout';
 import RegisterForm from '../components/Forms/Register';
 
 const Register = () => {
   return (
-    <MainLayout>
+    <Layout>
       <RegisterForm />
-    </MainLayout>
+    </Layout>
   )
 };
 

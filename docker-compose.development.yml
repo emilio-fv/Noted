@@ -1,0 +1,39 @@
+version: '1'
+services:
+  server:
+    container_name: server-dev
+    build: 
+      context: ./server
+      dockerfile: Dockerfile.dev
+      network: note-d
+    ports:
+      - "8000:8000"
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - ./server/.env.development
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+    restart: always
+  client:
+    container_name: client-dev
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+      network: note-d
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - server
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    stdin_open: true
+    tty: true
+networks:
+  note-d:
+    driver: bridge

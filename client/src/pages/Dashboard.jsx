@@ -1,34 +1,26 @@
-import React, { useEffect } from 'react';
-import MainLayout from '../layouts/Main';
+// Imports
+import React from 'react';
+import Layout from '../components/Layout';
 import ReviewsFeed from '../components/ReviewsFeed';
-
-import { selectLoggedInUser } from '../store/reducers/auth/authSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 
 import Typography from '@mui/material/Typography';
-import { getLoggedInUsersReviews, getReviewsByOtherUsers } from '../store/reducers/review/reviewSlice';
+import generateGreeting from '../utils/generateGreeting';
 
-const Dashboard = () => {
-  const { username } = useSelector(selectLoggedInUser);
-  const { accessToken } = useSelector(state => state.auth);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getLoggedInUsersReviews({
-      accessToken: accessToken
-    }));
-
-    dispatch(getReviewsByOtherUsers({
-      accessToken: accessToken
-    }));
-  }, []);
-
+const Dashboard = ({ loggedInUser }) => {
   return (
-    <MainLayout>
-      <Typography variant='h5' marginTop={5}>Welcome, {username}</Typography>
+    <Layout>
+      <Typography variant='h5' marginTop={5}>{generateGreeting()}, {loggedInUser.username}</Typography>
       <ReviewsFeed />
-    </MainLayout>
+    </Layout>
   )
 };
 
-export default Dashboard;
+// Connect to Redux store
+const mapStateToProps = (state) => ({
+  loggedInUser: state.auth.loggedInUser
+})
+
+export default connect(
+  mapStateToProps
+)(Dashboard);

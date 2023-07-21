@@ -1,0 +1,26 @@
+version: '1'
+services:
+  server:
+    container_name: server
+    build: 
+      context: ./server
+      dockerfile: Dockerfile.prod
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - ./server/.env.production
+  client:
+    container_name: client
+    build: 
+      context: ./client
+      dockerfile: Dockerfile.prod
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - server 

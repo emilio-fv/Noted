@@ -1,12 +1,13 @@
+// Imports
 import React from 'react';
-import MainLayout from '../layouts/Main';
+import Layout from '../components/Layout';
 import Hero from '../components/Hero';
 
 const Landing = () => {
   return (
-    <MainLayout>
+    <Layout>
       <Hero />
-    </MainLayout>
+    </Layout>
   )
 };
 

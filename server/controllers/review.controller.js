@@ -1,23 +1,30 @@
+// Imports
 const {
   createReview,
   getReviewsByAlbumId,
+  getReviewsNotByUserId,
   getReviewsByArtistId,
   getReviewsByUserId,
-  getReviewsNotByUserId,
   getReviewsByUsername,
   updateReview,
   deleteReview
 } = require('../services/review.service');
 
 const handleCreateReview = async (req, res) => {
+  // Log controller method
+  console.log("Controller: handleCreateReview");
+
   try {
+    // Configure review data
     const reviewData = {
       ...req.body,
-      user: req.decoded.id
+      user: req.decoded.userId
     };
 
+    // Create new review
     const newReview = await createReview(reviewData);
 
+    // Return new review
     return res.json(newReview);
   } catch (error) {
     console.log(error);
@@ -25,10 +32,18 @@ const handleCreateReview = async (req, res) => {
   }
 };
 
-const handleGetReviewsByUserId = async (req, res) => {
+const handleGetLoggedInUsersReviews = async (req, res) => {
+  // Log controller method
+  console.log("Controller: handleGetLoggedInUsersReviews");
+
   try {
-    const { id } = req.decoded;
-    const reviews = await getReviewsByUserId(id);
+    // Extract logged in user's id
+    const { userId } = req.decoded;
+
+    // Get reviews by user id
+    const reviews = await getReviewsByUserId(userId);
+
+    // Return found reviews
     return res.json(reviews);
   } catch (error) {
     console.log(error);
@@ -36,10 +51,13 @@ const handleGetReviewsByUserId = async (req, res) => {
   }
 };
 
-const handleGetAllReviews = async (req, res) => {
+const handleGetOtherReviews = async (req, res) => {
+  // Log controller method
+  console.log("Controller: handleGetOtherReviews");
+
   try {
-    const { id } = req.decoded;
-    const reviews = await getReviewsNotByUserId(id);
+    const { userId } = req.decoded;
+    const reviews = await getReviewsNotByUserId(userId);
     return res.json(reviews);
   } catch (error) {
     console.log(error);
@@ -48,8 +66,17 @@ const handleGetAllReviews = async (req, res) => {
 };
 
 const handleGetReviewsByUsername = async (req, res) => {
+  // Log controller method
+  console.log("Controller: handleGetReviewsByUsername");
+
   try {
-    const reviews = await getReviewsByUsername(req.params.username);
+    // Extract username
+    const { username } = req.params;
+
+    // Get reviews by username
+    const reviews = await getReviewsByUsername(username);
+
+    // Return found reviews
     return res.json(reviews);
   } catch (error) {
     console.log(error);
@@ -58,8 +85,17 @@ const handleGetReviewsByUsername = async (req, res) => {
 };
 
 const handleGetReviewsByArtistId = async (req, res) => {
+  // Log controller method
+  console.log("Controller: handleGetReviewsByArtistId");
+
   try {
-    const reviews = await getReviewsByArtistId(req.params.artistId);
+    // Extract artist id
+    const { artistId } = req.params;
+
+    // Get reviews by artist id
+    const reviews = await getReviewsByArtistId(artistId);
+
+    // Return found reviews
     return res.json(reviews);
   } catch (error) {
     console.log(error);
@@ -68,8 +104,17 @@ const handleGetReviewsByArtistId = async (req, res) => {
 };
 
 const handleGetReviewsByAlbumId = async (req, res) => {
+  // Log controller method
+  console.log("Controller: handleGetReviewsByAlbumId");
+
   try {
-    const reviews = await getReviewsByAlbumId(req.params.albumId);
+    // Extract album id
+    const { albumId } = req.params;
+
+    // Get reviews by album id
+    const reviews = await getReviewsByAlbumId(albumId);
+
+    // Return found reviews
     return res.json(reviews);
   } catch (error) {
     console.log(error);
@@ -77,9 +122,33 @@ const handleGetReviewsByAlbumId = async (req, res) => {
   }
 };
 
-const handleDeleteReview = async (req, res) => {
+// TODO handleUpdateReviewById
+// const handleUpdateReviewById = async (req, res) => {
+//   // Log controller method
+//   console.log("Controller: handleUpdateReviewById");
+
+//   try {
+//     // Configure review data
+//     // Call review data service
+//     // Return response
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(400).json(error);
+//   }
+// }
+
+const handleDeleteReviewById = async (req, res) => {
+  // Log controller method
+  console.log("Controller: handleDeleteReviewById");
+
   try {
-    await deleteReview(req.params.id);
+    // Extract review id
+    const { reviewId } = req.params;
+
+    // Delete review by id
+    await deleteReview(reviewId);
+
+    // Return success message
     return res.json({ message: "Review successfully deleted."})
   } catch (error) {
     console.log(error);
@@ -87,12 +156,13 @@ const handleDeleteReview = async (req, res) => {
   }
 };
 
+// Exports
 module.exports = {
   handleCreateReview,
-  handleGetReviewsByUserId,
-  handleGetAllReviews,
+  handleGetLoggedInUsersReviews,
+  handleGetOtherReviews,
   handleGetReviewsByUsername,
   handleGetReviewsByArtistId,
   handleGetReviewsByAlbumId,
-  handleDeleteReview
+  handleDeleteReviewById
 };
