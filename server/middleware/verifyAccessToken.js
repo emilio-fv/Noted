@@ -6,6 +6,8 @@ const verifyAccessToken = (req, res, next) => {
   // Extract access token from cookies
   const { accessToken } = req.cookies;
 
+  console.log(accessToken);
+
   // Verify access token
   jwt.verify(
     accessToken,
