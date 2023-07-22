@@ -9,6 +9,7 @@ const verifyAccessToken = (req, res, next) => {
   console.log(accessToken);
 
   if (!accessToken) {
+    console.log("no accessToken");
     return res.status(401).json({ message: "User must log in."})
   }
   // Verify access token
