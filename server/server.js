@@ -22,7 +22,7 @@ const { reviewRouter } = require('./routes/review.routes');
 const port = process.env.SERVER_PORT;
 
 // Configure origin
-const origin = process.env.NODE_ENV === 'production' ? 'https://note-d-server.vercel.app/' : 'http://localhost:3000';
+const origin = process.env.NODE_ENV === 'production' ? 'http://localhost:3000' : 'http://localhost:3000';
 
 // Middleware
 app.use(helmet());
@@ -57,6 +57,10 @@ mongoose.connection.on('error', err => {
 // Start server
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
+})
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
 })
 
 // Export app
