@@ -27,9 +27,12 @@ const origins = ['http://localhost:3000/', 'https://note-d.onrender.com/'];
 // Middleware
 app.use(helmet());
 app.use(cors({ 
-  origin: "*",
+  // origin: "*",
+  origin: 'http://localhost:3000/',
   methods: ['POST', 'PUT', 'GET'],
   credentials: true,
+  allowedHeaders: ['Content-Type'],
+  exposedHeaders: ['Content-Type']
 }));
 app.use(cookieParser());
 app.use(express.json());
