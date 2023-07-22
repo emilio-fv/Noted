@@ -1,9 +1,9 @@
 # React production build
-FROM node:18-alpine as frontend
+FROM node:18-alpine
 
-RUN mkdir /frontend
+RUN mkdir /app
 
-WORKDIR /frontend
+WORKDIR /app
 
 COPY package*.json ./
 
@@ -11,21 +11,10 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build
+RUN npm run build --production
 
-# # Nginx server stage
-# FROM nginx:alpine
+RUN npm install -g serve
 
-# # Copy config file
-# COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
+EXPOSE 3000 
 
-# # Remove default index page
-# RUN rm -rf /usr/share/nginx/html/*
-
-# # Copy build stage
-# COPY --from=frontend /frontend/build /usr/share/nginx/html
-
-# EXPOSE 3000 80
-
-# # Containers run nginx with global directives and daemon off
-# ENTRYPOINT [ "nginx", "-g", "daemon off;" ]
+CMD ["serve", "-s", "build"]
