@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import Hero from '../components/Hero';
 
 const Landing = () => {
+  console.log("test")
   return (
     <Layout>
       <Hero />
