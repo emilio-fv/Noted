@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+// Imports
+import { Routes, Route } from 'react-router-dom';
+import Landing from './pages/Landing';
+import Register from './pages/Register';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import Music from './pages/Music';
+import Artist from './pages/Artist';
+import Album from './pages/Album';
+import PrivateRoute from './components/PrivateRoute';
+import './assets/App.css';
+
+import theme from './assets/muiTheme';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { useRequestSpotifyTokenQuery } from './store/api/musicApi';
 
 function App() {
+  useRequestSpotifyTokenQuery();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Routes>
+          <Route path='/' element={ <Landing /> }/>
+          <Route path='/register' element={ <Register /> }/>
+          <Route path='/login' element={ <Login /> }/>
+          <Route element={<PrivateRoute />}>
+            <Route path='/dashboard' element={ <Dashboard /> }/>
+            <Route path='/music' element={ <Music /> }/>
+            <Route path='/artist/:artistId' element={ <Artist />} />
+            <Route path='/album/:albumId' element={ <Album />} />
+          </Route>
+      </Routes>
+    </ThemeProvider>
   );
 }
 
