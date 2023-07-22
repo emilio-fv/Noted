@@ -1,11 +1,10 @@
 version: '1'
 services:
   server:
-    container_name: server-dev
+    container_name: development-server
     build: 
       context: ./server
       dockerfile: Dockerfile.dev
-      network: note-d
     ports:
       - "8000:8000"
     environment:
@@ -17,11 +16,10 @@ services:
       - ./server:/app
     restart: always
   client:
-    container_name: client-dev
+    container_name: development-client
     build:
       context: ./client
       dockerfile: Dockerfile.dev
-      network: note-d
     ports:
       - "3000:3000"
     environment:
@@ -34,6 +32,3 @@ services:
       - ./client:/app
     stdin_open: true
     tty: true
-networks:
-  note-d:
-    driver: bridge

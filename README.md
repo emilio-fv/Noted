@@ -28,3 +28,7 @@ If you have a moment, please fill out this feedback: https://forms.gle/kDwecbB38
 
 ## Contact
 Created by [@emilio-fv](https://github.com/emilio-fv) - feel free to contact me!
+
+
+    "start": "docker compose -f docker-compose.yaml up -d --build",
+    "stop": "docker compose -f docker-compose.yaml down"

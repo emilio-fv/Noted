@@ -2,7 +2,7 @@ version: '1'
 services:
   server:
     container_name: server-prod
-    image: milz6525/noted-server:v1
+    image: milz6525/note-d-server:latest
     restart: "always"
     ports:
       - 8000:8000
@@ -12,7 +12,7 @@ services:
       - ./server/.env.production
   client:
     container_name: client-prod
-    image: milz6525/noted-client:v1
+    image: milz6525/note-d-client:latest
     restart: "always"
     ports:
       - 3000:80
