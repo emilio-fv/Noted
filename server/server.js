@@ -58,3 +58,6 @@ mongoose.connection.on('error', err => {
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 })
+
+// Export app
+module.exports = app;
