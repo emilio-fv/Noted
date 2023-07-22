@@ -8,7 +8,11 @@ export const musicApi = createApi({
   endpoints: (builder) => ({
     // Request Spotify API access token
     requestSpotifyToken: builder.query({
-      query: () => '/requestAccessToken'
+      query: () => '/requestAccessToken',
+      transformResponse: (response, meta, arg) => {
+        console.log(response);
+        return response
+      }
     })
   })
 })
