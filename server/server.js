@@ -59,5 +59,9 @@ app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 })
 
+app.get('/', () => {
+  console.log("connected to note-d backend server");
+})
+
 // Export app
 module.exports = app;
