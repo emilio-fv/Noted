@@ -28,7 +28,7 @@ const origins = ['http://localhost:3000/', 'https://note-d.onrender.com/'];
 app.use(helmet());
 app.use(cors({ 
   // origin: "*",
-  origin: 'http://localhost:3000/',
+  origin: 'http://localhost:3000',
   methods: ['POST', 'PUT', 'GET'],
   credentials: true,
   allowedHeaders: ['Content-Type'],
