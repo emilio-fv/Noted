@@ -22,12 +22,12 @@ const { reviewRouter } = require('./routes/review.routes');
 const port = process.env.SERVER_PORT;
 
 // Configure origin
-// const origin = process.env.NODE_ENV === 'production' ? 'https://noted-server.vercel.app' : 'http://localhost:3000';
+const origin = process.env.NODE_ENV === 'production' ? 'https://noted-server.vercel.app' : 'http://localhost:3000';
 
 // Middleware
 app.use(helmet());
 app.use(cors({ 
-  origin: 'http://localhost:3000',
+  origin: origin,
   methods: ['POST', 'PUT', 'GET'],
   credentials: true,
 }));
