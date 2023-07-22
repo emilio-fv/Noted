@@ -22,7 +22,7 @@ const { reviewRouter } = require('./routes/review.routes');
 const port = process.env.SERVER_PORT;
 
 // Configure origin
-const origin = process.env.NODE_ENV === 'production' ? 'https://note-d-server.onrender.com' : 'http://localhost:3000';
+const origin = process.env.NODE_ENV === 'production' ? 'http://localhost:3000' : 'http://localhost:3000';
 
 // Middleware
 app.use(helmet());
