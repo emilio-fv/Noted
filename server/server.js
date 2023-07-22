@@ -60,7 +60,7 @@ app.listen(port, () => {
 })
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Welcome to the Note-d backend server.!')
 })
 
 // Export app
