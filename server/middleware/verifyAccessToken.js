@@ -2,6 +2,7 @@
 const jwt = require('jsonwebtoken');
 
 const verifyAccessToken = (req, res, next) => {
+  console.log("Verifying access token");
   // Extract access token from cookies
   const { accessToken } = req.cookies;
 
