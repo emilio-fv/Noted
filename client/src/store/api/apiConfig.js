@@ -2,8 +2,7 @@ import { fetchBaseQuery } from "@reduxjs/toolkit/dist/query";
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-// export const baseUrl = isProduction ? "https://noted-server.vercel.app" : 'http://localhost:8000';
-export const baseUrl = 'http://localhost:8000';
+export const baseUrl = isProduction ? "https://note-d-server.vercel.app/" : 'http://localhost:8000';
 
 // Auth Base Query
 export const authBaseQuery = fetchBaseQuery({
