@@ -18,16 +18,24 @@ const { authRouter } = require('./routes/auth.routes');
 const { musicRouter } = require('./routes/music.routes');
 const { reviewRouter } = require('./routes/review.routes');
 
-// Configure port #
+// Configure port
 const port = process.env.SERVER_PORT;
 
 // Configure origin
-const origin = process.env.NODE_ENV === 'production' ? 'http://localhost:3000' : 'http://localhost:3000';
+const origins = ['http://localhost:3000', 'https://note-d.onrender.com'];
 
 // Middleware
 app.use(helmet());
 app.use(cors({ 
-  origin: origin,
+  origin: "*",
+  // origin: function(origin, callback) {
+  //   console.log(origin);
+  //   if (!origin || origins.indexOf(origin) !== -1) {
+  //     callback(null, true);
+  //   } else {
+  //     callback(new Error('Not allowed by CORS'))
+  //   }
+  // },
   methods: ['POST', 'PUT', 'GET'],
   credentials: true,
 }));
@@ -60,7 +68,7 @@ app.listen(port, () => {
 })
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Welcome to the Note-d backend server!')
 })
 
 // Export app
