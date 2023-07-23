@@ -33,7 +33,11 @@ export const spotifyApi = createApi({
           limit: 5,
           country: 'US'
         }
-      })
+      }),
+      transformResponse: (response, meta, arg) => {
+        console.log(response);
+        return response
+      }
     }),
     // Search Spotify database
     searchSpotify: builder.query({

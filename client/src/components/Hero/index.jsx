@@ -13,7 +13,7 @@ const Hero = ({ featured }) => {
   // Helpers
   const navigate = useNavigate();
   const theme = useTheme();
-  // useGetNewReleasesQuery();
+  useGetNewReleasesQuery();
 
   return (
     <>
