@@ -13,8 +13,7 @@ const Landing = () => {
 
   return (
     <Layout>
-      <h1>test</h1>
-      {/* <Hero /> */}
+      <Hero />
     </Layout>
   )
 };
