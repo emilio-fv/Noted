@@ -35,11 +35,12 @@ app.use(cors({
     if (!origin || origins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'))
+      callback(new Error('Origin not allowed by CORS'))
     }
   },
+  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
   methods: ['POST', 'PUT', 'GET'],
-  credentials: true,
+  credentials: true
 }));
 app.use(cookieParser());
 app.use(express.json());
