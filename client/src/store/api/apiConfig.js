@@ -27,6 +27,7 @@ export const musicBaseQuery = fetchBaseQuery({
   baseUrl: baseUrl + '/music',
   prepareHeaders: (headers) => {
     headers.set('Access-Control-Allow-Origin', '*');
+    console.log(headers);
   }
 });
 
