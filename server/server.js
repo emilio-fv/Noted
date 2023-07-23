@@ -22,20 +22,22 @@ const { reviewRouter } = require('./routes/review.routes');
 const port = process.env.SERVER_PORT;
 
 // Configure origin
-const origins = ['http://localhost:3000', 'https://note-d.onrender.com'];
+const origins = [
+  'http://localhost:3000', 
+  'https://note-d.onrender.com'
+];
 
 // Middleware
 app.use(helmet());
 app.use(cors({ 
-  origin: "*",
-  // origin: function(origin, callback) {
-  //   console.log(origin);
-  //   if (!origin || origins.indexOf(origin) !== -1) {
-  //     callback(null, true);
-  //   } else {
-  //     callback(new Error('Not allowed by CORS'))
-  //   }
-  // },
+  origin: function(origin, callback) {
+    console.log(origin);
+    if (!origin || origins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
   methods: ['POST', 'PUT', 'GET'],
   credentials: true,
 }));
@@ -67,9 +69,10 @@ app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 })
 
+// Test server
 app.get('/', (req, res) => {
   res.send('Welcome to the Note-d backend server!')
 })
 
-// Export app
+// Exports
 module.exports = app;

@@ -27,9 +27,9 @@ function App() {
           <Route path='/login' element={ <Login /> }/>
           <Route element={<PrivateRoute />}>
             <Route path='/dashboard' element={ <Dashboard /> }/>
-            {/* <Route path='/music' element={ <Music /> }/>
+            <Route path='/music' element={ <Music /> }/>
             <Route path='/artist/:artistId' element={ <Artist />} />
-            <Route path='/album/:albumId' element={ <Album />} /> */}
+            <Route path='/album/:albumId' element={ <Album />} />
           </Route>
       </Routes>
     </ThemeProvider>
