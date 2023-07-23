@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "homepage": "https://note-d.onrender.com/",
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js"
