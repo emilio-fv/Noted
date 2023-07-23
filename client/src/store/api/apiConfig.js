@@ -7,18 +7,27 @@ export const baseUrl = isProduction ? "https://note-d-server.vercel.app" : 'http
 // Auth Base Query
 export const authBaseQuery = fetchBaseQuery({
   baseUrl: baseUrl + '/auth',
-  credentials: 'include'
+  credentials: 'include',
+  prepareHeaders: (headers) => {
+    headers.set('Access-Control-Allow-Origin', '*');
+  }
 });
 
 // Review Base Query
 export const reviewBaseQuery = fetchBaseQuery({
   baseUrl: baseUrl + '/review',
-  credentials: 'include'
+  credentials: 'include',
+  prepareHeaders: (headers) => {
+    headers.set('Access-Control-Allow-Origin', '*');
+  }
 });
 
 // Music Base Query
 export const musicBaseQuery = fetchBaseQuery({
-  baseUrl: baseUrl + '/music'
+  baseUrl: baseUrl + '/music',
+  prepareHeaders: (headers) => {
+    headers.set('Access-Control-Allow-Origin', '*');
+  }
 });
 
 // Spotify Base Query
