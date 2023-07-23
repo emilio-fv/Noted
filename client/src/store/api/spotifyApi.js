@@ -35,7 +35,6 @@ export const spotifyApi = createApi({
         }
       }),
       transformResponse: (response, meta, arg) => {
-        console.log(response);
         return response
       }
     }),
