@@ -28,6 +28,7 @@ const origins = ['http://localhost:3000', 'https://note-d.onrender.com'];
 app.use(helmet());
 app.use(cors({ 
   origin: function(origin, callback) {
+    console.log(origin);
     if (origins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
