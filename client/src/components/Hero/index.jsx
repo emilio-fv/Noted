@@ -14,7 +14,7 @@ const Hero = ({ featured }) => {
   const navigate = useNavigate();
   const theme = useTheme();
   // useGetNewReleasesQuery();
-
+  console.log("test")
   return (
     <>
       <Box sx={{ pt: 10, pb: 15, display: 'flex', justifyContent: 'center' }}>
