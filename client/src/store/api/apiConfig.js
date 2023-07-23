@@ -10,6 +10,7 @@ export const authBaseQuery = fetchBaseQuery({
   credentials: 'include',
   prepareHeaders: (headers) => {
     headers.set('Access-Control-Allow-Origin', '*');
+    return headers;
   }
 });
 
@@ -19,6 +20,7 @@ export const reviewBaseQuery = fetchBaseQuery({
   credentials: 'include',
   prepareHeaders: (headers) => {
     headers.set('Access-Control-Allow-Origin', '*');
+    return headers;
   }
 });
 
@@ -27,7 +29,7 @@ export const musicBaseQuery = fetchBaseQuery({
   baseUrl: baseUrl + '/music',
   prepareHeaders: (headers) => {
     headers.set('Access-Control-Allow-Origin', '*');
-    console.log(headers);
+    return headers;
   }
 });
 
