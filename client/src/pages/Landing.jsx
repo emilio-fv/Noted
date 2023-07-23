@@ -7,8 +7,7 @@ const Landing = () => {
   console.log("test")
   return (
     <Layout>
-      <h1>landing</h1>
-      {/* <Hero /> */}
+      <Hero />
     </Layout>
   )
 };

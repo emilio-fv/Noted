@@ -9,9 +9,6 @@ export const authBaseQuery = fetchBaseQuery({
   baseUrl: baseUrl + '/auth',
   credentials: 'include',
   prepareHeaders: (headers) => {
-    // headers.set('Access-Control-Allow-Origin', '*');
-    // headers.set("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-    // headers.set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     return headers;
   },
 });
@@ -21,9 +18,6 @@ export const reviewBaseQuery = fetchBaseQuery({
   baseUrl: baseUrl + '/review',
   credentials: 'include',
   prepareHeaders: (headers) => {
-    // headers.set('Access-Control-Allow-Origin', '*');
-    // headers.set("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-    // headers.set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     return headers;
   }
 });
@@ -32,9 +26,6 @@ export const reviewBaseQuery = fetchBaseQuery({
 export const musicBaseQuery = fetchBaseQuery({
   baseUrl: baseUrl + '/music',
   prepareHeaders: (headers) => {
-    // headers.set('Access-Control-Allow-Origin', '*');
-    // headers.set("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-    // headers.set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     return headers;
   }
 });
