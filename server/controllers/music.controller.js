@@ -5,7 +5,7 @@ const {
 
 const handleRequestAccessToken = async (req, res) => {
   // Log controller method
-  console.log("Controller: handleRequestAccessToken");
+  console.log("Controller: handleRequestAccessToken .");
 
   try {
     // Request access token from Spotify API
