@@ -16,7 +16,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { useRequestSpotifyTokenQuery } from './store/api/musicApi';
 
 function App() {
-  // useRequestSpotifyTokenQuery();
+  useRequestSpotifyTokenQuery();
 
   return (
     <ThemeProvider theme={theme}>
