@@ -33,6 +33,7 @@ export const musicBaseQuery = fetchBaseQuery({
 // Spotify Base Query
 export const spotifyBaseQuery = fetchBaseQuery({ 
   baseUrl: 'https://api.spotify.com/v1',
+  credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const { accessToken } = getState().music.accessToken;
     if (accessToken) {
