@@ -22,13 +22,18 @@ const { reviewRouter } = require('./routes/review.routes');
 const port = process.env.SERVER_PORT;
 
 // Configure origin
-const origins = ['http://localhost:3000/', 'https://note-d.onrender.com/'];
+const origins = ['http://localhost:3000', 'https://note-d.onrender.com'];
 
 // Middleware
 app.use(helmet());
 app.use(cors({ 
-  // origin: "*",
-  origin: 'http://localhost:3000',
+  origin: function(origin, callback) {
+    if (origins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
   methods: ['POST', 'PUT', 'GET'],
   credentials: true,
   allowedHeaders: ['Content-Type'],
