@@ -16,6 +16,7 @@ const handleRequestAccessToken = async (req, res) => {
 
     const expiration = Date.now() + expires_in;
 
+    console.log("test");
     console.log(response);
     // Return access token
     return res.json({
