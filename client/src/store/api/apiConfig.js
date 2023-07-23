@@ -3,8 +3,13 @@ import { fetchBaseQuery } from "@reduxjs/toolkit/dist/query";
 const isProduction = process.env.NODE_ENV === 'production';
 
 // Update url for staging stage
-// 'https://note-d-server-git-stage-emilio-fv.vercel.app/'
-export const baseUrl = isProduction ? "https://note-d-server.vercel.app" : 'http://localhost:8000';
+// 'https://note-d-server-git-stage-emilio-fv.vercel.app'
+// Update url for production
+// "https://note-d-server.vercel.app"
+
+export const baseUrl = isProduction 
+  ? 'https://note-d-server-git-stage-emilio-fv.vercel.app' 
+  : 'http://localhost:8000';
 
 // Auth Base Query
 export const authBaseQuery = fetchBaseQuery({
