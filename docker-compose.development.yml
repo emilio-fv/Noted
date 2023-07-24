@@ -4,7 +4,7 @@ services:
     container_name: development-server
     build: 
       context: ./server
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.development
     ports:
       - "8000:8000"
     environment:
@@ -19,7 +19,7 @@ services:
     container_name: development-client
     build:
       context: ./client
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.development
     ports:
       - "3000:3000"
     environment:

@@ -13,12 +13,16 @@ const Hero = ({ featured }) => {
   // Helpers
   const navigate = useNavigate();
   const theme = useTheme();
-  useGetNewReleasesQuery();
+  const { isLoading } = useGetNewReleasesQuery();
 
   return (
     <>
       <Box sx={{ pt: 10, pb: 15, display: 'flex', justifyContent: 'center' }}>
-        {/* <Box 
+        {isLoading 
+        ? null 
+        : 
+      <>
+        <Box 
           component='img'
           sx={{
             height: '200px',
@@ -73,7 +77,9 @@ const Hero = ({ featured }) => {
             zIndex: -2
           }}
           src={featured[3].images[0].url}
-        /> */}
+        />
+      </>
+      }
       </Box>
       {/* Landing Page Text */}
       <Box 

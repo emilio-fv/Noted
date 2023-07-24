@@ -11,7 +11,7 @@ export const musicApi = createApi({
       query: () => '/requestAccessToken',
       transformResponse: (response, meta, arg) => {
         console.log(response);
-        return response
+        return response;
       }
     })
   })
