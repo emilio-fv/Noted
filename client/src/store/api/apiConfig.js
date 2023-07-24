@@ -33,6 +33,7 @@ export const reviewBaseQuery = fetchBaseQuery({
 // Music Base Query
 export const musicBaseQuery = fetchBaseQuery({
   baseUrl: baseUrl + '/music',
+  credentials: 'include',
   prepareHeaders: (headers) => {
     return headers;
   }
