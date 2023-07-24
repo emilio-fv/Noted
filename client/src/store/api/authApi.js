@@ -12,7 +12,8 @@ export const authApi = createApi({
       query: (data) => ({
         url: '/register',
         method: 'POST',
-        body: data
+        body: data,
+        credentials: "include"
       }),
       transformErrorResponse: (response, meta, arg) => {
         return response.data.errors;
@@ -23,7 +24,8 @@ export const authApi = createApi({
       query: (data) => ({
         url: '/login',
         method: 'POST',
-        body: data
+        body: data,
+        credentials: "include"
       }),
       transformErrorResponse: (response, meta, arg) => {
         return response.data;
@@ -33,14 +35,16 @@ export const authApi = createApi({
     logout: builder.mutation({
       query: () => ({
         url: '/logout',
-        method: 'POST'
+        method: 'POST',
+        credentials: "include"
       })
     }),
     // Refresh access token
     refreshAccessToken: builder.query({
       query: () => ({
         url: '/refresh',
-        method: 'GET'
+        method: 'GET',
+        credentials: "include"
       })
     })
   })

@@ -9,7 +9,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 // https://note-d-server-git-production-v1-emilio-fv.vercel.app
 
 export const baseUrl = isProduction 
-  ? 'https://note-d-server.vercel.app' 
+  ? 'https://note-d-server.vercel.app'
   : 'http://localhost:8000';
 
 // Auth Base Query

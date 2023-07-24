@@ -37,7 +37,8 @@ export const reviewApi = createApi({
       query: (data) => ({
         url: '/create',
         method: 'POST',
-        body: data
+        body: data,
+        credentials: "include"
       }),
       transformErrorResponse: (response, meta, arg) => {
         console.log(response);
@@ -47,25 +48,29 @@ export const reviewApi = createApi({
     // Get Logged In User's Reviews
     getLoggedInUsersReviews: builder.query({
       query: () => ({
-        url: '/loggedInUser'
+        url: '/loggedInUser',
+        credentials: "include"
       })
     }),
     // Get Reviews By Other Users
     getReviewsByOtherUsers: builder.query({
       query: () => ({
-        url: '/allOthers'
+        url: '/allOthers',
+        credentials: "include"
       })
     }),
     // Get Reviews By Albums
     getReviewsByAlbum: builder.query({
       query: (albumId) => ({
-        url: `/${albumId}/album`
+        url: `/${albumId}/album`,
+        credentials: "include"
       })
     }),
     // Get Reviews By Artist
     getReviewsByArtist: builder.query({
       query: (artistId) => ({
-        url: `/${artistId}/artist`
+        url: `/${artistId}/artist`,
+        credentials: "include"
       })
     })
   })
