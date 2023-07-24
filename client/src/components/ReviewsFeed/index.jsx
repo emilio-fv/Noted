@@ -27,21 +27,21 @@ const ReviewsFeed = ({ loggedInUsersReviews, recentReviews }) => {
     <Box padding={2}>
       <Typography marginBottom={1}>RECENT FROM USERS</Typography>
       <Box marginBottom={6} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        {/* {othersSuccess && recentReviews.length > 0
+        {othersSuccess && recentReviews.length > 0
           ? recentReviews.map((review) => (
               <ReviewCard review={review}/>
             )) 
           : <Typography>No reviews yet!</Typography>
-        } */}
+        }
       </Box>
       <Typography marginBottom={1}>YOUR RECENT REVIEWS</Typography>
       <Box marginBottom={6} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        {/* {loggedSuccess && loggedInUsersReviews.length > 0
+        {loggedSuccess && loggedInUsersReviews.length > 0
           ? loggedInUsersReviews.map((review) => (
               <LoggedInUserReviewCard review={review}/>
             )) 
           : <Typography>No reviews yet!</Typography>
-        } */}
+        }
       </Box>
     </Box>
   )
