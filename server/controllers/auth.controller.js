@@ -127,32 +127,35 @@ const handleRefresh = async (req, res) => {
   // Extract refresh token
   const { refreshToken } = req.cookies;
 
-  // Verify refresh token
-  jwt.verify(
-    refreshToken, 
-    process.env.REFRESH_SECRET_KEY,
-    (error, decoded) => {
-      // Handle expired refresh token
-      if (error?.name === 'TokenExpiredError') {
-        return res.status(401).json({ message: 'ExpiredRefreshToken' });
-      } else {
-        // Generate new access token
-        const newAccessToken = generateAccessToken({
-          userId: decoded.userId,
-          email: decoded.email
-        });
-
-        // Attach token to cookie
-        return res.cookie('accessToken', newAccessToken, {
-          httpOnly: true,
-          secure: true,
-          sameSite: 'None'
-        }).json({
-          message: "Token refreshed"
-        })
+  try {    
+    // Verify refresh token
+    jwt.verify(
+      refreshToken, 
+      process.env.REFRESH_SECRET_KEY,
+      (error, decoded) => {
+        // Handle expired refresh token
+        if (error?.name === 'TokenExpiredError') {
+          return res.status(401).json({ message: 'ExpiredRefreshToken' });
+        } else {
+          // Generate new access token
+          const newAccessToken = generateAccessToken({
+            ...decoded
+          });
+  
+          // Attach token to cookie
+          return res.cookie('accessToken', newAccessToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'None'
+          }).json({
+            message: "Token refreshed"
+          })
+        }
       }
-    }
-  )
+    )
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // Exports

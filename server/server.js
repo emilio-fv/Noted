@@ -27,7 +27,7 @@ const origins = [
   'https://note-d-server-git-stage-emilio-fv.vercel.app', // stage
   'https://note-d-git-production-v1-emilio-fv.vercel.app', // production
   'https://note-d.vercel.app', // deployment links
-  'https://note-d-emilio-fv.vercel.app'
+  'https://note-d-emilio-fv.vercel.app',
 ];
 
 // Middleware
