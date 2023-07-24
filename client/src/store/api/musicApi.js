@@ -10,7 +10,6 @@ export const musicApi = createApi({
     requestSpotifyToken: builder.query({
       query: () => '/requestAccessToken',
       transformResponse: (response, meta, arg) => {
-        console.log(response);
         return response
       }
     })
