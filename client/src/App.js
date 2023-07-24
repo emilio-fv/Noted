@@ -25,12 +25,12 @@ function App() {
           <Route path='/' element={ <Landing /> }/>
           <Route path='/register' element={ <Register /> }/>
           <Route path='/login' element={ <Login /> }/>
-          {/* <Route element={<PrivateRoute />}>
+          <Route element={<PrivateRoute />}>
             <Route path='/dashboard' element={ <Dashboard /> }/>
             <Route path='/music' element={ <Music /> }/>
             <Route path='/artist/:artistId' element={ <Artist />} />
             <Route path='/album/:albumId' element={ <Album />} />
-          </Route> */}
+          </Route>
       </Routes>
     </ThemeProvider>
   );
