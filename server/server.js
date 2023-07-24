@@ -25,7 +25,7 @@ const port = process.env.SERVER_PORT;
 const origins = [
   'http://localhost:3000', // development
   'https://note-d-server-git-stage-emilio-fv.vercel.app/', // stage
-  'https://note-d.onrender.com' // production
+   // production
 ];
 
 // Middleware
