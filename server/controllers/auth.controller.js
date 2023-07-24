@@ -89,6 +89,9 @@ const handleLogin = async (req, res) => {
       email: foundUser.email,
     });
 
+    // TESTING
+    console.log(accessToken, refreshToken);
+
     // Attach tokens to cookies and user data to response object
     return res.cookie('accessToken', accessToken, {
         httpOnly: true,

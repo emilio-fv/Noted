@@ -39,7 +39,7 @@ const handleGetLoggedInUsersReviews = async (req, res) => {
   try {
     // Extract logged in user's id
     const { userId } = req.decoded;
-
+    
     // Get reviews by user id
     const reviews = await getReviewsByUserId(userId);
 
