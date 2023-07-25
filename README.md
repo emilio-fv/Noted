@@ -9,7 +9,7 @@ A MERN social media web application for music enthusiasts to track, review, and 
 * [Feedback](#feedback)
 * [Contact](#contact)
 
-## Built Using
+## Technologies
 
 **Client:** React, Redux, Material UI
 **Server:** Node, Express, Mongoose, JWT, Bcrypt
