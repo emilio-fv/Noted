@@ -3,7 +3,7 @@ A MERN social media web application for music enthusiasts to track, review, and 
 
 ## Table of Contents
 * [Technologies](#technologies)
-* [Deployment][#deployment]
+* [Deployment](#deployment)
 * [Docs](#docs)
 * [Features](#features)
 * [Feedback](#feedback)
