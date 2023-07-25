@@ -37,12 +37,12 @@ const handleRegister = async (req, res) => {
     return res.cookie('accessToken', accessToken, {
         httpOnly: true,
         secure: true,
-        sameSite: 'None',
+        sameSite: 'lax',
       })
       .cookie('refreshToken', refreshToken, {
         httpOnly: true,
         secure: true,
-        sameSite: 'None',
+        sameSite: 'lax',
       }).json({ 
         loggedInUser: {
           firstName: newUser.firstName,
@@ -96,11 +96,11 @@ const handleLogin = async (req, res) => {
     return res.cookie('accessToken', accessToken, {
         httpOnly: true,
         secure: true,
-        sameSite: 'None'
+        sameSite: 'lax''
       }).cookie('refreshToken', refreshToken, {
         httpOnly: true,
         secure: true,
-        sameSite: 'None'
+        sameSite: 'lax''
       }).json({
         loggedInUser: {
           firstName: foundUser.firstName,
@@ -149,7 +149,7 @@ const handleRefresh = async (req, res) => {
           return res.cookie('accessToken', newAccessToken, {
             httpOnly: true,
             secure: true,
-            sameSite: 'None'
+            sameSite: 'lax''
           }).json({
             message: "Token refreshed"
           })
