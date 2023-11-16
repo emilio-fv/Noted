@@ -25,7 +25,7 @@ Node, Express, Mongoose, JWT, Bcrypt, axios
 npm, nodemon, webpack, babel, eslint, Docker, Postman, Responsively, Figma, Trello
 
 ## Deployment
-Deployment link: https://noted.vercel.app/
+Coming soon!
 
 ## Docs
 Documentation for this project can be found [here](https://www.notion.so/817e1a54ad1f444b9e7d17b2789dd272?v=0b306907583c460ea2e95a1a30e96663&pvs=4).
