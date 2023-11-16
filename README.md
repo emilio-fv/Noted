@@ -1,5 +1,5 @@
-# Note-d
-A MERN social media web application for music enthusiasts to track, review, and share the music they listen to with others.
+# Noted
+A social media web application for music enthusiasts to track, review, and share the music they listen to. 
 
 ## Table of Contents
 * [Technologies](#technologies)
@@ -8,27 +8,33 @@ A MERN social media web application for music enthusiasts to track, review, and 
 * [Features](#features)
 * [Feedback](#feedback)
 * [Contact](#contact)
+* [License](#license)
 
 ## Technologies
+This project was built using the MERN stack (MongoDB, Express.js, React.js, Node.js). Additional technologies used:
 
 **Client:** React, Redux, Material UI
 **Server:** Node, Express, Mongoose, JWT, Bcrypt
-**Other:** npm, nodemon, axios, Docker, 
+**Development Tools:** npm, nodemon, axios, Docker, 
 
 ## Deployment
-Deployment link: https://note-d.vercel.app/
+Deployment link: https://noted.vercel.app/
 
 ## Docs
-[Documentation](https://www.notion.so/817e1a54ad1f444b9e7d17b2789dd272?v=0b306907583c460ea2e95a1a30e96663&pvs=4) for this project can be found here. 
+Documentation for this project can be found [here](https://www.notion.so/817e1a54ad1f444b9e7d17b2789dd272?v=0b306907583c460ea2e95a1a30e96663&pvs=4).
 
 ## Features
-- Register / Login User
-- Search Spotify database for artists, albums, and tracks
-- Create review of an album
-- View feed of logged in & other user's recent reviews
+Current
+- Register for an account
+- Login & logout of an account
+
+Coming Soon
+- Search the Spotify library by album, artist, and track
+- Create reviews of albums
+- Search and follow users
 
 ## Feedback
-If you have a moment, please fill out this feedback form: https://forms.gle/kDwecbB38me6jtVn6
+If you have a moment, please fill out this [feedback form](https://forms.gle/kDwecbB38me6jtVn6).
 
 ## Contact
 Created by [@emilio-fv](https://github.com/emilio-fv) - feel free to contact me!
