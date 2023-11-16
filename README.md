@@ -8,14 +8,21 @@ A social media web application for music enthusiasts to track, review, and share
 * [Features](#features)
 * [Feedback](#feedback)
 * [Contact](#contact)
-* [License](#license)
 
 ## Technologies
-This project was built using the MERN stack (MongoDB, Express.js, React.js, Node.js). Additional technologies used:
+This project was built using the MERN stack (MongoDB, Express.js, React.js, Node.js). To simplify the development process, the frontend and backend are split up into seperate repositories. Below is full list of additional technologies & tools used for this project along with links to each repository:
 
-**Client:** React, Redux, Material UI
-**Server:** Node, Express, Mongoose, JWT, Bcrypt
-**Development Tools:** npm, nodemon, axios, Docker, 
+**[Frontend](https://github.com/emilio-fv/noted-frontend)**
+
+React, Redux, Material UI
+
+**[Backend](https://github.com/emilio-fv/noted-backend)** 
+
+Node, Express, Mongoose, JWT, Bcrypt, axios
+
+**Development** 
+
+npm, nodemon, webpack, babel, eslint, Docker, Postman, Responsively, Figma, Trello
 
 ## Deployment
 Deployment link: https://noted.vercel.app/
