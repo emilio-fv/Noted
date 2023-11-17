@@ -28,7 +28,7 @@ npm, nodemon, webpack, babel, eslint, Docker, Postman, Responsively, Figma, Trel
 Coming soon!
 
 ## Docs
-Documentation for this project can be found [here](https://www.notion.so/817e1a54ad1f444b9e7d17b2789dd272?v=0b306907583c460ea2e95a1a30e96663&pvs=4).
+Documentation for this project can be found [here](https://garnet-bathtub-08d.notion.site/817e1a54ad1f444b9e7d17b2789dd272?v=0b306907583c460ea2e95a1a30e96663).
 
 ## Features
 Current
