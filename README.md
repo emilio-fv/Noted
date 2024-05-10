@@ -12,11 +12,11 @@ A social media web application for music enthusiasts to track, review, and share
 ## Technologies
 This project was built using the MERN stack (MongoDB, Express.js, React.js, Node.js). To simplify the development process, the frontend and backend are split up into seperate repositories. Below is full list of additional technologies & tools used for this project along with links to each repository:
 
-**[Frontend](https://github.com/emilio-fv/noted-frontend)**
+**[Frontend Repo](https://github.com/emilio-fv/noted-frontend)**
 
 React, Redux, Material UI
 
-**[Backend](https://github.com/emilio-fv/noted-backend)** 
+**[Backend Repo](https://github.com/emilio-fv/noted-backend)** 
 
 node, express, mongoose, JWT, bcrypt, axios, helmet, CORS, cookie-parser
 
