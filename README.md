@@ -18,14 +18,14 @@ React, Redux, Material UI
 
 **[Backend](https://github.com/emilio-fv/noted-backend)** 
 
-Node, Express, Mongoose, JWT, Bcrypt, axios
+node, express, mongoose, JWT, bcrypt, axios, helmet, CORS, cookie-parser
 
 **Development** 
 
-npm, nodemon, webpack, babel, eslint, Docker, Postman, Responsively, Figma, Trello
+npm, nodemon, webpack, winston, babel, eslint, Docker, Postman, Responsively, Figma, Trello
 
 ## Deployment
-Coming soon!
+https://noted-frontend.vercel.app/
 
 ## Docs
 Documentation for this project can be found [here](https://garnet-bathtub-08d.notion.site/817e1a54ad1f444b9e7d17b2789dd272?v=0b306907583c460ea2e95a1a30e96663).
@@ -34,11 +34,12 @@ Documentation for this project can be found [here](https://garnet-bathtub-08d.no
 Current
 - Register for an account
 - Login & logout of an account
+- Search the Spotify library by album, artist, and track
 
 Coming Soon
-- Search the Spotify library by album, artist, and track
-- Create reviews of albums
+- Create, edit, and delete reviews of albums
 - Search and follow users
+- Like and comment reviews
 
 ## Feedback
 If you have a moment, please fill out this [feedback form](https://forms.gle/kDwecbB38me6jtVn6).
