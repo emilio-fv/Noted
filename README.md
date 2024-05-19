@@ -28,16 +28,18 @@ npm, nodemon, webpack, winston, babel, eslint, Docker, Postman, Responsively, Fi
 https://noted-frontend.vercel.app/
 
 ## Docs
-Documentation for this project can be found [here](https://garnet-bathtub-08d.notion.site/817e1a54ad1f444b9e7d17b2789dd272?v=0b306907583c460ea2e95a1a30e96663).
+Documentation for this project can be found [here](https://garnet-bathtub-08d.notion.site/Noted-8cf96665dc4e4a37b723c8134b095965).
 
 ## Features
 Current
 - Register for an account
 - Login & logout of an account
 - Search the Spotify library by album, artist, and track
+- Create, edit, and delete reviews of albums
+- View an album and artist's profile that has stats and recent reviews
+- View recent reviews on dashboard
 
 Coming Soon
-- Create, edit, and delete reviews of albums
 - Search and follow users
 - Like and comment reviews
 
